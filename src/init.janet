@@ -100,14 +100,18 @@
                   (set update-offset (inc (last (sort (map (fn [r]
                                                              (r :update-id))
                                                            updates))))))
-
-                # give updates through channel
-                (if-let [given (ev/give ch updates)]
+                (try
                   (do
-                    (h/verbose bot (string/format "given updates: %m" updates)))
-                  (do
-                    (h/log "channel closed, stopping polling...")
-                    (break))))))
+                    # give updates through channel
+                    (if-let [given (ev/give ch updates)]
+                      (do
+                        (h/verbose bot (string/format "given updates: %m" updates)))
+                      (do
+                        (h/log "channel closed, stopping polling...")
+                        (break))))
+                  ([err] (do
+                           (h/verbose bot (string/format "failed to write to channel: %s" err))
+                           (break)))))))
 
           # sleep
           (os/sleep interval-seconds))))
