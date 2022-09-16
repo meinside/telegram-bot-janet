@@ -114,7 +114,7 @@
                            (break)))))))
 
           # sleep
-          (os/sleep interval-seconds))))
+          (ev/sleep interval-seconds))))
     ch))
 
 (defn stop-polling-updates
