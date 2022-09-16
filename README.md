@@ -55,10 +55,12 @@ In your `project.janet` file, add:
 
                   (if (= text "/exit")
                     (do
-                      (print "exiting...")
-                      (tg/stop-polling-updates updates-ch)
-                      (os/exit 0)))))
-              (do
-                (print "failed to take from updates channel")
-                (break)))))))))
+                      (print "stopping polling updates...")
+
+                      (tg/stop-polling-updates updates-ch)))))))
+          (do
+            (print "failed to take from updates channel")
+            (break))))))
+
+  (print "exiting application..."))
 ```

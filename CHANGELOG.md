@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.6] - 2022-09-16
+- Improve error handling and update README.md
+
 ## [0.0.5] - 2022-09-16
 - Fix bugs and add usages to README.md
 
@@ -18,6 +21,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.5]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.2...v0.0.3
