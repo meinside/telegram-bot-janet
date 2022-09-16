@@ -51,7 +51,14 @@ In your `project.janet` file, add:
                       text (get-in update [:message :text])
                       original-message-id (get-in update [:message :message-id])
                       response (tg/send-message bot chat-id text :reply-to-message-id original-message-id)]
-                  (print (string/format "response of send-message: %m" response))))
+                  (print (string/format "response of send-message: %m" response))
+
+                  (if (= text "/exit")
+                    (do
+                      (print "exiting...")
+                      (tg/stop-polling-updates updates-ch)
+                      (os/exit 0)))))
               (do
-                (print "failed to take from updates channel")))))))))
+                (print "failed to take from updates channel")
+                (break)))))))))
 ```

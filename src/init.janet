@@ -114,7 +114,7 @@
     ch))
 
 (defn stop-polling-updates
-  "Stops polling of updates."
+  "Stops polling of updates. Passed updates channel will be closed."
   [ch]
   (ev/chan-close ch))
 
