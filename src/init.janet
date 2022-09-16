@@ -78,36 +78,39 @@
         limit (or limit 100)
         timeout (or timeout (bot :timeout-seconds))
         interval-seconds (max default-interval-seconds interval-seconds)]
-    # initialize `update-offset`
-    (var update-offset (or offset 0))
 
     (h/log "starting polling with interval:" interval-seconds "second(s)")
 
-    (ev/do-thread
-      (while true
-        (let [response (get-updates bot
-                                    :offset update-offset
-                                    :limit limit
-                                    :timeout timeout
-                                    :allowed-updates allowed-updates)]
-          (if (response :ok)
-            (let [updates (response :result)]
-              # new update-offset = latest update-id + 1
-              (if-not (empty? updates)
-                (set update-offset (inc (last (sort (map (fn [r]
-                                                           (r :update-id))
-                                                         updates))))))
+    (ev/spawn-thread
+      (do
+        # initialize `update-offset`
+        (var update-offset (or offset 0))
 
-              # give updates through channel
-              (if-let [given (ev/give ch updates)]
-                (do
-                  (h/verbose bot (string/format "given updates: %m" updates)))
-                (do
-                  (h/log "channel closed, stopping polling...")
-                  (break))))))
+        (while true
+          (let [response (get-updates bot
+                                      :offset update-offset
+                                      :limit limit
+                                      :timeout timeout
+                                      :allowed-updates allowed-updates)
+                ok? (response :ok)]
+            (if ok?
+              (let [updates (response :result)]
+                # new update-offset = latest update-id + 1
+                (if-not (empty? updates)
+                  (set update-offset (inc (last (sort (map (fn [r]
+                                                             (r :update-id))
+                                                           updates))))))
 
-        # sleep
-        (os/sleep interval-seconds)))
+                # give updates through channel
+                (if-let [given (ev/give ch updates)]
+                  (do
+                    (h/verbose bot (string/format "given updates: %m" updates)))
+                  (do
+                    (h/log "channel closed, stopping polling...")
+                    (break))))))
+
+          # sleep
+          (os/sleep interval-seconds))))
     ch))
 
 (defn stop-polling-updates
