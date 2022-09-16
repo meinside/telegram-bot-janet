@@ -101,7 +101,7 @@
               # give updates through channel
               (if-let [given (ev/give ch updates)]
                 (do
-                  (h/verbose (string/format "given updates: %m" updates)))
+                  (h/verbose bot (string/format "given updates: %m" updates)))
                 (do
                   (h/log "channel closed, stopping polling...")
                   (break))))))
