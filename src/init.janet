@@ -78,8 +78,8 @@
         limit (or limit 100)
         timeout (or timeout (bot :timeout-seconds))
         interval-seconds (max default-interval-seconds interval-seconds)]
-    # initialize `update-offset` as 0
-    (var update-offset 0)
+    # initialize `update-offset`
+    (var update-offset (or offset 0))
 
     (h/log "starting polling with interval:" interval-seconds "second(s)")
 
@@ -92,24 +92,19 @@
                                     :allowed-updates allowed-updates)]
           (if (response :ok)
             (let [updates (response :result)]
-              (do
-                # new update-offset = latest update-id + 1
-                (if (not (empty? updates))
-                  (set update-offset (inc (last (sort (map (fn [r]
-                                                             (r :update-id))
-                                                           updates))))))
+              # new update-offset = latest update-id + 1
+              (if-not (empty? updates)
+                (set update-offset (inc (last (sort (map (fn [r]
+                                                           (r :update-id))
+                                                         updates))))))
 
-                # give updates through channel
-                (if-let [given (ev/give ch updates)]
-                  (do
-                    # if channel is closed,
-                    (if (nil? given)
-                      (h/log "channel closed, stopping polling...")
-
-                      # break while-loop
-                      (break)))
-                  (do
-                    (h/log "failed to write to channel")))))))
+              # give updates through channel
+              (if-let [given (ev/give ch updates)]
+                (do
+                  (h/verbose (string/format "given updates: %m" updates)))
+                (do
+                  (h/log "channel closed, stopping polling...")
+                  (break))))))
 
         # sleep
         (os/sleep interval-seconds)))
