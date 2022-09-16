@@ -6,7 +6,7 @@
 # last update: 2022.09.16.
 
 (import spork/json)
-(import httprequest :as r)
+(import httprequest)
 
 ################################
 #
@@ -99,9 +99,9 @@
                   url (string api-baseurl token "/" m)
                   headers {:user-agent "telegram-bot-janet"}
                   params (purge-nil-params ps)
-                  result (if (r/has-file? params)
-                           (r/post url headers params)
-                           (r/post<-json url headers params))]
+                  result (if (httprequest/has-file? params)
+                           (httprequest/post url headers params)
+                           (httprequest/post<-json url headers params))]
               (cond
                 (= (result :status) 200) (dict->kebabbed-keys (json/decode (result :body)))
                 (do 
