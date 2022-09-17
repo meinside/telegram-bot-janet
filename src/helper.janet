@@ -3,7 +3,7 @@
 # Helper Functions
 #
 # created on : 2022.09.07.
-# last update: 2022.09.16.
+# last update: 2022.09.17.
 
 (import spork/json)
 (import httprequest)
@@ -53,7 +53,8 @@
                       args) " ")))
 
 (defn- purge-nil-params
-  "Removes keys with nil values from given dict."
+  ``Removes keys with nil values from given dict.
+  ``
   [dict]
   (var result @{})
   (loop [(k v) :in 
@@ -64,12 +65,14 @@
   result)
 
 (defn- key->keyword
-  "Converts json key to kebab-cased keyword."
+  ``Converts json key to kebab-cased keyword for convenience.
+  ``
   [key]
   (keyword (string/replace-all "_" "-" key)))
 
 (defn- dict->kebabbed-keys
-  "Converts all struct/table keys to kebab-cased keywords."
+  ``Converts all struct/table keys to kebab-cased keywords for convenience.
+  ``
   [dict]
   (var result @{})
   (loop [[k v] :in (map (fn [(k v)]
@@ -89,10 +92,11 @@
   result)
 
 (defn request
-  "Sends a HTTP request with given method name and params.
+  ``Sends a HTTP request with given method name and params.
   Returns a response synchronously.
 
-  Keywords in returned response are in kebab-case."
+  Keywords in returned response are in kebab-case.
+  ``
   [bot method params]
   (let [f (fn [b m ps]
             (let [token (b :token)
@@ -110,7 +114,9 @@
     (f bot method params)))
 
 (defn url-for-filepath
-  "Generates a URL from a fetched file info.
-  (https://core.telegram.org/bots/api#getfile)"
+  ``Generates a URL from a fetched file info.
+
+  (https://core.telegram.org/bots/api#getfile)
+  ``
   [bot filepath]
   (string file-baseurl (bot :token) "/" filepath))

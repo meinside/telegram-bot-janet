@@ -21,25 +21,28 @@
 # (https://core.telegram.org/bots/api)#available-methods)
 
 (defn delete-webhook
-  "Deletes webhook for polling messages.
+  ``Deletes webhook for polling messages.
 
-  (https://core.telegram.org/bots/api#deletewebhook)"
+  (https://core.telegram.org/bots/api#deletewebhook)
+  ``
   [bot]
   (h/request bot "deleteWebhook" {}))
 
 (defn get-me
-  "Fetches this bot's info.
+  ``Fetches this bot's info.
 
-  (https://core.telegram.org/bots/api#getme)"
+  (https://core.telegram.org/bots/api#getme)
+  ``
   [bot]
   (h/request bot "getMe" {}))
 
 (defn get-updates
-  "Fetches updates for this bot.
+  ``Fetches updates for this bot.
 
   Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates.
 
-  (https://core.telegram.org/bots/api#getupdates)"
+  (https://core.telegram.org/bots/api#getupdates)
+  ``
   [bot &named offset
               limit
               timeout
@@ -50,13 +53,14 @@
                                "allowed_updates" allowed-updates}))
 
 (defn poll-updates
-  "Returns a channel whilch will be populated by updates periodically.
+  ``Returns a channel whilch will be populated by updates periodically.
 
   Empty array will be passed when there are no updates for the time.
 
   Call `stop-polling-updates` when done.
 
-  Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates."
+  Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates.
+  ``
   [bot interval-seconds &named offset
                                limit
                                timeout
@@ -105,16 +109,18 @@
     ch))
 
 (defn stop-polling-updates
-  "Stops polling of updates. Passed updates channel will be closed."
+  ``Stops polling of updates. Passed updates channel will be closed.
+  ``
   [bot ch]
   (ev/chan-close ch))
 
 (defn send-message
-  "Sends a message.
+  ``Sends a message.
 
   Optional parameter keys are: :parse-mode, :entities, :disable-web-page-preview, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendmessage)"
+  (https://core.telegram.org/bots/api#sendmessage)
+  ``
   [bot chat-id text &named parse-mode
                            entities
                            disable-web-page-preview
@@ -135,11 +141,12 @@
                                 "reply_markup" reply-markup}))
 
 (defn forward-message
-  "Forwards a message.
+  ``Forwards a message.
 
   Optional parameter keys are: :disable-notification.
 
-  (https://core.telegram.org/bots/api#forwardmessage)"
+  (https://core.telegram.org/bots/api#forwardmessage)
+  ``
   [bot chat-id from-chat-id message-id &named disable-notification
                                               protect-content]
   (h/request bot "forwardMessage" {"chat_id" chat-id
@@ -149,11 +156,12 @@
                                    "protect_content" protect-content}))
 
 (defn copy-message
-  "Copies a message.
+  ``Copies a message.
 
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#copymessage)"
+  (https://core.telegram.org/bots/api#copymessage)
+  ``
   [bot chat-id from-chat-id message-id &named caption
                                               parse-mode
                                               caption-entities
@@ -175,11 +183,12 @@
                                 "reply_markup" reply-markup}))
 
 (defn send-photo
-  "Sends a photo.
+  ``Sends a photo.
 
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendphoto)"
+  (https://core.telegram.org/bots/api#sendphoto)
+  ``
   [bot chat-id photo &named caption
                             parse-mode
                             caption-entities
@@ -200,11 +209,12 @@
                               "reply_markup" reply-markup}))
 
 (defn send-audio
-  "Sends an audio file.
+  ``Sends an audio file.
 
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendaudio)"
+  (https://core.telegram.org/bots/api#sendaudio)
+  ``
   [bot chat-id audio &named caption
                             parse-mode
                             caption-entities
@@ -231,11 +241,12 @@
                               "reply_markup" reply-markup}))
 
 (defn send-document
-  "Sends a document file.
+  ``Sends a document file.
 
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#senddocument)"
+  (https://core.telegram.org/bots/api#senddocument)
+  ``
   [bot chat-id document &named caption
                                parse-mode
                                caption-entities
@@ -258,11 +269,12 @@
                                  "reply_markup" reply-markup}))
 
 (defn send-sticker
-  "Sends a sticker.
+  ``Sends a sticker.
 
   Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendsticker)"
+  (https://core.telegram.org/bots/api#sendsticker)
+  ``
   [bot chat-id sticker &named disable-notification
                               protect-content
                               reply-to-message-id
@@ -277,26 +289,29 @@
                                 "reply_markup" reply-markup}))
 
 (defn get-sticker-set
-  "Fetches a sticker set.
+  ``Fetches a sticker set.
 
-  (https://core.telegram.org/bots/api#getstickerset)"
+  (https://core.telegram.org/bots/api#getstickerset)
+  ``
   [bot name]
   (h/request bot "getStickerSet" {"name" name}))
 
 (defn upload-sticker-file
-  "Uploads a sticker file.
+  ``Uploads a sticker file.
 
-  (https://core.telegram.org/bots/api#uploadstickerfile)"
+  (https://core.telegram.org/bots/api#uploadstickerfile)
+  ``
   [bot user-id sticker]
   (h/request bot "uploadStickerFile" {"user_id" user-id
                                       "png_sticker" sticker}))
 
 (defn create-new-sticker-set
-  "Creates a new sticker set.
+  ``Creates a new sticker set.
 
   Optional parameter keys are: :png-sticker, :tgs-sticker, :webm-sticker, :contains-masks, and :mask-position
 
-  (https://core.telegram.org/bots/api#createnewstickerset)"
+  (https://core.telegram.org/bots/api#createnewstickerset)
+  ``
   [bot user-id name title emojis &named png-sticker
                                         tgs-sticker
                                         webm-sticker
@@ -313,11 +328,12 @@
                                         "mask_position" mask-position}))
 
 (defn add-sticker-to-set
-  "Adds a sticker to a set.
+  ``Adds a sticker to a set.
 
   Optional parameter keys are: :png-sticker, :tgs-sticker, :webm-sticker, and :mask-position
 
-  (https://core.telegram.org/bots/api#addstickertoset)"
+  (https://core.telegram.org/bots/api#addstickertoset)
+  ``
   [bot user-id name emojis &named png-sticker
                                   tgs-sticker
                                   webm-sticker
@@ -331,37 +347,40 @@
                                     "mask_position" mask-position}))
 
 (defn set-sticker-position-in-set
-  "Sets a sticker's position in its set.
+  ``Sets a sticker's position in its set.
 
-  (https://core.telegram.org/bots/api#setstickerpositioninset)"
+  (https://core.telegram.org/bots/api#setstickerpositioninset)
+  ``
   [bot sticker position]
   (h/request bot "setStickerPositionInSet" {"sticker" sticker
                                             "position" position}))
 
 (defn delete-sticker-from-set
-  "Deletes a sticker from its set.
+  ``Deletes a sticker from its set.
 
-  (https://core.telegram.org/bots/api#deletestickerfromset)"
+  (https://core.telegram.org/bots/api#deletestickerfromset)
+  ``
   [bot sticker]
   (h/request bot "deleteStickerFromSet" {"sticker" sticker}))
 
 (defn set-sticker-set-thumb
-  "Sets thumbnail of a sticker set.
+  ``Sets thumbnail of a sticker set.
 
   Optional parameter keys are: thumb.
 
-  (https://core.telegram.org/bots/api#setstickersetthumb)"
+  (https://core.telegram.org/bots/api#setstickersetthumb)``
   [bot name user-id &named thumb]
   (h/request bot "setStickerSetThumb" {"name" name
                                        "user_id" user-id
                                        "thumb" thumb}))
 
 (defn send-video
-  "Sends a video.
+  ``Sends a video.
 
   Optional parameter keys are: :duration, :caption, :parse-mode, :caption-entities, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendvideo)"
+  (https://core.telegram.org/bots/api#sendvideo)
+  ``
   [bot chat-id video &named duration
                             caption
                             parse-mode
@@ -386,11 +405,12 @@
                               "reply_markup" reply-markup}))
 
 (defn send-animation
-  "Sends an animation.
+  ``Sends an animation.
 
   Optional parameter keys are: :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendanimation)"
+  (https://core.telegram.org/bots/api#sendanimation)
+  ``
   [bot chat-id animation &named duration
                                 width
                                 height
@@ -419,11 +439,12 @@
                                   "reply_markup" reply-markup}))
 
 (defn send-voice
-  "Sends a voice. (.ogg format only)
+  ``Sends a voice. (.ogg format only)
 
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendvoice)"
+  (https://core.telegram.org/bots/api#sendvoice)
+  ``
   [bot chat-id voice &named caption
                             parse-mode
                             caption-entities
@@ -446,12 +467,13 @@
                               "reply_markup" reply-markup}))
 
 (defn send-video-note
-  "Sends a video note.
+  ``Sends a video note.
 
   Optional parameter keys are: :duration, :length, :thumb, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
-  (https://core.telegram.org/bots/api#sendvideonote)"
+  (https://core.telegram.org/bots/api#sendvideonote)
+  ``
   [bot chat-id video-note &named duration
                                  length
                                  thumb
@@ -472,11 +494,12 @@
                                   "reply_markup" reply-markup}))
 
 (defn send-media-group
-  "Sends a media group of photos or videos.
+  ``Sends a media group of photos or videos.
 
   Optional parameter keys are: :disable-notification, :reply-to-message-id, and :allow-sending-without-reply.
 
-  (https://core.telegram.org/bots/api#sendmediagroup)"
+  (https://core.telegram.org/bots/api#sendmediagroup)
+  ``
   [bot chat-id media &named disable-notification
                             protect-content
                             reply-to-message-id
@@ -489,11 +512,12 @@
                                    "allow_sending_without_reply" allow-sending-without-reply}))
 
 (defn send-location
-  "Sends a location.
+  ``Sends a location.
 
   Optional parameter keys are: :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendlocation)"
+  (https://core.telegram.org/bots/api#sendlocation)
+  ``
   [bot chat-id latitude longitude &named horizontal-accuracy
                                          live-period
                                          heading
@@ -517,11 +541,12 @@
                                  "reply_markup" reply-markup}))
 
 (defn send-venue
-  "Sends a venue.
+  ``Sends a venue.
 
   Optional parameter keys are: :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendvenue)"
+  (https://core.telegram.org/bots/api#sendvenue)
+  ``
   [bot chat-id latitude longitude title address &named foursquare-id
                                                        foursquare-type
                                                        google-place-id
@@ -547,11 +572,12 @@
                               "reply_markup" reply-markup}))
 
 (defn send-contact
-  "Sends a contact.
+  ``Sends a contact.
 
   Optional parameter keys are: :last-name, :vcard, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendcontact)"
+  (https://core.telegram.org/bots/api#sendcontact)
+  ``
   [bot chat-id phone-number first-name &named last-name
                                               vcard
                                               disable-notification
@@ -571,11 +597,12 @@
                                 "reply_markup" reply-markup}))
 
 (defn send-poll
-  "Sends a poll.
+  ``Sends a poll.
 
   Optional parameter keys are: :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendpoll)"
+  (https://core.telegram.org/bots/api#sendpoll)
+  ``
   [bot chat-id question poll-options &named is-anonymous
                                             type
                                             allows-multiple-answers
@@ -611,34 +638,37 @@
                              "reply_markup" reply-markup}))
 
 (defn stop-poll
-  "Stops a poll.
+  ``Stops a poll.
 
   Optional parameter keys are: :reply-markup.
 
-  (https://core.telegram.org/bots/api#stoppoll)"
+  (https://core.telegram.org/bots/api#stoppoll)
+  ``
   [bot chat-id message-id &named reply-markup]
   (h/request bot "stopPoll" {"chat_id" chat-id
                              "message_id" message-id
                              "reply_markup" reply-markup}))
 
 (defn send-chat-action
-  "Sends a chat action.
+  ``Sends a chat action.
 
   `action` can be one of: :typing, :upload_photo, :record_video, :upload_video, :record_voice, :upload_voice, :upload_document, :choose_sticker, :find_location, :record_video_note, or :upload_video_note.
 
-  (https://core.telegram.org/bots/api#sendchataction)"
+  (https://core.telegram.org/bots/api#sendchataction)
+  ``
   [bot chat-id action]
   (h/request bot "sendChatAction" {"chat_id" chat-id
                                    "action" action}))
 
 (defn send-dice
-  "Sends a dice.
+  ``Sends a dice.
 
   `emoji` can be one of: 🎲, 🎯, 🏀, ⚽, 🎳, or 🎰. (default: 🎲)
 
   Optional parameter keys are: :emoji, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#senddice)"
+  (https://core.telegram.org/bots/api#senddice)
+  ``
   [bot chat-id &named emoji
                       disable-notification
                       protect-content
@@ -654,11 +684,12 @@
                              "reply_markup" reply-markup}))
 
 (defn get-user-profile-photos
-  "Fetches user profile photos.
+  ``Fetches user profile photos.
 
   Optional parameter keys are: :offset and :limit.
 
-  (https://core.telegram.org/bots/api#getuserprofilephotos)"
+  (https://core.telegram.org/bots/api#getuserprofilephotos)
+  ``
   [bot user-id &named offset
                       limit]
   (h/request bot "getUserProfilePhotos" {"user_id" user-id
@@ -666,14 +697,16 @@
                                          "limit" limit}))
 
 (defn get-file-url
-  "Generates a file's url from given :file-path."
+  ``Generates a file's url from given :file-path.
+  ``
   [bot file-path]
   (h/url-for-filepath bot file-path))
 
 (defn get-file
-  "Fetches a file's info.
+  ``Fetches a file's info.
 
-  (https://core.telegram.org/bots/api#getfile)"
+  (https://core.telegram.org/bots/api#getfile)
+  ``
   [bot file-id]
   (let [result (h/request bot "getFile" {"file_id" file-id})]
     (if (:ok result)
@@ -683,11 +716,12 @@
                                            file-url))))))
 
 (defn ban-chat-member
-  "Bans a chat member.
+  ``Bans a chat member.
 
   Optional parameter keys are: :until-date and :revoke-messages
 
-  (https://core.telegram.org/bots/api#banchatmember)"
+  (https://core.telegram.org/bots/api#banchatmember)
+  ``
   [bot chat-id user-id &named until-date
                               revoke-messages]
   (h/request bot "banChatMember" {"chat_id" chat-id
@@ -696,30 +730,33 @@
                                   "revoke_messages" revoke-messages}))
 
 (defn leave-chat
-  "Leaves a chat.
+  ``Leaves a chat.
 
-  (https://core.telegram.org/bots/api#leavechat)"
+  (https://core.telegram.org/bots/api#leavechat)
+  ``
   [bot chat-id]
   (h/request bot "leaveChat" {"chat_id" chat-id}))
 
 (defn unban-chat-member
-  "Unbans a chat member.
+  ``Unbans a chat member.
 
   Optional parameter keys are: :only-if-banned
 
-  (https://core.telegram.org/bots/api#unbanchatmember)"
+  (https://core.telegram.org/bots/api#unbanchatmember)
+  ``
   [bot chat-id user-id &named only-if-banned]
   (h/request bot "unbanChatMember" {"chat_id" chat-id
                                     "user_id" user-id
                                     "only_if_banned" only-if-banned}))
 
 (defn restrict-chat-member
-  "Restricts a chat member.
+  ``Restricts a chat member.
 
   Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, :can-pin-messages, and :until-date.
 
   (https://core.telegram.org/bots/api#chatpermissions)
-  (https://core.telegram.org/bots/api#restrictchatmember)"
+  (https://core.telegram.org/bots/api#restrictchatmember)
+  ``
   [bot chat-id user-id &named can-send-messages
                               can-send-media-messages
                               can-send-polls
@@ -742,11 +779,12 @@
                                        "until_date" until-date}))
 
 (defn promote-chat-member
-  "Promotes a chat member.
+  ``Promotes a chat member.
 
   Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, and :can-promote-members.
 
-  (https://core.telegram.org/bots/api#promotechatmember)"
+  (https://core.telegram.org/bots/api#promotechatmember)
+  ``
   [bot chat-id user-id &named is-anonymous
                               can-manage-chat
                               can-change-info
@@ -773,36 +811,40 @@
                                       "can_promote_members" can-promote-members}))
 
 (defn set-chat-administrator-custom-title
-  "Sets chat administrator's custom title.
+  ``Sets chat administrator's custom title.
 
-  (https://core.telegram.org/bots/api#setchatadministratorcustomtitle)"
+  (https://core.telegram.org/bots/api#setchatadministratorcustomtitle)
+  ``
   [bot chat-id user-id custom-title]
   (h/request bot "setChatAdministratorCustomTitle" {"chat_id" chat-id
                                                     "user_id" user-id
                                                     "custom_title" custom-title}))
 
 (defn ban-chat-sender-chat
-  "Bans a channel chat in a supergroup or a channel.
+  ``Bans a channel chat in a supergroup or a channel.
 
-  (https://core.telegram.org/bots/api#banchatsenderchat)"
+  (https://core.telegram.org/bots/api#banchatsenderchat)
+  ``
   [bot chat-id sender-chat-id]
   (h/request bot "banChatSenderChat" {"chat_id" chat-id
                                       "sender_chat_id" sender-chat-id}))
 
 (defn unban-chat-sender-chat
-  "Unbans a previously banned channel in a supergroup or a channel.
+  ``Unbans a previously banned channel in a supergroup or a channel.
 
-  (https://core.telegram.org/bots/api#unbanchatsenderchat)"
+  (https://core.telegram.org/bots/api#unbanchatsenderchat)
+  ``
   [bot chat-id sender-chat-id]
   (h/request bot "unbanChatSenderChat" {"chat_id" chat-id
                                         "sender_chat_id" sender-chat-id}))
 
 (defn set-chat-permission
-  "Sets chat permissions.
+  ``Sets chat permissions.
 
   Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
 
-  (https://core.telegram.org/bots/api#setchatpermissions)"
+  (https://core.telegram.org/bots/api#setchatpermissions)
+  ``
   [bot chat-id &named can-send-messages
                       can-send-media-messages
                       can-send-polls
@@ -822,16 +864,18 @@
                                                      "can_pin_messages" (or can-pin-messages false)}}))
 
 (defn export-chat-invite-link
-  "Exports a chat invite link.
+  ``Exports a chat invite link.
 
-  (https://core.telegram.org/bots/api#exportchatinvitelink)"
+  (https://core.telegram.org/bots/api#exportchatinvitelink)
+  ``
   [bot chat-id]
   (h/request bot "exportChatInviteLink" {"chat_id" chat-id}))
 
 (defn create-chat-invite-link
-  "Creates a chat invite link.
+  ``Creates a chat invite link.
 
-  (https://core.telegram.org/bots/api#createchatinvitelink)"
+  (https://core.telegram.org/bots/api#createchatinvitelink)
+  ``
   [bot chat-id &named name
                       expire-date
                       member-limit
@@ -843,9 +887,10 @@
                                          "creates_join_request" creates-join-request}))
 
 (defn edit-chat-invite-link
-  "Edits a chat invite link.
+  ``Edits a chat invite link.
 
-  (https://core.telegram.org/bots/api#editchatinvitelink)"
+  (https://core.telegram.org/bots/api#editchatinvitelink)
+  ``
   [bot chat-id invite-link &named name
                                   expire-date
                                   member-limit
@@ -858,136 +903,153 @@
                                        "creates_join_request" creates-join-request}))
 
 (defn revoke-chat-invite-link
-  "Revokes a chat invite link.
+  ``Revokes a chat invite link.
 
-  (https://core.telegram.org/bots/api#revokechatinvitelink)"
+  (https://core.telegram.org/bots/api#revokechatinvitelink)
+  ``
   [bot chat-id invite-link]
   (h/request bot "revokeChatInviteLink" {"chat_id" chat-id
                                          "invite_link" invite-link}))
 
 (defn approve-chat-join-request
-  "Approves chat join request.
+  ``Approves chat join request.
 
-  (https://core.telegram.org/bots/api#approvechatjoinrequest)"
+  (https://core.telegram.org/bots/api#approvechatjoinrequest)
+  ``
   [bot chat-id user-id]
   (h/request bot "approveChatJoinRequest" {"chat_id" chat-id
                                            "user_id" user-id}))
 
 (defn decline-chat-join-request
-  "Declines chat join request.
+  ``Declines chat join request.
 
-  (https://core.telegram.org/bots/api#declinechatjoinrequest)"
+  (https://core.telegram.org/bots/api#declinechatjoinrequest)
+  ``
   [bot chat-id user-id]
   (h/request bot "declineChatJoinRequest" {"chat_id" chat-id
                                            "user_id" user-id}))
 
 (defn set-chat-photo
-  "Sets a chat photo.
+  ``Sets a chat photo.
 
-  (https://core.telegram.org/bots/api#setchatphoto)"
+  (https://core.telegram.org/bots/api#setchatphoto)
+  ``
   [bot chat-id photo]
   (h/request bot "setChatPhoto" {"chat_id" chat-id
                                  "photo" photo}))
 
 (defn delete-chat-photo
-  "Deletes a chat photo.
+  ``Deletes a chat photo.
 
-  (https://core.telegram.org/bots/api#deletechatphoto)"
+  (https://core.telegram.org/bots/api#deletechatphoto)
+  ``
   [bot chat-id]
   (h/request bot "deleteChatPhoto" {"chat_id" chat-id}))
 
 (defn set-chat-title
-  "Sets a chat title.
+  ``Sets a chat title.
 
-  (https://core.telegram.org/bots/api#setchattitle)"
+  (https://core.telegram.org/bots/api#setchattitle)
+  ``
   [bot chat-id title]
   (h/request bot "setChatTitle" {"chat_id" chat-id
                                  "title" title}))
 
 (defn set-chat-description
-  "Sets a chat description.
+  ``Sets a chat description.
 
-  (https://core.telegram.org/bots/api#setchatdescription)"
+  (https://core.telegram.org/bots/api#setchatdescription)
+  ``
   [bot chat-id description]
   (h/request bot "setChatDescription" {"chat_id" chat-id
                                        "description" description}))
 
 (defn pin-chat-message
-  "Pins a chat message.
+  ``Pins a chat message.
 
   Optional parameter keys are: :disable-notification.
 
-  (https://core.telegram.org/bots/api#pinchatmessage)"
+  (https://core.telegram.org/bots/api#pinchatmessage)
+  ``
   [bot chat-id message-id &named disable-notification]
   (h/request bot "pinChatMessage" {"chat_id" chat-id
                                    "message_id" message-id
                                    "disable_notification" disable-notification}))
 
 (defn unpin-chat-message
-  "Unpins a chat message.
+  ``Unpins a chat message.
 
-  (https://core.telegram.org/bots/api#unpinchatmessage)"
+  (https://core.telegram.org/bots/api#unpinchatmessage)
+  ``
   [bot chat-id &named message-id]
   (h/request bot "unpinChatMessage" {"chat_id" chat-id
                                      "message_id" message-id}))
 
 (defn unpin-all-chat-messages
-  "Unpins all chat messages.
+  ``Unpins all chat messages.
 
-  (https://core.telegram.org/bots/api#unpinallchatmessages)"
+  (https://core.telegram.org/bots/api#unpinallchatmessages)
+  ``
   [bot chat-id]
   (h/request bot "unpinAllChatMessages" {"chat_id" chat-id}))
 
 (defn get-chat
-  "Fetches a chat.
+  ``Fetches a chat.
 
-  (https://core.telegram.org/bots/api#getchat)"
+  (https://core.telegram.org/bots/api#getchat)
+  ``
   [bot chat-id]
   (h/request bot "getChat" {"chat_id" chat-id}))
 
 (defn get-chat-administrators
-  "Fetches chat administrators.
+  ``Fetches chat administrators.
 
-  (https://core.telegram.org/bots/api#getchatadministrators)"
+  (https://core.telegram.org/bots/api#getchatadministrators)
+  ``
   [bot chat-id]
   (h/request bot "getChatAdministrators" {"chat_id" chat-id}))
 
 (defn get-chat-member-count
-  "Fetches the count of chat members.
+  ``Fetches the count of chat members.
 
-  (https://core.telegram.org/bots/api#getchatmembercount)"
+  (https://core.telegram.org/bots/api#getchatmembercount)
+  ``
   [bot chat-id]
   (h/request bot "getChatMemberCount" {"chat_id" chat-id}))
 
 (defn get-chat-member
-  "Fetches a chat member.
+  ``Fetches a chat member.
 
-  (https://core.telegram.org/bots/api#getchatmember)"
+  (https://core.telegram.org/bots/api#getchatmember)
+  ``
   [bot chat-id user-id]
   (h/request bot "getChatMember" {"chat_id" chat-id
                                   "user_id" user-id}))
 
 (defn set-chat-sticker-set
-  "Sets a chat sticker set.
+  ``Sets a chat sticker set.
 
-  (https://core.telegram.org/bots/api#setchatstickerset)"
+  (https://core.telegram.org/bots/api#setchatstickerset)
+  ``
   [bot chat-id sticker-set-name]
   (h/request bot "setChatStickerSet" {"chat_id" chat-id
                                       "sticker_set_name" sticker-set-name}))
 
 (defn delete-chat-sticker-set
-  "Deletes a chat sticker set.
+  ``Deletes a chat sticker set.
 
-  (https://core.telegram.org/bots/api#deletechatstickerset)"
+  (https://core.telegram.org/bots/api#deletechatstickerset)
+  ``
   [bot chat-id]
   (h/request bot "deleteChatStickerSet" {"chat_id" chat-id}))
 
 (defn answer-callback-query
-  "Answers a callback query.
+  ``Answers a callback query.
 
   Optional parameter keys are: :text, :show-alert, :url, and :cache-time.
 
-  (https://core.telegram.org/bots/api#answercallbackquery)"
+  (https://core.telegram.org/bots/api#answercallbackquery)
+  ``
   [bot callback-query-id &named text
                                 show-alert
                                 url
@@ -999,18 +1061,20 @@
                                         "cache_time" cache-time}))
 
 (defn get-my-commands
-  "Gets this bot's commands.
+  ``Gets this bot's commands.
 
-  (https://core.telegram.org/bots/api#getmycommands)"
+  (https://core.telegram.org/bots/api#getmycommands)
+  ``
   [bot &named scope
               language-code]
   (h/request bot "getMyCommands" {"scope" scope
                                   "language_code" language-code}))
 
 (defn set-my-commands
-  "Sets this bot's commands.
+  ``Sets this bot's commands.
 
-  (https://core.telegram.org/bots/api#setmycommands)"
+  (https://core.telegram.org/bots/api#setmycommands)
+  ``
   [bot commands &named scope
                        language-code]
   (h/request bot "setMyCommands" {"commands" commands
@@ -1018,63 +1082,69 @@
                                   "language_code" language-code}))
 
 (defn delete-my-commands
-  "Deletes this bot's commands.
+  ``Deletes this bot's commands.
 
-  (https://core.telegram.org/bots/api#deletemycommands)"
+  (https://core.telegram.org/bots/api#deletemycommands)
+  ``
   [bot &named scope
               language-code]
   (h/request bot "deleteMyCommands" {"scope" scope
                                      "language_code" language-code}))
 
 (defn set-chat-menu-button
-  "Sets the bot's menu button.
+  ``Sets the bot's menu button.
 
   Optional parameter keys are: :chat-id, and :menu-button.
 
-  (https://core.telegram.org/bots/api#setchatmenubutton)"
+  (https://core.telegram.org/bots/api#setchatmenubutton)
+  ``
   [bot &named chat-id
               menu-button]
   (h/request bot "setChatMenuButton" {"chat_id" chat-id
                                       "menu_button" menu-button}))
 
 (defn get-chat-menu-button
-  "Gets the bot's menu button.
+  ``Gets the bot's menu button.
 
   Optional parameter keys are: :chat-id.
 
-  (https://core.telegram.org/bots/api#getchatmenubutton)"
+  (https://core.telegram.org/bots/api#getchatmenubutton)
+  ``
   [bot &named chat-id]
   (h/request bot "getChatMenuButton" {"chat_id" chat-id}))
 
 (defn set-my-default-administrator-rights
-  "Sets my default administrator rights.
+  ``Sets my default administrator rights.
 
   Optional parameter keys are: :rights, and :for-channels.
 
-  (https://core.telegram.org/bots/api#setmydefaultadministratorrights)"
+  (https://core.telegram.org/bots/api#setmydefaultadministratorrights)
+  ``
   [bot &named rights
               for-channels]
   (h/request bot "setMyDefaultAdministratorRights" {"rights" rights
                                                     "for_channels" for-channels}))
 
 (defn get-my-default-administrator-rights
-  "Gets my default administrator rights.
+  ``Gets my default administrator rights.
 
   Optional parameter keys are: :for-channels.
 
-  (https://core.telegram.org/bots/api#getmydefaultadministratorrights)"
+  (https://core.telegram.org/bots/api#getmydefaultadministratorrights)
+  ``
   [bot &named for-channels]
   (h/request bot "getMyDefaultAdministratorRights" {"for_channels" for-channels}))
 
 (defn edit-message-text
-  "Edits a message's text.
+  ``Edits a message's text.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :parse-mode, :entities, :disable-web-page-preview, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#editmessagetext)"
+  (https://core.telegram.org/bots/api#editmessagetext)
+  ``
   [bot text &named chat-id
                    message-id
                    inline-message-id
@@ -1092,14 +1162,15 @@
                                     "reply_markup" reply-markup}))
 
 (defn edit-message-caption
-  "Edits a message's caption.
+  ``Edits a message's caption.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :parse-mode, :caption-entities, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#editmessagecaption)"
+  (https://core.telegram.org/bots/api#editmessagecaption)
+  ``
   [bot caption &named chat-id
                       message-id
                       inline-message-id
@@ -1115,14 +1186,15 @@
                                        "reply_markup" reply-markup}))
 
 (defn edit-message-media
-  "Edits a message's media.
+  ``Edits a message's media.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :reply-markup.
 
-  (https://core.telegram.org/bots/api#editmessagemedia)"
+  (https://core.telegram.org/bots/api#editmessagemedia)
+  ``
   [bot media &named chat-id
                     message-id
                     inline-message-id
@@ -1134,14 +1206,15 @@
                                      "reply_markup" reply-markup}))
 
 (defn edit-message-reply-markup
-  "Edits a message's reply markup.
+  ``Edits a message's reply markup.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :reply-markup.
 
-  (https://core.telegram.org/bots/api#editmessagereplymarkup)"
+  (https://core.telegram.org/bots/api#editmessagereplymarkup)
+  ``
   [bot &named chat-id
               message-id
               inline-message-id
@@ -1152,14 +1225,15 @@
                                            "reply_markup" reply-markup}))
 
 (defn edit-message-live-location
-  "Edits a message's live location.
+  ``Edits a message's live location.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#editmessagelivelocation)"
+  (https://core.telegram.org/bots/api#editmessagelivelocation)
+  ``
   [bot latitude longitude &named chat-id
                                  message-id
                                  inline-message-id
@@ -1178,14 +1252,15 @@
                                             "reply_markup" reply-markup}))
 
 (defn stop-message-live-location
-  "Stops a message's live location.
+  ``Stops a message's live location.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :reply-markup.
 
-  (https://core.telegram.org/bots/api#stopmessagelivelocation)"
+  (https://core.telegram.org/bots/api#stopmessagelivelocation)
+  ``
   [bot &named chat-id
               message-id
               inline-message-id
@@ -1196,19 +1271,21 @@
                                             "reply_markup" reply-markup}))
 
 (defn delete-message
-  "Deletes a message.
+  ``Deletes a message.
 
-  (https://core.telegram.org/bots/api#deletemessage)"
+  (https://core.telegram.org/bots/api#deletemessage)
+  ``
   [bot chat-id message-id]
   (h/request bot "deleteMessage" {"chat_id" chat-id
                                   "message_id" message-id}))
 
 (defn answer-inline-query
-  "Answers an inline query.
+  ``Answers an inline query.
 
   Optional parameter keys are: :cache-time, :is-personal, :next-offset, :switch-pm-text, and :switch-pm-parameter.
 
-  (https://core.telegram.org/bots/api#answerinlinequery)"
+  (https://core.telegram.org/bots/api#answerinlinequery)
+  ``
   [bot inline-query-id results &named cache-time
                                       is-personal
                                       next-offset
@@ -1223,11 +1300,12 @@
                                       "switch_pm_parameter" switch-pm-parameter}))
 
 (defn send-invoice
-  "Sends an invoice.
+  ``Sends an invoice.
 
   Optional parameter keys are: :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendinvoice)"
+  (https://core.telegram.org/bots/api#sendinvoice)
+  ``
   [bot chat-id title description payload provider-token currency prices &named max-tip-amount
                                                                                suggested-tip-amounts
                                                                                start-parameter
@@ -1277,11 +1355,12 @@
                                 "reply_markup" reply-markup}))
 
 (defn answer-shipping-query
-  "Answers a shipping query.
+  ``Answers a shipping query.
 
   If `ok` is true, :shipping-options should be included in `options`. Otherwise, :error-message should be included.
 
-  (https://core.telegram.org/bots/api#answershippingquery)"
+  (https://core.telegram.org/bots/api#answershippingquery)
+  ``
   [bot shipping-query-id ok &named shipping-options
                                    error-message]
   (h/request bot "answerShippingQuery" {"shipping_query_id" shipping-query-id
@@ -1290,30 +1369,33 @@
                                         "error_message" error-message}))
 
 (defn answer-pre-checkout-query
-  "Answers a pre-checkout query.
+  ``Answers a pre-checkout query.
 
   If `ok` is false, :error-message should be included in `options`.
 
-  (https://core.telegram.org/bots/api#answerprecheckoutquery)"
+  (https://core.telegram.org/bots/api#answerprecheckoutquery)
+  ``
   [bot pre-checkout-query-id ok &named error-message]
   (h/request bot "answerPreCheckoutQuery" {"pre_checkout_query_id" pre-checkout-query-id
                                            "ok" ok
                                            "error_message" error-message}))
 
 (defn answer-web-app-query
-  "Answers a web app query.
+  ``Answers a web app query.
 
-  (https://core.telegram.org/bots/api#answerwebappquery)"
+  (https://core.telegram.org/bots/api#answerwebappquery)
+  ``
   [bot web-app-query-id result]
   (h/request bot "answerWebAppQuery" {"web_app_query_id" web-app-query-id
                                       "result" result}))
 
 (defn send-game
-  "Sends a game.
+  ``Sends a game.
 
   Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
-  (https://core.telegram.org/bots/api#sendgame)"
+  (https://core.telegram.org/bots/api#sendgame)
+  ``
   [bot chat-id game-short-name &named disable-notification
                                       protect-content
                                       reply-to-message-id
@@ -1328,14 +1410,15 @@
                              "reply_markup" reply-markup}))
 
 (defn set-game-score
-  "Sets score for a game.
+  ``Sets score for a game.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   Optional parameter keys are: :force, and :disable-edit-message.
 
-  (https://core.telegram.org/bots/api#setgamescore)"
+  (https://core.telegram.org/bots/api#setgamescore)
+  ``
   [bot user-id score &named chat-id
                             message-id
                             inline-message-id
@@ -1350,12 +1433,13 @@
                                  "disable_edit_message" disable-edit-message}))
 
 (defn get-game-highscores
-  "Fetches a game's highscores.
+  ``Fetches a game's highscores.
 
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  (https://core.telegram.org/bots/api#getgamehighscores)"
+  (https://core.telegram.org/bots/api#getgamehighscores)
+  ``
   [bot user-id &named chat-id
                       message-id
                       inline-message-id]
@@ -1466,7 +1550,8 @@
 
 # create a new bot with given params
 (defn new-bot
-  "Creates a new bot with given token and options."
+  ``Creates a new bot with given token and options.
+  ``
   [token &named interval-seconds
                 limit-count
                 timeout-seconds
