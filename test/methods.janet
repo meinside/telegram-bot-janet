@@ -35,7 +35,7 @@
 
 # constants
 (def- filepath-for-test (string (os/cwd) "/resources/test/image.png"))
-  
+
 ########################
 # test bot creation
 #
@@ -73,8 +73,8 @@
 
     # edit the message's text,
     (assert ((:edit-message-text bot "edited message"
-                                :chat-id chat-id
-                                :message-id (get-in sent-message [:result :message-id])) :ok))
+                                 :chat-id chat-id
+                                 :message-id (get-in sent-message [:result :message-id])) :ok))
 
     # copy it,
     (assert ((:copy-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok))
@@ -89,8 +89,8 @@
 
     # edit the photo's caption
     (assert ((:edit-message-caption bot "caption"
-                                   :chat-id chat-id
-                                   :message-id (get-in sent-photo [:result :message-id])) :ok)))
+                                    :chat-id chat-id
+                                    :message-id (get-in sent-photo [:result :message-id])) :ok)))
 
   # TODO: send-audio
 
@@ -148,8 +148,8 @@
   (assert ((:get-updates bot) :ok))
 
   (comment --------))
-  
-  
+
+
 
 ########################
 # test message polling
@@ -193,9 +193,9 @@
   # TODO: delete-sticker-from-set
 
   # TODO: set-sticker-set-thumb
-    
+
   (comment --------))
-  
+
 
 ########################
 # test stickers
@@ -207,7 +207,7 @@
   # TODO: set-game-score
 
   # TODO: get-game-highscores
-    
+
   (comment --------))
 
 ########################
@@ -222,7 +222,7 @@
   # TODO: answer-pre-checkout-query
 
   (comment --------))
-    
+
 ########################
 # test chat administration
 #
@@ -304,7 +304,7 @@
   # TODO: answer-callback-query
 
   (comment --------))
-    
+
 ########################
 # test inline query
 #
@@ -313,7 +313,7 @@
   # TODO: answer-inline-query
 
   (comment --------))
-    
+
 ########################
 # test web app query
 #
