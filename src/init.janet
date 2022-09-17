@@ -73,7 +73,7 @@
         # initialize `update-offset`
         (var update-offset (or offset 0))
 
-        (while true
+        (forever
           (let [response (get-updates bot
                                       :offset update-offset
                                       :limit limit

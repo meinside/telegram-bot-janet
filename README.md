@@ -42,7 +42,7 @@ In your `project.janet` file, add:
                        :verbose? verbose?))
   (let [updates-ch (:poll-updates bot interval-seconds)]
     (ev/do-thread
-      (while true
+      (forever
         (if-let [updates (ev/take updates-ch)]
           (do
             (if-not (empty? updates)
