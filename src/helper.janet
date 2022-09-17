@@ -39,7 +39,7 @@
       (timestamp (os/time))
       "| VERBOSE |"
       (string/join (map (fn [v]
-                            (string/format (if (string? v) "%s" "%j") v))
+                          (string/format (if (string? v) "%s" "%j") v))
                         args) " "))))
 
 # print log messages
@@ -64,9 +64,9 @@
   result)
 
 (defn- key->keyword
- "Converts json key to kebab-cased keyword."
- [key]
- (keyword (string/replace-all "_" "-" key)))
+  "Converts json key to kebab-cased keyword."
+  [key]
+  (keyword (string/replace-all "_" "-" key)))
 
 (defn- dict->kebabbed-keys
   "Converts all struct/table keys to kebab-cased keywords."

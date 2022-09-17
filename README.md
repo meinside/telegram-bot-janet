@@ -22,7 +22,7 @@ In your `project.janet` file, add:
 (def chat-id -1234567890)
 
 (var bot (tg/new-bot token))
-(tg/send-message bot chat-id "dodge this!")]
+(:send-message bot chat-id "dodge this!")
 ```
 
 ## Samples
@@ -40,7 +40,7 @@ In your `project.janet` file, add:
   (var bot (tg/new-bot token
                        :interval-seconds 1
                        :verbose? verbose?))
-  (let [updates-ch (tg/poll-updates bot interval-seconds)]
+  (let [updates-ch (:poll-updates bot interval-seconds)]
     (ev/do-thread
       (while true
         (if-let [updates (ev/take updates-ch)]
@@ -50,17 +50,17 @@ In your `project.janet` file, add:
                 (let [chat-id (get-in update [:message :chat :id])
                       text (get-in update [:message :text])
                       original-message-id (get-in update [:message :message-id])
-                      response (tg/send-message bot chat-id text :reply-to-message-id original-message-id)]
+                      response (:send-message bot chat-id text :reply-to-message-id original-message-id)]
                   (print (string/format "response of send-message: %m" response))
 
                   (if (= text "/exit")
                     (do
                       (print "stopping polling updates...")
 
-                      (tg/stop-polling-updates updates-ch)))))))
+                      (:stop-polling-updates bot updates-ch)))))))
           (do
             (print "failed to take from updates channel")
             (break))))))
-
+  
   (print "exiting application..."))
 ```

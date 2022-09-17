@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2022.09.16.
+# last update: 2022.09.17.
 
 (import ./helper :as h)
 
@@ -14,19 +14,6 @@
 (def- default-timeout-seconds 10)
 (def- default-limit-count 100)
 (def- channel-buffer-size 10)
-
-# create a new bot with given params)
-(defn new-bot
-  "Creates a new bot with given token and options."
-  [token &keys {:interval-seconds interval-seconds
-                :limit-count limit-count
-                :timeout-seconds timeout-seconds
-                :verbose? verbose?}]
-  @{:token token
-    :interval-seconds (or interval-seconds default-interval-seconds)
-    :limit-count (or limit-count default-limit-count)
-    :timeout-seconds (or timeout-seconds default-timeout-seconds)
-    :verbose? (or verbose? false)})
 
 ########################
 # bot API methods
@@ -119,7 +106,7 @@
 
 (defn stop-polling-updates
   "Stops polling of updates. Passed updates channel will be closed."
-  [ch]
+  [bot ch]
   (ev/chan-close ch))
 
 (defn send-message
@@ -362,7 +349,7 @@
   "Sets thumbnail of a sticker set.
 
   Optional parameter keys are: thumb.
-  
+
   (https://core.telegram.org/bots/api#setstickersetthumb)"
   [bot name user-id &keys {:thumb thumb}]
   (h/request bot "setStickerSetThumb" {"name" name
@@ -650,7 +637,7 @@
   `emoji` can be one of: 🎲, 🎯, 🏀, ⚽, 🎳, or 🎰. (default: 🎲)
 
   Optional parameter keys are: :emoji, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
-  
+
   (https://core.telegram.org/bots/api#senddice)"
   [bot chat-id &keys {:emoji emoji
                       :disable-notification disable-notification
@@ -1013,7 +1000,7 @@
 
 (defn get-my-commands
   "Gets this bot's commands.
-  
+
   (https://core.telegram.org/bots/api#getmycommands)"
   [bot &keys {:scope scope
               :language-code language-code}]
@@ -1376,4 +1363,119 @@
                                       "chat_id" chat-id
                                       "message_id" message-id
                                       "inline_message_id" inline-message-id}))
+
+########################
+# bot specification and factory functions
+
+# prototype of bot
+(def Bot
+  @{
+    # properties
+    :token "--not-set-yet--"
+    :interval-seconds default-interval-seconds
+    :limit-count default-limit-count
+    :timeout-seconds default-timeout-seconds
+    :verbose? false
+
+    # functions (NOTE: append more here when they are added)
+    :delete-webhook delete-webhook
+    :get-me get-me
+    :get-updates get-updates
+    :poll-updates poll-updates
+    :stop-polling-updates stop-polling-updates
+    :send-message send-message
+    :forward-message forward-message
+    :copy-message copy-message
+    :send-photo send-photo
+    :send-audio send-audio
+    :send-document send-document
+    :send-sticker send-sticker
+    :get-sticker-set get-sticker-set
+    :upload-sticker-file upload-sticker-file
+    :create-new-sticker-set create-new-sticker-set
+    :add-sticker-to-set add-sticker-to-set
+    :set-sticker-position-in-set set-sticker-position-in-set
+    :delete-sticker-from-set delete-sticker-from-set
+    :set-sticker-set-thumb set-sticker-set-thumb
+    :send-video send-video
+    :send-animation send-animation
+    :send-voice send-voice
+    :send-video-note send-video-note
+    :send-media-group send-media-group
+    :send-location send-location
+    :send-venue send-venue
+    :send-contact send-contact
+    :send-poll send-poll
+    :stop-poll stop-poll
+    :send-chat-action send-chat-action
+    :send-dice send-dice
+    :get-user-profile-photos get-user-profile-photos
+    :get-file-url get-file-url
+    :get-file get-file
+    :ban-chat-member ban-chat-member
+    :leave-chat leave-chat
+    :unban-chat-member unban-chat-member
+    :restrict-chat-member restrict-chat-member
+    :promote-chat-member promote-chat-member
+    :set-chat-administrator-custom-title set-chat-administrator-custom-title
+    :ban-chat-sender-chat ban-chat-sender-chat
+    :unban-chat-sender-chat unban-chat-sender-chat
+    :set-chat-permission set-chat-permission
+    :export-chat-invite-link export-chat-invite-link
+    :create-chat-invite-link create-chat-invite-link
+    :edit-chat-invite-link edit-chat-invite-link
+    :revoke-chat-invite-link revoke-chat-invite-link
+    :approve-chat-join-request approve-chat-join-request
+    :decline-chat-join-request decline-chat-join-request
+    :set-chat-photo set-chat-photo
+    :delete-chat-photo delete-chat-photo
+    :set-chat-title set-chat-title
+    :set-chat-description set-chat-description
+    :pin-chat-message pin-chat-message
+    :unpin-chat-message unpin-chat-message
+    :unpin-all-chat-messages unpin-all-chat-messages
+    :get-chat get-chat
+    :get-chat-administrators get-chat-administrators
+    :get-chat-member-count get-chat-member-count
+    :get-chat-member get-chat-member
+    :set-chat-sticker-set set-chat-sticker-set
+    :delete-chat-sticker-set delete-chat-sticker-set
+    :answer-callback-query answer-callback-query
+    :get-my-commands get-my-commands
+    :set-my-commands set-my-commands
+    :delete-my-commands delete-my-commands
+    :set-chat-menu-button set-chat-menu-button
+    :get-chat-menu-button get-chat-menu-button
+    :set-my-default-administrator-rights set-my-default-administrator-rights
+    :get-my-default-administrator-rights get-my-default-administrator-rights
+    :edit-message-text edit-message-text
+    :edit-message-caption edit-message-caption
+    :edit-message-media edit-message-media
+    :edit-message-reply-markup edit-message-reply-markup
+    :edit-message-live-location edit-message-live-location
+    :stop-message-live-location stop-message-live-location
+    :delete-message delete-message
+    :answer-inline-query answer-inline-query
+    :send-invoice send-invoice
+    :answer-shipping-query answer-shipping-query
+    :answer-pre-checkout-query answer-pre-checkout-query
+    :answer-web-app-query answer-web-app-query
+    :send-game send-game
+    :set-game-score set-game-score
+    :get-game-highscores get-game-highscores})
+
+# create a new bot with given params
+(defn new-bot
+  "Creates a new bot with given token and options."
+  [token &keys {:interval-seconds interval-seconds
+                :limit-count limit-count
+                :timeout-seconds timeout-seconds
+                :verbose? verbose?}]
+  (table/setproto
+    @{:token token
+      :interval-seconds (or interval-seconds default-interval-seconds)
+      :limit-count (or limit-count default-limit-count)
+      :timeout-seconds (or timeout-seconds default-timeout-seconds)
+      :verbose? (or verbose? false)}
+    Bot))
 
