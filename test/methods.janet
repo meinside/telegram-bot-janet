@@ -1,7 +1,7 @@
 # test/methods.janet
 #
 # created on : 2022.09.16.
-# last update: 2022.09.16.
+# last update: 2022.09.17.
 #
 # Test with:
 #
@@ -42,7 +42,7 @@
 (print "Testing bot creation")
 (do
   # get my info
-  (let [bot-info (get-me bot)]
+  (let [bot-info (:get-me bot)]
     (assert (bot-info :ok)))
 
   (comment --------))
@@ -53,42 +53,42 @@
 (print "Testing sending and fetching messages")
 (do
   # delete webhook,
-  (assert ((delete-webhook bot) :ok))
+  (assert ((:delete-webhook bot) :ok))
 
   # delete bot commands
-  (assert ((delete-my-commands bot) :ok))
+  (assert ((:delete-my-commands bot) :ok))
 
   # set bot commands
-  (assert ((set-my-commands bot [{:command "/help" :description "show help messages"}]) :ok))
+  (assert ((:set-my-commands bot [{:command "/help" :description "show help messages"}]) :ok))
 
   # get bot commands
-  (assert ((get-my-commands bot) :ok))
+  (assert ((:get-my-commands bot) :ok))
 
   # send a chat action,
-  (assert ((send-chat-action bot chat-id :typing) :ok))
+  (assert ((:send-chat-action bot chat-id :typing) :ok))
 
   # send a text message,
-  (let [sent-message (send-message bot chat-id "test message")]
+  (let [sent-message (:send-message bot chat-id "test message")]
     (assert (sent-message :ok))
 
     # edit the message's text,
-    (assert ((edit-message-text bot "edited message"
+    (assert ((:edit-message-text bot "edited message"
                                 :chat-id chat-id
                                 :message-id (get-in sent-message [:result :message-id])) :ok))
 
     # copy it,
-    (assert ((copy-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok))
+    (assert ((:copy-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok))
 
     # and forward it
-    (assert ((forward-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok)))
+    (assert ((:forward-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok)))
 
   # send a photo,
   (let [photo-file (r/filepath->param filepath-for-test)
-        sent-photo (send-photo bot chat-id photo-file)]
+        sent-photo (:send-photo bot chat-id photo-file)]
     (assert (sent-photo :ok))
 
     # edit the photo's caption
-    (assert ((edit-message-caption bot "caption"
+    (assert ((:edit-message-caption bot "caption"
                                    :chat-id chat-id
                                    :message-id (get-in sent-photo [:result :message-id])) :ok)))
 
@@ -96,11 +96,11 @@
 
   # send a document,
   (let [document-file (r/filepath->param filepath-for-test)
-        sent-document (send-document bot chat-id document-file)]
+        sent-document (:send-document bot chat-id document-file)]
     (assert (sent-document :ok))
 
     # delete a message,
-    (assert ((delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
+    (assert ((:delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
 
   # TODO: send-sticker
 
@@ -115,22 +115,22 @@
   # TODO: send-media-group
 
   # send a location,
-  (assert ((send-location bot chat-id 37.5665 126.9780) :ok))
+  (assert ((:send-location bot chat-id 37.5665 126.9780) :ok))
 
   # TODO: send-venue
 
   # send a contact,
-  (assert ((send-contact bot chat-id "911" "Nine-One-One") :ok))
+  (assert ((:send-contact bot chat-id "911" "Nine-One-One") :ok))
 
   # send a poll,
-  (let [sent-poll (send-poll bot chat-id "The earth is...?" ["flat" "round" "nothing"])]
+  (let [sent-poll (:send-poll bot chat-id "The earth is...?" ["flat" "round" "nothing"])]
     (assert (sent-poll :ok))
 
     # stop a poll,
-    (assert (stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok))
+    (assert (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok))
 
     # send a dice,
-    (assert ((send-dice bot chat-id) :ok)))
+    (assert ((:send-dice bot chat-id) :ok)))
 
   # TODO: get-file-url
 
@@ -145,7 +145,7 @@
   # TODO: stop-message-live-location
 
   # fetch messages
-  (assert ((get-updates bot) :ok))
+  (assert ((:get-updates bot) :ok))
 
   (comment --------))
   
@@ -157,7 +157,7 @@
 (print "Testing polling updates")
 (do
   # start polling updates,
-  (var ch (poll-updates bot 1))
+  (var ch (:poll-updates bot 1))
   (assert ch)
 
   # wait for a moment,
@@ -171,7 +171,7 @@
   (os/sleep 5)
 
   # then stop polling
-  (assert (stop-polling-updates ch))
+  (assert (:stop-polling-updates bot ch))
 
   (comment --------))
 

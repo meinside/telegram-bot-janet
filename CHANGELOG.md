@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.8] - 2022-09-17
+- Add prototype for bot.
+- Replace keyed parameters to named parameters.
+
 ## [0.0.7] - 2022-09-17
 - Replace `os/sleep` with `ev/sleep`.
 
@@ -24,6 +28,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.8]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.4...v0.0.5
