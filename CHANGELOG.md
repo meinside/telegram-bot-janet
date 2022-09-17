@@ -2,6 +2,7 @@
 
 ## [0.0.8] - 2022-09-17
 - Add prototype for bot.
+- Replace keyed parameters to named parameters.
 
 ## [0.0.7] - 2022-09-17
 - Replace `os/sleep` with `ev/sleep`.

@@ -40,10 +40,10 @@
   Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates.
 
   (https://core.telegram.org/bots/api#getupdates)"
-  [bot &keys {:offset offset
-              :limit limit
-              :timeout timeout
-              :allowed-updates allowed-updates}]
+  [bot &named offset
+              limit
+              timeout
+              allowed-updates]
   (h/request bot "getUpdates" {"offset" offset
                                "limit" (or limit 100)
                                "timeout" (or timeout (bot :timeout-seconds))
@@ -57,10 +57,10 @@
   Call `stop-polling-updates` when done.
 
   Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates."
-  [bot interval-seconds &keys {:offset offset
-                               :limit limit
-                               :timeout timeout
-                               :allowed-updates allowed-updates}]
+  [bot interval-seconds &named offset
+                               limit
+                               timeout
+                               allowed-updates]
   (let [ch (ev/thread-chan channel-buffer-size)
         limit (or limit 100)
         timeout (or timeout (bot :timeout-seconds))
@@ -115,14 +115,14 @@
   Optional parameter keys are: :parse-mode, :entities, :disable-web-page-preview, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendmessage)"
-  [bot chat-id text &keys {:parse-mode parse-mode
-                           :entities entities
-                           :disable-web-page-preview disable-web-page-preview
-                           :disable-notification disable-notification
-                           :protect-content protect-content
-                           :reply-to-message-id reply-to-message-id
-                           :allow-sending-without-reply allow-sending-without-reply
-                           :reply-markup reply-markup}]
+  [bot chat-id text &named parse-mode
+                           entities
+                           disable-web-page-preview
+                           disable-notification
+                           protect-content
+                           reply-to-message-id
+                           allow-sending-without-reply
+                           reply-markup]
   (h/request bot "sendMessage" {"chat_id" chat-id
                                 "text" text
                                 "parse_mode" parse-mode
@@ -140,8 +140,8 @@
   Optional parameter keys are: :disable-notification.
 
   (https://core.telegram.org/bots/api#forwardmessage)"
-  [bot chat-id from-chat-id message-id &keys {:disable-notification disable-notification
-                                              :protect-content protect-content}]
+  [bot chat-id from-chat-id message-id &named disable-notification
+                                              protect-content]
   (h/request bot "forwardMessage" {"chat_id" chat-id
                                    "from_chat_id" from-chat-id
                                    "message_id" message-id
@@ -154,14 +154,14 @@
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#copymessage)"
-  [bot chat-id from-chat-id message-id &keys {:caption caption
-                                              :parse-mode parse-mode
-                                              :caption-entities caption-entities
-                                              :disable-notification disable-notification
-                                              :protect-content protect-content
-                                              :reply-to-message-id reply-to-message-id
-                                              :allow-sending-without-reply allow-sending-without-reply
-                                              :reply-markup reply-markup}]
+  [bot chat-id from-chat-id message-id &named caption
+                                              parse-mode
+                                              caption-entities
+                                              disable-notification
+                                              protect-content
+                                              reply-to-message-id
+                                              allow-sending-without-reply
+                                              reply-markup]
   (h/request bot "copyMessage" {"chat_id" chat-id
                                 "from_chat_id" from-chat-id
                                 "message_id" message-id
@@ -180,14 +180,14 @@
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendphoto)"
-  [bot chat-id photo &keys {:caption caption
-                            :parse-mode parse-mode
-                            :caption-entities caption-entities
-                            :disable-notification disable-notification
-                            :protect-content protect-content
-                            :reply-to-message-id reply-to-message-id
-                            :allow-sending-without-reply allow-sending-without-reply
-                            :reply-markup reply-markup}]
+  [bot chat-id photo &named caption
+                            parse-mode
+                            caption-entities
+                            disable-notification
+                            protect-content
+                            reply-to-message-id
+                            allow-sending-without-reply
+                            reply-markup]
   (h/request bot "sendPhoto" {"chat_id" chat-id
                               "photo" photo
                               "caption" caption
@@ -205,17 +205,17 @@
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendaudio)"
-  [bot chat-id audio &keys {:caption caption
-                            :parse-mode parse-mode
-                            :caption-entities caption-entities
-                            :duration duration
-                            :performer performer
-                            :title title
-                            :disable-notification disable-notification
-                            :protect-content protect-content
-                            :reply-to-message-id reply-to-message-id
-                            :allow-sending-without-reply allow-sending-without-reply
-                            :reply-markup reply-markup}]
+  [bot chat-id audio &named caption
+                            parse-mode
+                            caption-entities
+                            duration
+                            performer
+                            title
+                            disable-notification
+                            protect-content
+                            reply-to-message-id
+                            allow-sending-without-reply
+                            reply-markup]
   (h/request bot "sendAudio" {"chat_id" chat-id
                               "audio" audio
                               "caption" caption
@@ -236,15 +236,15 @@
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#senddocument)"
-  [bot chat-id document &keys {:caption caption
-                               :parse-mode parse-mode
-                               :caption-entities caption-entities
-                               :disable-content-type-detection disable-content-type-detection
-                               :disable-notification disable-notification
-                               :protect-content protect-content
-                               :reply-to-message-id reply-to-message-id
-                               :allow-sending-without-reply allow-sending-without-reply
-                               :reply-markup reply-markup}]
+  [bot chat-id document &named caption
+                               parse-mode
+                               caption-entities
+                               disable-content-type-detection
+                               disable-notification
+                               protect-content
+                               reply-to-message-id
+                               allow-sending-without-reply
+                               reply-markup]
   (h/request bot "sendDocument" {"chat_id" chat-id
                                  "document" document
                                  "caption" caption
@@ -263,11 +263,11 @@
   Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendsticker)"
-  [bot chat-id sticker &keys {:disable-notification disable-notification
-                              :protect-content protect-content
-                              :reply-to-message-id reply-to-message-id
-                              :allow-sending-without-reply allow-sending-without-reply
-                              :reply-markup reply-markup}]
+  [bot chat-id sticker &named disable-notification
+                              protect-content
+                              reply-to-message-id
+                              allow-sending-without-reply
+                              reply-markup]
   (h/request bot "sendSticker" {"chat_id" chat-id
                                 "sticker" sticker
                                 "disable_notification" disable-notification
@@ -297,11 +297,11 @@
   Optional parameter keys are: :png-sticker, :tgs-sticker, :webm-sticker, :contains-masks, and :mask-position
 
   (https://core.telegram.org/bots/api#createnewstickerset)"
-  [bot user-id name title emojis &keys {:png-sticker png-sticker
-                                        :tgs-sticker tgs-sticker
-                                        :webm-sticker webm-sticker
-                                        :contains-masks contains-masks
-                                        :mask-position mask-position}]
+  [bot user-id name title emojis &named png-sticker
+                                        tgs-sticker
+                                        webm-sticker
+                                        contains-masks
+                                        mask-position]
   (h/request bot "createNewStickerSet" {"user_id" user-id
                                         "name" name
                                         "title" title
@@ -318,10 +318,10 @@
   Optional parameter keys are: :png-sticker, :tgs-sticker, :webm-sticker, and :mask-position
 
   (https://core.telegram.org/bots/api#addstickertoset)"
-  [bot user-id name emojis &keys {:png-sticker png-sticker
-                                  :tgs-sticker tgs-sticker
-                                  :webm-sticker webm-sticker
-                                  :mask-position mask-position}]
+  [bot user-id name emojis &named png-sticker
+                                  tgs-sticker
+                                  webm-sticker
+                                  mask-position]
   (h/request bot "addStickerToSet" {"user_id" user-id
                                     "name" name
                                     "png_sticker" png-sticker
@@ -351,7 +351,7 @@
   Optional parameter keys are: thumb.
 
   (https://core.telegram.org/bots/api#setstickersetthumb)"
-  [bot name user-id &keys {:thumb thumb}]
+  [bot name user-id &named thumb]
   (h/request bot "setStickerSetThumb" {"name" name
                                        "user_id" user-id
                                        "thumb" thumb}))
@@ -362,16 +362,16 @@
   Optional parameter keys are: :duration, :caption, :parse-mode, :caption-entities, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendvideo)"
-  [bot chat-id video &keys {:duration duration
-                            :caption caption
-                            :parse-mode parse-mode
-                            :caption-entities caption-entities
-                            :supports-streaming supports-streaming
-                            :disable-notification disable-notification
-                            :protect-content protect-content
-                            :reply-to-message-id reply-to-message-id
-                            :allow-sending-without-reply allow-sending-without-reply
-                            :reply-markup reply-markup}]
+  [bot chat-id video &named duration
+                            caption
+                            parse-mode
+                            caption-entities
+                            supports-streaming
+                            disable-notification
+                            protect-content
+                            reply-to-message-id
+                            allow-sending-without-reply
+                            reply-markup]
   (h/request bot "sendVideo" {"chat_id" chat-id
                               "video" video
                               "duration" duration
@@ -391,18 +391,18 @@
   Optional parameter keys are: :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendanimation)"
-  [bot chat-id animation &keys {:duration duration
-                                :width width
-                                :height height
-                                :thumb thumb
-                                :caption caption
-                                :parse-mode parse-mode
-                                :caption-entities caption-entities
-                                :disable-notification disable-notification
-                                :protect-content protect-content
-                                :reply-to-message-id reply-to-message-id
-                                :allow-sending-without-reply allow-sending-without-reply
-                                :reply-markup reply-markup}]
+  [bot chat-id animation &named duration
+                                width
+                                height
+                                thumb
+                                caption
+                                parse-mode
+                                caption-entities
+                                disable-notification
+                                protect-content
+                                reply-to-message-id
+                                allow-sending-without-reply
+                                reply-markup]
   (h/request bot "sendAnimation" {"chat_id" chat-id
                                   "animation" animation
                                   "duration" duration
@@ -424,15 +424,15 @@
   Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendvoice)"
-  [bot chat-id voice &keys {:caption caption
-                            :parse-mode parse-mode
-                            :caption-entities caption-entities
-                            :duration duration
-                            :disable-notification disable-notification
-                            :protect-content protect-content
-                            :reply-to-message-id reply-to-message-id
-                            :allow-sending-without-reply allow-sending-without-reply
-                            :reply-markup reply-markup}]
+  [bot chat-id voice &named caption
+                            parse-mode
+                            caption-entities
+                            duration
+                            disable-notification
+                            protect-content
+                            reply-to-message-id
+                            allow-sending-without-reply
+                            reply-markup]
   (h/request bot "sendVoice" {"chat_id" chat-id
                               "voice" voice
                               "caption" caption
@@ -452,14 +452,14 @@
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
   (https://core.telegram.org/bots/api#sendvideonote)"
-  [bot chat-id video-note &keys {:duration duration
-                                 :length length
-                                 :thumb thumb
-                                 :disable-notification disable-notification
-                                 :protect-content protect-content
-                                 :reply-to-message-id reply-to-message-id
-                                 :allow-sending-without-reply allow-sending-without-reply
-                                 :reply-markup reply-markup}]
+  [bot chat-id video-note &named duration
+                                 length
+                                 thumb
+                                 disable-notification
+                                 protect-content
+                                 reply-to-message-id
+                                 allow-sending-without-reply
+                                 reply-markup]
   (h/request bot "sendVideoNote" {"chat_id" chat-id
                                   "video_note" video-note
                                   "duration" duration
@@ -477,10 +477,10 @@
   Optional parameter keys are: :disable-notification, :reply-to-message-id, and :allow-sending-without-reply.
 
   (https://core.telegram.org/bots/api#sendmediagroup)"
-  [bot chat-id media &keys {:disable-notification disable-notification
-                            :protect-content protect-content
-                            :reply-to-message-id reply-to-message-id
-                            :allow-sending-without-reply allow-sending-without-reply}]
+  [bot chat-id media &named disable-notification
+                            protect-content
+                            reply-to-message-id
+                            allow-sending-without-reply]
   (h/request bot "sendMediaGroup" {"chat_id" chat-id
                                    "media" media
                                    "disable_notification" disable-notification
@@ -494,15 +494,15 @@
   Optional parameter keys are: :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendlocation)"
-  [bot chat-id latitude longitude &keys {:horizontal-accuracy horizontal-accuracy
-                                         :live-period live-period
-                                         :heading heading
-                                         :proximity-alert-radius proximity-alert-radius
-                                         :disable-notification disable-notification
-                                         :protect-content protect-content
-                                         :reply-to-message-id reply-to-message-id
-                                         :allow-sending-without-reply allow-sending-without-reply
-                                         :reply-markup reply-markup}]
+  [bot chat-id latitude longitude &named horizontal-accuracy
+                                         live-period
+                                         heading
+                                         proximity-alert-radius
+                                         disable-notification
+                                         protect-content
+                                         reply-to-message-id
+                                         allow-sending-without-reply
+                                         reply-markup]
   (h/request bot "sendLocation" {"chat_id" chat-id
                                  "latitude" latitude
                                  "longitude" longitude
@@ -522,15 +522,15 @@
   Optional parameter keys are: :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendvenue)"
-  [bot chat-id latitude longitude title address &keys {:foursquare-id foursquare-id
-                                                       :foursquare-type foursquare-type
-                                                       :google-place-id google-place-id
-                                                       :google-place-type google-place-type
-                                                       :disable-notification disable-notification
-                                                       :protect-content protect-content
-                                                       :reply-to-message-id reply-to-message-id
-                                                       :allow-sending-without-reply allow-sending-without-reply
-                                                       :reply-markup reply-markup}]
+  [bot chat-id latitude longitude title address &named foursquare-id
+                                                       foursquare-type
+                                                       google-place-id
+                                                       google-place-type
+                                                       disable-notification
+                                                       protect-content
+                                                       reply-to-message-id
+                                                       allow-sending-without-reply
+                                                       reply-markup]
   (h/request bot "sendVenue" {"chat_id" chat-id
                               "latitude" latitude
                               "longitude" longitude
@@ -552,13 +552,13 @@
   Optional parameter keys are: :last-name, :vcard, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendcontact)"
-  [bot chat-id phone-number first-name &keys {:last-name last-name
-                                              :vcard vcard
-                                              :disable-notification disable-notification
-                                              :protect-content protect-content
-                                              :reply-to-message-id reply-to-message-id
-                                              :allow-sending-without-reply allow-sending-without-reply
-                                              :reply-markup reply-markup}]
+  [bot chat-id phone-number first-name &named last-name
+                                              vcard
+                                              disable-notification
+                                              protect-content
+                                              reply-to-message-id
+                                              allow-sending-without-reply
+                                              reply-markup]
   (h/request bot "sendContact" {"chat_id" chat-id
                                 "phone_number" phone-number
                                 "first_name" first-name
@@ -576,21 +576,21 @@
   Optional parameter keys are: :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendpoll)"
-  [bot chat-id question poll-options &keys {:is-anonymous is-anonymous
-                                            :type type
-                                            :allows-multiple-answers allows-multiple-answers
-                                            :correct-option-id correct-option-id
-                                            :explanation explanation
-                                            :explanation-parse-mode explanation-parse-mode
-                                            :explanation-entities explanation-entities
-                                            :open-period open-period
-                                            :close-date close-date
-                                            :is-closed is-closed
-                                            :disable-notification disable-notification
-                                            :protect-content protect-content
-                                            :reply-to-message-id reply-to-message-id
-                                            :allow-sending-without-reply allow-sending-without-reply
-                                            :reply-markup reply-markup}]
+  [bot chat-id question poll-options &named is-anonymous
+                                            type
+                                            allows-multiple-answers
+                                            correct-option-id
+                                            explanation
+                                            explanation-parse-mode
+                                            explanation-entities
+                                            open-period
+                                            close-date
+                                            is-closed
+                                            disable-notification
+                                            protect-content
+                                            reply-to-message-id
+                                            allow-sending-without-reply
+                                            reply-markup]
   (h/request bot "sendPoll" {"chat_id" chat-id
                              "question" question
                              "options" poll-options
@@ -616,7 +616,7 @@
   Optional parameter keys are: :reply-markup.
 
   (https://core.telegram.org/bots/api#stoppoll)"
-  [bot chat-id message-id &keys {:reply-markup reply-markup}]
+  [bot chat-id message-id &named reply-markup]
   (h/request bot "stopPoll" {"chat_id" chat-id
                              "message_id" message-id
                              "reply_markup" reply-markup}))
@@ -639,12 +639,12 @@
   Optional parameter keys are: :emoji, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#senddice)"
-  [bot chat-id &keys {:emoji emoji
-                      :disable-notification disable-notification
-                      :protect-content protect-content
-                      :reply-to-message-id reply-to-message-id
-                      :allow-sending-without-reply allow-sending-without-reply
-                      :reply-markup reply-markup}]
+  [bot chat-id &named emoji
+                      disable-notification
+                      protect-content
+                      reply-to-message-id
+                      allow-sending-without-reply
+                      reply-markup]
   (h/request bot "sendDice" {"chat_id" chat-id
                              "emoji" emoji
                              "disable_notification" disable-notification
@@ -659,8 +659,8 @@
   Optional parameter keys are: :offset and :limit.
 
   (https://core.telegram.org/bots/api#getuserprofilephotos)"
-  [bot user-id &keys {:offset offset
-                      :limit limit}]
+  [bot user-id &named offset
+                      limit]
   (h/request bot "getUserProfilePhotos" {"user_id" user-id
                                          "offset" offset
                                          "limit" limit}))
@@ -688,8 +688,8 @@
   Optional parameter keys are: :until-date and :revoke-messages
 
   (https://core.telegram.org/bots/api#banchatmember)"
-  [bot chat-id user-id &keys {:until-date until-date
-                              :revoke-messages revoke-messages}]
+  [bot chat-id user-id &named until-date
+                              revoke-messages]
   (h/request bot "banChatMember" {"chat_id" chat-id
                                   "user_id" user-id
                                   "until_date" until-date
@@ -708,7 +708,7 @@
   Optional parameter keys are: :only-if-banned
 
   (https://core.telegram.org/bots/api#unbanchatmember)"
-  [bot chat-id user-id &keys {:only-if-banned only-if-banned}]
+  [bot chat-id user-id &named only-if-banned]
   (h/request bot "unbanChatMember" {"chat_id" chat-id
                                     "user_id" user-id
                                     "only_if_banned" only-if-banned}))
@@ -720,15 +720,15 @@
 
   (https://core.telegram.org/bots/api#chatpermissions)
   (https://core.telegram.org/bots/api#restrictchatmember)"
-  [bot chat-id user-id &keys {:can-send-messages can-send-messages
-                              :can-send-media-messages can-send-media-messages
-                              :can-send-polls can-send-polls
-                              :can-send-other-messages can-send-other-messages
-                              :can-add-web-page-previews can-add-web-page-previews
-                              :can-change-info can-change-info
-                              :can-invite-users can-invite-users
-                              :can-pin-messages can-pin-messages
-                              :until-date until-date}]
+  [bot chat-id user-id &named can-send-messages
+                              can-send-media-messages
+                              can-send-polls
+                              can-send-other-messages
+                              can-add-web-page-previews
+                              can-change-info
+                              can-invite-users
+                              can-pin-messages
+                              until-date]
   (h/request bot "restrictChatMember" {"chat_id" chat-id
                                        "user_id" user-id
                                        "permissions" {"can_send_messages" (or can-send-messages false)
@@ -747,17 +747,17 @@
   Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, and :can-promote-members.
 
   (https://core.telegram.org/bots/api#promotechatmember)"
-  [bot chat-id user-id &keys {:is-anonymous is-anonymous
-                              :can-manage-chat can-manage-chat
-                              :can-change-info can-change-info
-                              :can-post-messages can-post-messages
-                              :can-edit-messages can-edit-messages
-                              :can-delete-messages can-delete-messages
-                              :can-manage-video-chats can-manage-video-chats
-                              :can-invite-users can-invite-users
-                              :can-restrict-members can-restrict-members
-                              :can-pin-messages can-pin-messages
-                              :can-promote-members can-promote-members}]
+  [bot chat-id user-id &named is-anonymous
+                              can-manage-chat
+                              can-change-info
+                              can-post-messages
+                              can-edit-messages
+                              can-delete-messages
+                              can-manage-video-chats
+                              can-invite-users
+                              can-restrict-members
+                              can-pin-messages
+                              can-promote-members]
   (h/request bot "promoteChatMember" {"chat_id" chat-id
                                       "user_id" user-id
                                       "is_anonymous" is-anonymous
@@ -803,14 +803,14 @@
   Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
 
   (https://core.telegram.org/bots/api#setchatpermissions)"
-  [bot chat-id &keys {:can-send-messages can-send-messages
-                      :can-send-media-messages can-send-media-messages
-                      :can-send-polls can-send-polls
-                      :can-send-other-messages can-send-other-messages
-                      :can-add-web-page-previews can-add-web-page-previews
-                      :can-change-info can-change-info
-                      :can-invite-users can-invite-users
-                      :can-pin-messages can-pin-messages}]
+  [bot chat-id &named can-send-messages
+                      can-send-media-messages
+                      can-send-polls
+                      can-send-other-messages
+                      can-add-web-page-previews
+                      can-change-info
+                      can-invite-users
+                      can-pin-messages]
   (h/request bot "setChatPermission" {"chat_id" chat-id
                                       "permissions" {"can_send_messages" (or can-send-messages false)
                                                      "can_send_media_messages" (or can-send-media-messages false)
@@ -832,10 +832,10 @@
   "Creates a chat invite link.
 
   (https://core.telegram.org/bots/api#createchatinvitelink)"
-  [bot chat-id &keys {:name name
-                      :expire-date expire-date
-                      :member-limit member-limit
-                      :creates-join-request creates-join-request}]
+  [bot chat-id &named name
+                      expire-date
+                      member-limit
+                      creates-join-request]
   (h/request bot "createChatInviteLink" {"chat_id" chat-id
                                          "name" name
                                          "expire_date" expire-date
@@ -846,10 +846,10 @@
   "Edits a chat invite link.
 
   (https://core.telegram.org/bots/api#editchatinvitelink)"
-  [bot chat-id invite-link &keys {:name name
-                                  :expire-date expire-date
-                                  :member-limit member-limit
-                                  :creates-join-request creates-join-request}]
+  [bot chat-id invite-link &named name
+                                  expire-date
+                                  member-limit
+                                  creates-join-request]
   (h/request bot "editChatInviteLink" {"chat_id" chat-id
                                        "name" name
                                        "invite_link" invite-link
@@ -918,7 +918,7 @@
   Optional parameter keys are: :disable-notification.
 
   (https://core.telegram.org/bots/api#pinchatmessage)"
-  [bot chat-id message-id &keys {:disable-notification disable-notification}]
+  [bot chat-id message-id &named disable-notification]
   (h/request bot "pinChatMessage" {"chat_id" chat-id
                                    "message_id" message-id
                                    "disable_notification" disable-notification}))
@@ -927,7 +927,7 @@
   "Unpins a chat message.
 
   (https://core.telegram.org/bots/api#unpinchatmessage)"
-  [bot chat-id &keys {:message-id message-id}]
+  [bot chat-id &named message-id]
   (h/request bot "unpinChatMessage" {"chat_id" chat-id
                                      "message_id" message-id}))
 
@@ -988,10 +988,10 @@
   Optional parameter keys are: :text, :show-alert, :url, and :cache-time.
 
   (https://core.telegram.org/bots/api#answercallbackquery)"
-  [bot callback-query-id &keys {:text text
-                                :show-alert show-alert
-                                :url url
-                                :cache-time cache-time}]
+  [bot callback-query-id &named text
+                                show-alert
+                                url
+                                cache-time]
   (h/request bot "answerCallbackQuery" {"callback_query_id" callback-query-id
                                         "text" text
                                         "show_alert" show-alert
@@ -1002,8 +1002,8 @@
   "Gets this bot's commands.
 
   (https://core.telegram.org/bots/api#getmycommands)"
-  [bot &keys {:scope scope
-              :language-code language-code}]
+  [bot &named scope
+              language-code]
   (h/request bot "getMyCommands" {"scope" scope
                                   "language_code" language-code}))
 
@@ -1011,8 +1011,8 @@
   "Sets this bot's commands.
 
   (https://core.telegram.org/bots/api#setmycommands)"
-  [bot commands &keys {:scope scope
-                       :language-code language-code}]
+  [bot commands &named scope
+                       language-code]
   (h/request bot "setMyCommands" {"commands" commands
                                   "scope" scope
                                   "language_code" language-code}))
@@ -1021,8 +1021,8 @@
   "Deletes this bot's commands.
 
   (https://core.telegram.org/bots/api#deletemycommands)"
-  [bot &keys {:scope scope
-              :language-code language-code}]
+  [bot &named scope
+              language-code]
   (h/request bot "deleteMyCommands" {"scope" scope
                                      "language_code" language-code}))
 
@@ -1032,8 +1032,8 @@
   Optional parameter keys are: :chat-id, and :menu-button.
 
   (https://core.telegram.org/bots/api#setchatmenubutton)"
-  [bot &keys {:chat-id chat-id
-              :menu-button menu-button}]
+  [bot &named chat-id
+              menu-button]
   (h/request bot "setChatMenuButton" {"chat_id" chat-id
                                       "menu_button" menu-button}))
 
@@ -1043,7 +1043,7 @@
   Optional parameter keys are: :chat-id.
 
   (https://core.telegram.org/bots/api#getchatmenubutton)"
-  [bot &keys {:chat-id chat-id}]
+  [bot &named chat-id]
   (h/request bot "getChatMenuButton" {"chat_id" chat-id}))
 
 (defn set-my-default-administrator-rights
@@ -1052,8 +1052,8 @@
   Optional parameter keys are: :rights, and :for-channels.
 
   (https://core.telegram.org/bots/api#setmydefaultadministratorrights)"
-  [bot &keys {:rights rights
-              :for-channels for-channels}]
+  [bot &named rights
+              for-channels]
   (h/request bot "setMyDefaultAdministratorRights" {"rights" rights
                                                     "for_channels" for-channels}))
 
@@ -1063,7 +1063,7 @@
   Optional parameter keys are: :for-channels.
 
   (https://core.telegram.org/bots/api#getmydefaultadministratorrights)"
-  [bot &keys {:for-channels for-channels}]
+  [bot &named for-channels]
   (h/request bot "getMyDefaultAdministratorRights" {"for_channels" for-channels}))
 
 (defn edit-message-text
@@ -1075,13 +1075,13 @@
   Optional parameter keys are: :parse-mode, :entities, :disable-web-page-preview, and :reply-markup.
 
   (https://core.telegram.org/bots/api#editmessagetext)"
-  [bot text &keys {:chat-id chat-id
-                   :message-id message-id
-                   :inline-message-id inline-message-id
-                   :parse-mode parse-mode
-                   :entities entities
-                   :disable-web-page-preview disable-web-page-preview
-                   :reply-markup reply-markup}]
+  [bot text &named chat-id
+                   message-id
+                   inline-message-id
+                   parse-mode
+                   entities
+                   disable-web-page-preview
+                   reply-markup]
   (h/request bot "editMessageText" {"text" text
                                     "chat_id" chat-id
                                     "message_id" message-id
@@ -1100,12 +1100,12 @@
   Optional parameter keys are: :parse-mode, :caption-entities, and :reply-markup.
 
   (https://core.telegram.org/bots/api#editmessagecaption)"
-  [bot caption &keys {:chat-id chat-id
-                      :message-id message-id
-                      :inline-message-id inline-message-id
-                      :parse-mode parse-mode
-                      :caption-entities caption-entities
-                      :reply-markup reply-markup}]
+  [bot caption &named chat-id
+                      message-id
+                      inline-message-id
+                      parse-mode
+                      caption-entities
+                      reply-markup]
   (h/request bot "editMessageCaption" {"caption" caption
                                        "chat_id" chat-id
                                        "message_id" message-id
@@ -1123,10 +1123,10 @@
   Optional parameter keys are: :reply-markup.
 
   (https://core.telegram.org/bots/api#editmessagemedia)"
-  [bot media &keys {:chat-id chat-id
-                    :message-id message-id
-                    :inline-message-id inline-message-id
-                    :reply-markup reply-markup}]
+  [bot media &named chat-id
+                    message-id
+                    inline-message-id
+                    reply-markup]
   (h/request bot "editMessageMedia" {"media" media
                                      "chat_id" chat-id
                                      "message_id" message-id
@@ -1142,10 +1142,10 @@
   Optional parameter keys are: :reply-markup.
 
   (https://core.telegram.org/bots/api#editmessagereplymarkup)"
-  [bot &keys {:chat-id chat-id
-              :message-id message-id
-              :inline-message-id inline-message-id
-              :reply-markup reply-markup}]
+  [bot &named chat-id
+              message-id
+              inline-message-id
+              reply-markup]
   (h/request bot "editMessageReplyMarkup" {"chat_id" chat-id
                                            "message_id" message-id
                                            "inline_message_id" inline-message-id
@@ -1160,13 +1160,13 @@
   Optional parameter keys are: :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
 
   (https://core.telegram.org/bots/api#editmessagelivelocation)"
-  [bot latitude longitude &keys {:chat-id chat-id
-                                 :message-id message-id
-                                 :inline-message-id inline-message-id
-                                 :horizontal-accuracy horizontal-accuracy
-                                 :heading heading
-                                 :proximity-alert-radius proximity-alert-radius
-                                 :reply-markup reply-markup}]
+  [bot latitude longitude &named chat-id
+                                 message-id
+                                 inline-message-id
+                                 horizontal-accuracy
+                                 heading
+                                 proximity-alert-radius
+                                 reply-markup]
   (h/request bot "editMessageLiveLocation" {"chat_id" chat-id
                                             "message_id" message-id
                                             "inline_message_id" inline-message-id
@@ -1186,10 +1186,10 @@
   Optional parameter keys are: :reply-markup.
 
   (https://core.telegram.org/bots/api#stopmessagelivelocation)"
-  [bot &keys {:chat-id chat-id
-              :message-id message-id
-              :inline-message-id inline-message-id
-              :reply-markup reply-markup}]
+  [bot &named chat-id
+              message-id
+              inline-message-id
+              reply-markup]
   (h/request bot "stopMessageLiveLocation" {"chat_id" chat-id
                                             "message_id" message-id
                                             "inline_message_id" inline-message-id
@@ -1209,11 +1209,11 @@
   Optional parameter keys are: :cache-time, :is-personal, :next-offset, :switch-pm-text, and :switch-pm-parameter.
 
   (https://core.telegram.org/bots/api#answerinlinequery)"
-  [bot inline-query-id results &keys {:cache-time cache-time
-                                      :is-personal is-personal
-                                      :next-offset next-offset
-                                      :switch-pm-text switch-pm-text
-                                      :switch-pm-parameter switch-pm-parameter}]
+  [bot inline-query-id results &named cache-time
+                                      is-personal
+                                      next-offset
+                                      switch-pm-text
+                                      switch-pm-parameter]
   (h/request bot "answerInlineQuery" {"inline_query_id" inline-query-id
                                       "results" results
                                       "cache_time" cache-time
@@ -1228,26 +1228,26 @@
   Optional parameter keys are: :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendinvoice)"
-  [bot chat-id title description payload provider-token currency prices &keys {:max-tip-amount max-tip-amount
-                                                                               :suggested-tip-amounts suggested-tip-amounts
-                                                                               :start-parameter start-parameter
-                                                                               :provider-data provider-data
-                                                                               :photo-url photo-url
-                                                                               :photo-size photo-size
-                                                                               :photo-width photo-width
-                                                                               :photo-height photo-height
-                                                                               :need-name need-name
-                                                                               :need-phone-number need-phone-number
-                                                                               :need-email need-email
-                                                                               :need-shipping-address need-shipping-address
-                                                                               :send-phone-number-to-provider send-phone-number-to-provider
-                                                                               :send-email-to-provider send-email-to-provider
-                                                                               :is-flexible is-flexible
-                                                                               :disable-notification disable-notification
-                                                                               :protect-content protect-content
-                                                                               :reply-to-message-id reply-to-message-id
-                                                                               :allow-sending-without-reply allow-sending-without-reply
-                                                                               :reply-markup reply-markup}]
+  [bot chat-id title description payload provider-token currency prices &named max-tip-amount
+                                                                               suggested-tip-amounts
+                                                                               start-parameter
+                                                                               provider-data
+                                                                               photo-url
+                                                                               photo-size
+                                                                               photo-width
+                                                                               photo-height
+                                                                               need-name
+                                                                               need-phone-number
+                                                                               need-email
+                                                                               need-shipping-address
+                                                                               send-phone-number-to-provider
+                                                                               send-email-to-provider
+                                                                               is-flexible
+                                                                               disable-notification
+                                                                               protect-content
+                                                                               reply-to-message-id
+                                                                               allow-sending-without-reply
+                                                                               reply-markup]
   (h/request bot "sendInvoice" {"chat_id" chat-id
                                 "title" title
                                 "description" description
@@ -1282,8 +1282,8 @@
   If `ok` is true, :shipping-options should be included in `options`. Otherwise, :error-message should be included.
 
   (https://core.telegram.org/bots/api#answershippingquery)"
-  [bot shipping-query-id ok &keys {:shipping-options shipping-options
-                                   :error-message error-message}]
+  [bot shipping-query-id ok &named shipping-options
+                                   error-message]
   (h/request bot "answerShippingQuery" {"shipping_query_id" shipping-query-id
                                         "ok" ok
                                         "shipping_options" shipping-options
@@ -1295,7 +1295,7 @@
   If `ok` is false, :error-message should be included in `options`.
 
   (https://core.telegram.org/bots/api#answerprecheckoutquery)"
-  [bot pre-checkout-query-id ok &keys {:error-message error-message}]
+  [bot pre-checkout-query-id ok &named error-message]
   (h/request bot "answerPreCheckoutQuery" {"pre_checkout_query_id" pre-checkout-query-id
                                            "ok" ok
                                            "error_message" error-message}))
@@ -1314,11 +1314,11 @@
   Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   (https://core.telegram.org/bots/api#sendgame)"
-  [bot chat-id game-short-name &keys {:disable-notification disable-notification
-                                      :protect-content protect-content
-                                      :reply-to-message-id reply-to-message-id
-                                      :allow-sending-without-reply allow-sending-without-reply
-                                      :reply-markup reply-markup}]
+  [bot chat-id game-short-name &named disable-notification
+                                      protect-content
+                                      reply-to-message-id
+                                      allow-sending-without-reply
+                                      reply-markup]
   (h/request bot "sendGame" {"chat_id" chat-id
                              "game_short_name" game-short-name
                              "disable_notification" disable-notification
@@ -1336,11 +1336,11 @@
   Optional parameter keys are: :force, and :disable-edit-message.
 
   (https://core.telegram.org/bots/api#setgamescore)"
-  [bot user-id score &keys {:chat-id chat-id
-                            :message-id message-id
-                            :inline-message-id inline-message-id
-                            :force force
-                            :disable-edit-message disable-edit-message}]
+  [bot user-id score &named chat-id
+                            message-id
+                            inline-message-id
+                            force
+                            disable-edit-message]
   (h/request bot "setGameScore" {"user_id" user-id
                                  "score" score
                                  "chat_id" chat-id
@@ -1356,9 +1356,9 @@
   or :inline-message-id (when :chat-id & :message-id are not given)
 
   (https://core.telegram.org/bots/api#getgamehighscores)"
-  [bot user-id &keys {:chat-id chat-id
-                      :message-id message-id
-                      :inline-message-id inline-message-id}]
+  [bot user-id &named chat-id
+                      message-id
+                      inline-message-id]
   (h/request bot "getGameHighScores" {"user_id" user-id
                                       "chat_id" chat-id
                                       "message_id" message-id
@@ -1467,10 +1467,10 @@
 # create a new bot with given params
 (defn new-bot
   "Creates a new bot with given token and options."
-  [token &keys {:interval-seconds interval-seconds
-                :limit-count limit-count
-                :timeout-seconds timeout-seconds
-                :verbose? verbose?}]
+  [token &named interval-seconds
+                limit-count
+                timeout-seconds
+                verbose?]
   (table/setproto
     @{:token token
       :interval-seconds (or interval-seconds default-interval-seconds)
