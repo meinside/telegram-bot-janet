@@ -52,18 +52,6 @@
                         (string/format (if (string? v) "%s" "%j") v))
                       args) " ")))
 
-(defn- purge-nil-params
-  ``Removes keys with nil values from given dict.
-  ``
-  [dict]
-  (var result @{})
-  (loop [(k v) :in 
-         (filter (fn [(k v)]
-                   (not (nil? v)))
-                 (pairs dict))]
-    (put result k v))
-  result)
-
 (defn- key->keyword
   ``Converts json key string to kebab-cased keyword for convenience.
   ``
@@ -104,10 +92,9 @@
             (let [token (b :token)
                   url (string api-baseurl token "/" m)
                   headers {:user-agent "telegram-bot-janet"}
-                  params (purge-nil-params ps)
-                  result (if (httprequest/has-file? params)
-                           (httprequest/post url headers params)
-                           (httprequest/post<-json url headers params))]
+                  result (if (httprequest/has-file? ps)
+                           (httprequest/post url headers ps)
+                           (httprequest/post<-json url headers ps))]
               (cond
                 (= (result :status) 200) (dict->kebabbed-keys (json/decode (result :body)))
                 (do 
