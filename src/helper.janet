@@ -3,7 +3,7 @@
 # Helper Functions
 #
 # created on : 2022.09.07.
-# last update: 2022.09.17.
+# last update: 2022.09.20.
 
 (import spork/json)
 (import httprequest)
@@ -65,10 +65,12 @@
   result)
 
 (defn- key->keyword
-  ``Converts json key to kebab-cased keyword for convenience.
+  ``Converts json key string to kebab-cased keyword for convenience.
   ``
   [key]
-  (keyword (string/replace-all "_" "-" key)))
+  (->> key
+       (string/replace-all "_" "-")
+       keyword))
 
 (defn- dict->kebabbed-keys
   ``Converts all struct/table keys to kebab-cased keywords for convenience.
@@ -116,7 +118,7 @@
 (defn url-for-filepath
   ``Generates a URL from a fetched file info.
 
-  (https://core.telegram.org/bots/api#getfile)
+  https://core.telegram.org/bots/api#getfile
   ``
   [bot filepath]
   (string file-baseurl (bot :token) "/" filepath))
