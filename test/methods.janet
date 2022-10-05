@@ -1,7 +1,7 @@
 # test/methods.janet
 #
 # created on : 2022.09.16.
-# last update: 2022.09.17.
+# last update: 2022.10.05.
 #
 # Test with:
 #
@@ -36,6 +36,7 @@
 # constants
 (def- filepath-for-test (string (os/cwd) "/resources/test/image.png"))
 
+
 ########################
 # test bot creation
 #
@@ -46,6 +47,7 @@
     (assert (bot-info :ok)))
 
   (comment --------))
+
 
 ########################
 # test message sending/fetching
@@ -99,6 +101,15 @@
         sent-document (:send-document bot chat-id document-file)]
     (assert (sent-document :ok))
 
+    # get-file
+    (let [file-id (get-in sent-document [:result :document :file-id])
+          file (:get-file bot file-id)
+          file-url (get-in file [:result :file-url])]
+      (do
+        (assert (file :ok))
+
+        (assert (string/has-prefix? "https://" file-url))))
+
     # delete a message,
     (assert ((:delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
 
@@ -127,14 +138,10 @@
     (assert (sent-poll :ok))
 
     # stop a poll,
-    (assert (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok))
+    (assert (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok)))
 
-    # send a dice,
-    (assert ((:send-dice bot chat-id) :ok)))
-
-  # TODO: get-file-url
-
-  # TODO: get-file
+  # send a dice,
+  (assert ((:send-dice bot chat-id) :ok))
 
   # TODO: edit-message-media
 
@@ -148,7 +155,6 @@
   (assert ((:get-updates bot) :ok))
 
   (comment --------))
-
 
 
 ########################
@@ -175,6 +181,7 @@
 
   (comment --------))
 
+
 ########################
 # test stickers
 #
@@ -198,9 +205,9 @@
 
 
 ########################
-# test stickers
+# test game
 #
-(print "Testing stickers")
+(print "Testing game")
 (do
   # TODO: send-game
 
@@ -209,6 +216,7 @@
   # TODO: get-game-highscores
 
   (comment --------))
+
 
 ########################
 # test shopping
@@ -222,6 +230,7 @@
   # TODO: answer-pre-checkout-query
 
   (comment --------))
+
 
 ########################
 # test chat administration
@@ -272,13 +281,19 @@
 
   # TODO: unpin-all-chat-messages
 
-  # TODO: get-chat
+  # get-chat
+  (let [chat (:get-chat bot chat-id)]
+    (assert (chat :ok)))
 
   # TODO: get-user-profile-photos
 
-  # TODO: get-chat-administrators
+  # get-chat-administrators
+  (let [admins (:get-chat-administrators bot chat-id)]
+    (assert (admins :ok)))
 
-  # TODO: get-chat-member-count
+  # get-chat-member-count
+  (let [count (:get-chat-member-count bot chat-id)]
+    (assert (count :ok)))
 
   # TODO: get-chat-member
 
@@ -296,6 +311,7 @@
 
   (comment --------))
 
+
 ########################
 # test callback query
 #
@@ -305,6 +321,7 @@
 
   (comment --------))
 
+
 ########################
 # test inline query
 #
@@ -313,6 +330,7 @@
   # TODO: answer-inline-query
 
   (comment --------))
+
 
 ########################
 # test web app query
