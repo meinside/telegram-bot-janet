@@ -697,7 +697,7 @@
                                          "offset" offset
                                          "limit" limit}))
 
-(defn get-file-url
+(defn- get-file-url
   ``Generates a file's url from given :file-path.
   ``
   [bot file-path]
@@ -711,10 +711,10 @@
   [bot file-id]
   (let [result (h/request bot "getFile" {"file_id" file-id})]
     (if (:ok result)
-      (let [file-path (get-in result [:result :file_path])
+      (let [file-path (get-in result [:result :file-path])
             file-url (get-file-url bot file-path)]
-        (update-in result [:result :url] (fn [_]
-                                           file-url))))))
+        (update-in result [:result :file-url] (fn [_]
+                                               file-url))))))
 
 (defn ban-chat-member
   ``Bans a chat member.
@@ -1495,7 +1495,6 @@
     :send-chat-action send-chat-action
     :send-dice send-dice
     :get-user-profile-photos get-user-profile-photos
-    :get-file-url get-file-url
     :get-file get-file
     :ban-chat-member ban-chat-member
     :leave-chat leave-chat
