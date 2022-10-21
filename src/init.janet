@@ -102,7 +102,11 @@
                         (break))))
                   ([err] (do
                            (h/verbose bot (string/format "failed to write to channel: %s" err))
-                           (break)))))))
+                           (break)))))
+              (do
+                (if-let [err (response :error)]
+                  (h/log (string/format "failed to fetch updates: %s" err))
+                  (h/log (string/format "failed to fetch updates: %m" response))))))
 
           # sleep
           (ev/sleep interval-seconds))))
@@ -710,7 +714,7 @@
   ``
   [bot file-id]
   (let [result (h/request bot "getFile" {"file_id" file-id})]
-    (if (:ok result)
+    (if (result :ok)
       (let [file-path (get-in result [:result :file-path])
             file-url (get-file-url bot file-path)]
         (update-in result [:result :file-url] (fn [_]

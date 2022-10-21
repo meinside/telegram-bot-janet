@@ -89,17 +89,21 @@
   ``
   [bot method params]
   (let [f (fn [b m ps]
-            (let [token (b :token)
-                  url (string api-baseurl token "/" m)
-                  headers {:user-agent "telegram-bot-janet"}
-                  result (if (httprequest/has-file? ps)
-                           (httprequest/post url headers ps)
-                           (httprequest/post<-json url headers ps))]
-              (cond
-                (= (result :status) 200) (dict->kebabbed-keys (json/decode (result :body)))
-                (do 
-                  (verbose bot "request error: " result)
-                  (merge result {:ok false})))))]
+            (try
+              (do
+                (let [token (b :token)
+                      url (string api-baseurl token "/" m)
+                      headers {:user-agent "telegram-bot-janet"}
+                      result (if (httprequest/has-file? ps)
+                               (httprequest/post url headers ps)
+                               (httprequest/post<-json url headers ps))]
+                  (cond
+                    (= (result :status) 200) (dict->kebabbed-keys (json/decode (result :body)))
+                    (do
+                      (verbose bot "request error: " result)
+                      (merge result {:ok false})))))
+              ([err] {:ok false
+                      :error (string err)})))]
     (f bot method params)))
 
 (defn url-for-filepath
