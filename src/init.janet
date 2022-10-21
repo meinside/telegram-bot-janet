@@ -102,7 +102,11 @@
                         (break))))
                   ([err] (do
                            (h/verbose bot (string/format "failed to write to channel: %s" err))
-                           (break)))))))
+                           (break)))))
+              (do
+                (if-let [err (response :error)]
+                  (h/log (string/format "failed to fetch updates: %s" err))
+                  (h/log (string/format "failed to fetch updates: %m" response))))))
 
           # sleep
           (ev/sleep interval-seconds))))
