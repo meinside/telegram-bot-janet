@@ -1,7 +1,7 @@
 # test/methods.janet
 #
 # created on : 2022.09.16.
-# last update: 2022.10.05.
+# last update: 2022.11.07.
 #
 # Test with:
 #
@@ -308,6 +308,20 @@
   # TODO: set-my-default-administrator-rights
 
   # TODO: get-my-default-administrator-rights
+
+  # TODO: create-forum-topic
+
+  # TODO: edit-forum-topic
+
+  # TODO: close-forum-topic
+
+  # TODO: reopen-forum-topic
+
+  # TODO: delete-forum-topic
+
+  # TODO: unpin-all-forum-topic-messages
+
+  # TODO: get-forum-topic-icon-stickers
 
   (comment --------))
 
