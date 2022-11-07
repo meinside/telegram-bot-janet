@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.13] - 2022-11-07
+- Apply API changes(https://core.telegram.org/bots/api-changelog#november-5-2022).
+
 ## [0.0.12] - 2022-10-21
 - Fix `get-file` function
 - Fix `request` function to return :error string on error
@@ -43,6 +46,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.13]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.12...v0.0.13
 [0.0.12]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.11...v0.0.12
 [0.0.11]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.10...v0.0.11
 [0.0.10]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.9...v0.0.10

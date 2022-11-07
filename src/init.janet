@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2022.09.20.
+# last update: 2022.11.07.
 
 (import ./helper :as h)
 
@@ -121,11 +121,12 @@
 (defn send-message
   ``Sends a message.
 
-  Optional parameter keys are: :parse-mode, :entities, :disable-web-page-preview, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :parse-mode, :entities, :disable-web-page-preview, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendmessage
   ``
-  [bot chat-id text &named parse-mode
+  [bot chat-id text &named message-thread-id
+                           parse-mode
                            entities
                            disable-web-page-preview
                            disable-notification
@@ -134,6 +135,7 @@
                            allow-sending-without-reply
                            reply-markup]
   (h/request bot "sendMessage" {"chat_id" chat-id
+                                "message_thread_id" message-thread-id
                                 "text" text
                                 "parse_mode" parse-mode
                                 "entities" entities
@@ -147,13 +149,15 @@
 (defn forward-message
   ``Forwards a message.
 
-  Optional parameter keys are: :disable-notification.
+  Optional parameter keys are: :message-thread-id, :disable-notification, and :protect-content.
 
   https://core.telegram.org/bots/api#forwardmessage
   ``
-  [bot chat-id from-chat-id message-id &named disable-notification
+  [bot chat-id from-chat-id message-id &named message-thread-id
+                                              disable-notification
                                               protect-content]
   (h/request bot "forwardMessage" {"chat_id" chat-id
+                                   "message_thread_id" message-thread-id
                                    "from_chat_id" from-chat-id
                                    "message_id" message-id
                                    "disable_notification" disable-notification
@@ -162,11 +166,12 @@
 (defn copy-message
   ``Copies a message.
 
-  Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#copymessage
   ``
-  [bot chat-id from-chat-id message-id &named caption
+  [bot chat-id from-chat-id message-id &named message-thread-id
+                                              caption
                                               parse-mode
                                               caption-entities
                                               disable-notification
@@ -175,6 +180,7 @@
                                               allow-sending-without-reply
                                               reply-markup]
   (h/request bot "copyMessage" {"chat_id" chat-id
+                                "message_thread_id" message-thread-id
                                 "from_chat_id" from-chat-id
                                 "message_id" message-id
                                 "caption" caption
@@ -189,11 +195,12 @@
 (defn send-photo
   ``Sends a photo.
 
-  Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendphoto
   ``
-  [bot chat-id photo &named caption
+  [bot chat-id photo &named message-thread-id
+                            caption
                             parse-mode
                             caption-entities
                             disable-notification
@@ -202,6 +209,7 @@
                             allow-sending-without-reply
                             reply-markup]
   (h/request bot "sendPhoto" {"chat_id" chat-id
+                              "message_thread_id" message-thread-id
                               "photo" photo
                               "caption" caption
                               "parse_mode" parse-mode
@@ -215,11 +223,12 @@
 (defn send-audio
   ``Sends an audio file.
 
-  Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendaudio
   ``
-  [bot chat-id audio &named caption
+  [bot chat-id audio &named message-thread-id
+                            caption
                             parse-mode
                             caption-entities
                             duration
@@ -231,6 +240,7 @@
                             allow-sending-without-reply
                             reply-markup]
   (h/request bot "sendAudio" {"chat_id" chat-id
+                              "message_thread_id" message-thread-id
                               "audio" audio
                               "caption" caption
                               "parse_mode" parse-mode
@@ -247,11 +257,12 @@
 (defn send-document
   ``Sends a document file.
 
-  Optional parameter keys are: :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddocument
   ``
-  [bot chat-id document &named caption
+  [bot chat-id document &named message-thread-id
+                               caption
                                parse-mode
                                caption-entities
                                disable-content-type-detection
@@ -261,6 +272,7 @@
                                allow-sending-without-reply
                                reply-markup]
   (h/request bot "sendDocument" {"chat_id" chat-id
+                                 "message_thread_id" message-thread-id
                                  "document" document
                                  "caption" caption
                                  "parse_mode" parse-mode
@@ -275,16 +287,18 @@
 (defn send-sticker
   ``Sends a sticker.
 
-  Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendsticker
   ``
-  [bot chat-id sticker &named disable-notification
+  [bot chat-id sticker &named message-thread-id
+                              disable-notification
                               protect-content
                               reply-to-message-id
                               allow-sending-without-reply
                               reply-markup]
   (h/request bot "sendSticker" {"chat_id" chat-id
+                                "message_thread_id" message-thread-id
                                 "sticker" sticker
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
@@ -382,11 +396,12 @@
 (defn send-video
   ``Sends a video.
 
-  Optional parameter keys are: :duration, :caption, :parse-mode, :caption-entities, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvideo
   ``
-  [bot chat-id video &named duration
+  [bot chat-id video &named message-thread-id
+                            duration
                             caption
                             parse-mode
                             caption-entities
@@ -397,6 +412,7 @@
                             allow-sending-without-reply
                             reply-markup]
   (h/request bot "sendVideo" {"chat_id" chat-id
+                              "message_thread_id" message-thread-id
                               "video" video
                               "duration" duration
                               "caption" caption
@@ -412,11 +428,12 @@
 (defn send-animation
   ``Sends an animation.
 
-  Optional parameter keys are: :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendanimation
   ``
-  [bot chat-id animation &named duration
+  [bot chat-id animation &named message-thread-id
+                                duration
                                 width
                                 height
                                 thumb
@@ -429,6 +446,7 @@
                                 allow-sending-without-reply
                                 reply-markup]
   (h/request bot "sendAnimation" {"chat_id" chat-id
+                                  "message_thread_id" message-thread-id
                                   "animation" animation
                                   "duration" duration
                                   "width" width
@@ -446,11 +464,12 @@
 (defn send-voice
   ``Sends a voice. (.ogg format only)
 
-  Optional parameter keys are: :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvoice
   ``
-  [bot chat-id voice &named caption
+  [bot chat-id voice &named message-thread-id
+                            caption
                             parse-mode
                             caption-entities
                             duration
@@ -460,6 +479,7 @@
                             allow-sending-without-reply
                             reply-markup]
   (h/request bot "sendVoice" {"chat_id" chat-id
+                              "message_thread_id" message-thread-id
                               "voice" voice
                               "caption" caption
                               "parse_mode" parse-mode
@@ -474,12 +494,13 @@
 (defn send-video-note
   ``Sends a video note.
 
-  Optional parameter keys are: :duration, :length, :thumb, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :duration, :length, :thumb, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
   https://core.telegram.org/bots/api#sendvideonote
   ``
-  [bot chat-id video-note &named duration
+  [bot chat-id video-note &named message-thread-id
+                                 duration
                                  length
                                  thumb
                                  disable-notification
@@ -488,6 +509,7 @@
                                  allow-sending-without-reply
                                  reply-markup]
   (h/request bot "sendVideoNote" {"chat_id" chat-id
+                                  "message_thread_id" message-thread-id
                                   "video_note" video-note
                                   "duration" duration
                                   "length" length
@@ -501,15 +523,17 @@
 (defn send-media-group
   ``Sends a media group of photos or videos.
 
-  Optional parameter keys are: :disable-notification, :reply-to-message-id, and :allow-sending-without-reply.
+  Optional parameter keys are: :message-thread-id, :disable-notification, :reply-to-message-id, and :allow-sending-without-reply.
 
   https://core.telegram.org/bots/api#sendmediagroup
   ``
-  [bot chat-id media &named disable-notification
+  [bot chat-id media &named message-thread-id
+                            disable-notification
                             protect-content
                             reply-to-message-id
                             allow-sending-without-reply]
   (h/request bot "sendMediaGroup" {"chat_id" chat-id
+                                   "message_thread_id" message-thread-id
                                    "media" media
                                    "disable_notification" disable-notification
                                    "protect_content" protect-content
@@ -519,11 +543,12 @@
 (defn send-location
   ``Sends a location.
 
-  Optional parameter keys are: :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendlocation
   ``
-  [bot chat-id latitude longitude &named horizontal-accuracy
+  [bot chat-id latitude longitude &named message-thread-id
+                                         horizontal-accuracy
                                          live-period
                                          heading
                                          proximity-alert-radius
@@ -533,6 +558,7 @@
                                          allow-sending-without-reply
                                          reply-markup]
   (h/request bot "sendLocation" {"chat_id" chat-id
+                                 "message_thread_id" message-thread-id
                                  "latitude" latitude
                                  "longitude" longitude
                                  "horizontal_accuracy" horizontal-accuracy
@@ -548,11 +574,12 @@
 (defn send-venue
   ``Sends a venue.
 
-  Optional parameter keys are: :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvenue
   ``
-  [bot chat-id latitude longitude title address &named foursquare-id
+  [bot chat-id latitude longitude title address &named message-thread-id
+                                                       foursquare-id
                                                        foursquare-type
                                                        google-place-id
                                                        google-place-type
@@ -562,6 +589,7 @@
                                                        allow-sending-without-reply
                                                        reply-markup]
   (h/request bot "sendVenue" {"chat_id" chat-id
+                              "message_thread_id" message-thread-id
                               "latitude" latitude
                               "longitude" longitude
                               "title" title
@@ -579,11 +607,12 @@
 (defn send-contact
   ``Sends a contact.
 
-  Optional parameter keys are: :last-name, :vcard, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :last-name, :vcard, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendcontact
   ``
-  [bot chat-id phone-number first-name &named last-name
+  [bot chat-id phone-number first-name &named message-thread-id
+                                              last-name
                                               vcard
                                               disable-notification
                                               protect-content
@@ -591,6 +620,7 @@
                                               allow-sending-without-reply
                                               reply-markup]
   (h/request bot "sendContact" {"chat_id" chat-id
+                                "message_thread_id" message-thread-id
                                 "phone_number" phone-number
                                 "first_name" first-name
                                 "last_name" last-name
@@ -604,11 +634,12 @@
 (defn send-poll
   ``Sends a poll.
 
-  Optional parameter keys are: :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpoll
   ``
-  [bot chat-id question poll-options &named is-anonymous
+  [bot chat-id question poll-options &named message-thread-id
+                                            is-anonymous
                                             type
                                             allows-multiple-answers
                                             correct-option-id
@@ -624,6 +655,7 @@
                                             allow-sending-without-reply
                                             reply-markup]
   (h/request bot "sendPoll" {"chat_id" chat-id
+                             "message_thread_id" message-thread-id
                              "question" question
                              "options" poll-options
                              "is_anonymous" is-anonymous
@@ -670,17 +702,19 @@
 
   `emoji` can be one of: 🎲, 🎯, 🏀, ⚽, 🎳, or 🎰. (default: 🎲)
 
-  Optional parameter keys are: :emoji, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :emoji, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddice
   ``
-  [bot chat-id &named emoji
+  [bot chat-id &named message-thread-id
+                      emoji
                       disable-notification
                       protect-content
                       reply-to-message-id
                       allow-sending-without-reply
                       reply-markup]
   (h/request bot "sendDice" {"chat_id" chat-id
+                             "message_thread_id" message-thread-id
                              "emoji" emoji
                              "disable_notification" disable-notification
                              "protect_content" protect-content
@@ -786,7 +820,7 @@
 (defn promote-chat-member
   ``Promotes a chat member.
 
-  Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, and :can-promote-members.
+  Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, :can-promote-members, and :can-manage-topics.
 
   https://core.telegram.org/bots/api#promotechatmember
   ``
@@ -800,7 +834,8 @@
                               can-invite-users
                               can-restrict-members
                               can-pin-messages
-                              can-promote-members]
+                              can-promote-members
+                              can-manage-topics]
   (h/request bot "promoteChatMember" {"chat_id" chat-id
                                       "user_id" user-id
                                       "is_anonymous" is-anonymous
@@ -813,7 +848,8 @@
                                       "can_invite_users" can-invite-users
                                       "can_restrict_members" can-restrict-members
                                       "can_pin_messages" can-pin-messages
-                                      "can_promote_members" can-promote-members}))
+                                      "can_promote_members" can-promote-members
+                                      "can_manage_topics" can-manage-topics}))
 
 (defn set-chat-administrator-custom-title
   ``Sets chat administrator's custom title.
@@ -1307,11 +1343,12 @@
 (defn send-invoice
   ``Sends an invoice.
 
-  Optional parameter keys are: :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendinvoice
   ``
-  [bot chat-id title description payload provider-token currency prices &named max-tip-amount
+  [bot chat-id title description payload provider-token currency prices &named message-thread-id
+                                                                               max-tip-amount
                                                                                suggested-tip-amounts
                                                                                start-parameter
                                                                                provider-data
@@ -1332,6 +1369,7 @@
                                                                                allow-sending-without-reply
                                                                                reply-markup]
   (h/request bot "sendInvoice" {"chat_id" chat-id
+                                "message_thread_id" message-thread-id
                                 "title" title
                                 "description" description
                                 "payload" payload
@@ -1397,16 +1435,18 @@
 (defn send-game
   ``Sends a game.
 
-  Optional parameter keys are: :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendgame
   ``
-  [bot chat-id game-short-name &named disable-notification
+  [bot chat-id game-short-name &named message-thread-id
+                                      disable-notification
                                       protect-content
                                       reply-to-message-id
                                       allow-sending-without-reply
                                       reply-markup]
   (h/request bot "sendGame" {"chat_id" chat-id
+                             "message_thread_id" message-thread-id
                              "game_short_name" game-short-name
                              "disable_notification" disable-notification
                              "protect_content" protect-content
@@ -1452,6 +1492,74 @@
                                       "chat_id" chat-id
                                       "message_id" message-id
                                       "inline_message_id" inline-message-id}))
+
+(defn create-forum-topic
+  ``Creates a topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#createforumtopic
+  ``
+  [bot chat-id name &named icon-color
+                           icon-custom-emoji-id]
+  (h/request bot "createForumTopic" {"chat_id" chat-id
+                                     "name" name
+                                     "icon_color" icon-color
+                                     "icon_custom_emoji_id" icon-custom-emoji-id}))
+
+(defn edit-forum-topic
+  ``Edits name and icon of a topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#editforumtopic
+  ``
+  [bot chat-id message-thread-id name icon-custom-emoji-id]
+  (h/request bot "editForumTopic" {"chat_id" chat-id
+                                   "message_thread_id" message-thread-id
+                                   "name" name
+                                   "icon_custom_emoji_id" icon-custom-emoji-id}))
+
+(defn close-forum-topic
+  ``Closes an open topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#closeforumtopic
+  ``
+  [bot chat-id message-thread-id]
+  (h/request bot "closeForumTopic" {"chat_id" chat-id
+                                    "message_thread_id" message-thread-id}))
+
+(defn reopen-forum-topic
+  ``Reopens a closed topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#reopenforumtopic
+  ``
+  [bot chat-id message-thread-id]
+  (h/request bot "reopenForumTopic" {"chat_id" chat-id
+                                     "message_thread_id" message-thread-id}))
+
+(defn delete-forum-topic
+  ``Deletes a forum topic along with all its messages in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#deleteforumtopic
+  ``
+  [bot chat-id message-thread-id]
+  (h/request bot "deleteForumTopic" {"chat_id" chat-id
+                                     "message_thread_id" message-thread-id}))
+
+(defn unpin-all-forum-topic-messages
+  ``Clears the list of pinned messages in a forum topic.
+
+  https://core.telegram.org/bots/api#unpinallforumtopicmessages
+  ``
+  [bot chat-id message-thread-id]
+  (h/request bot "unpinAllForumTopicMessages" {"chat_id" chat-id
+                                               "message_thread_id" message-thread-id}))
+
+(defn get-forum-topic-icon-stickers
+  ``Gets custom emoji stickers.
+
+  https://core.telegram.org/bots/api#getforumtopiciconstickers
+  ``
+  [bot]
+  (h/request bot "getForumTopicIconStickers" {}))
+
 
 ########################
 # bot specification and factory functions
@@ -1550,7 +1658,14 @@
     :answer-web-app-query answer-web-app-query
     :send-game send-game
     :set-game-score set-game-score
-    :get-game-highscores get-game-highscores})
+    :get-game-highscores get-game-highscores
+    :create-forum-topic create-forum-topic
+    :edit-forum-topic edit-forum-topic
+    :close-forum-topic close-forum-topic
+    :reopen-forum-topic reopen-forum-topic
+    :delete-forum-topic delete-forum-topic
+    :unpin-all-forum-topic-messages unpin-all-forum-topic-messages
+    :get-forum-topic-icon-stickers get-forum-topic-icon-stickers})
 
 # create a new bot with given params
 (defn new-bot
