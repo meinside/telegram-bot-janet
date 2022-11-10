@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.15] - 2022-11-10
+- Refactor codes.
+
 ## [0.0.14] - 2022-11-08
 - Change dependencies.
 
@@ -49,7 +52,8 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
-[0.0.13]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.13...v0.0.14
+[0.0.15]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.14...v0.0.15
+[0.0.14]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.13...v0.0.14
 [0.0.13]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.12...v0.0.13
 [0.0.12]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.11...v0.0.12
 [0.0.11]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.10...v0.0.11
