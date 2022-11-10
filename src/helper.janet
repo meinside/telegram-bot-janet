@@ -3,7 +3,7 @@
 # Helper Functions
 #
 # created on : 2022.09.07.
-# last update: 2022.09.20.
+# last update: 2022.11.10.
 
 (import spork/json)
 (import httprequest)
@@ -52,7 +52,7 @@
                         (string/format (if (string? v) "%s" "%j") v))
                       args) " ")))
 
-(defn- key->keyword
+(defn- key->kebabbed-keyword
   ``Converts json key string to kebab-cased keyword for convenience.
   ``
   [key]
@@ -60,26 +60,29 @@
        (string/replace-all "_" "-")
        keyword))
 
-(defn- dict->kebabbed-keys
-  ``Converts all struct/table keys to kebab-cased keywords for convenience.
+(defn- sanitize-keys
+  ``Sanitizes all struct/table keys in given collection `val` recursively.
   ``
-  [dict]
-  (var result @{})
-  (loop [[k v] :in (map (fn [(k v)]
-                          [(key->keyword k)
-                           (cond
-                             (or (tuple? v)
-                                 (array? v)) (map (fn [v]
-                                                    (if (or (struct? v)
-                                                            (table? v))
-                                                      (dict->kebabbed-keys v)
-                                                      v)) v) # recurse for nested struct/tables
-                             (or (struct? v)
-                                 (table? v)) (dict->kebabbed-keys v) # recurse for nested struct/tables
-                             v)])
-                        (pairs dict))]
-    (put result k v))
-  result)
+  [val]
+
+  (cond
+    # dictionary
+    (or (struct? val) (table? val))
+    (do
+      (var sanitized @{})
+      (loop [[k v] :in (map (fn [(k v)]
+                              [(key->kebabbed-keyword k) (sanitize-keys v)])
+                            (pairs val))]
+        (put sanitized k v))
+      # return sanitized value
+      sanitized)
+
+    # array
+    (or (tuple? val) (array? val))
+    (map sanitize-keys val)
+
+    # pass other types
+    val))
 
 (defn request
   ``Sends a HTTP request with given method name and params.
@@ -98,7 +101,7 @@
                                (httprequest/post url headers ps)
                                (httprequest/post<-json url headers ps))]
                   (cond
-                    (= (result :status) 200) (dict->kebabbed-keys (json/decode (result :body)))
+                    (= (result :status) 200) (sanitize-keys (json/decode (result :body)))
                     (do
                       (verbose bot "request error: " result)
                       (merge result {:ok false})))))
