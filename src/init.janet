@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2022.11.07.
+# last update: 2022.11.22.
 
 (import ./helper :as h)
 
@@ -1683,3 +1683,26 @@
       :verbose? (or verbose? false)}
     Bot))
 
+(defn split-text
+  ``Splits given `text` with new lines, into an array of strings.
+
+  Each string's length does not exceed `chars-limit`.
+
+  This function can be used to split long messages before sending.
+  ``
+  [text &opt chars-limit]
+
+  (default chars-limit 4096)
+
+  (let [lines (string/split "\n" text)]
+    (reduce (fn [acc line]
+              (if-let [lst (last acc)
+                       candidate (string/join [lst line] "\n")]
+                (if (<= (length candidate) chars-limit)
+                  (do
+                    (array/pop acc)
+                    (array/concat acc candidate))
+                  (array/concat acc line))
+                (array/concat acc line))
+              acc)
+            @[] lines)))
