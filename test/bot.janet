@@ -1,7 +1,7 @@
-# test/methods.janet
+# test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2022.11.07.
+# last update: 2022.11.22.
 #
 # Test with:
 #
@@ -355,3 +355,29 @@
 
   (comment --------))
 
+
+########################
+# test helper functions
+#
+(print "Testing helper functions")
+(def long-text-with-newlines
+  ``Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae nisi a metus varius dignissim ut ultricies neque. Nunc facilisis commodo augue, sit amet rutrum turpis blandit id. Sed ullamcorper lectus a vulputate egestas. Donec viverra lobortis fermentum. Phasellus finibus metus orci, bibendum convallis orci commodo gravida. Sed in vulputate mauris. Sed quis odio id est malesuada tincidunt vel id lectus. Nulla et eleifend quam. Aliquam ultricies molestie turpis, et porta erat iaculis non. Sed sagittis luctus egestas. In non ex id mi faucibus tempor.
+
+  Duis non velit eleifend nunc placerat pretium. Aenean pharetra, sem non porttitor dapibus, leo tortor convallis dui, sed sodales sem orci sed augue. Etiam vehicula ante sit amet iaculis gravida. Vestibulum dictum dapibus congue. Proin ut nisi lorem. Integer bibendum dui nisl, nec pulvinar eros hendrerit eget. Donec nec neque eget massa suscipit tincidunt. In sem massa, efficitur sit amet maximus eget, imperdiet sit amet massa. Donec at iaculis odio, quis dictum eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas faucibus sapien quis sagittis tempor.
+
+  Mauris egestas ipsum a nibh rhoncus imperdiet. Aliquam ultrices, purus et varius venenatis, lorem orci placerat lorem, quis laoreet elit metus a ligula. Sed varius magna sit amet massa dictum facilisis. Vivamus rutrum, erat in ultricies lacinia, lorem massa accumsan nibh, ac semper nisl sem id quam. Vivamus ante lectus, fringilla at massa at, congue gravida nisl. Sed volutpat dictum interdum. Phasellus ac condimentum nibh, ac tempus lectus. Mauris convallis nec urna in aliquam. Ut lobortis orci vitae diam ultricies, nec interdum odio laoreet. Mauris vehicula nunc et nisi tempor, eu porta augue vestibulum. Donec quis feugiat lectus, eget aliquet est. Mauris vel nunc vitae risus consectetur pharetra sed sed enim. Donec tristique purus et augue ultricies sagittis. Duis lobortis finibus ante, et sollicitudin arcu lobortis in.
+
+  Fusce tempor nunc et sem rutrum, eget laoreet est tempor. Proin sollicitudin rutrum nulla dignissim posuere. In dolor nisl, tincidunt nec turpis eget, gravida tempus quam. Aliquam vestibulum cursus commodo. Aenean elementum odio sed mollis efficitur. Proin imperdiet ullamcorper velit vitae venenatis. Nullam vitae tellus lectus. Donec fermentum nec nisi vitae tincidunt. Suspendisse ullamcorper eros id dui pharetra, vel sodales nunc vulputate.
+
+  Proin tempor massa at nunc pellentesque egestas. Quisque lacinia libero ut urna feugiat, sed varius tortor pellentesque. In id dolor varius, imperdiet felis ac, sollicitudin felis. Vestibulum sollicitudin pellentesque tortor, quis sollicitudin velit commodo non. In hac habitasse platea dictumst. Integer pellentesque diam finibus sapien mollis, nec dignissim tellus porta. Nam imperdiet feugiat elit, in convallis velit viverra sit amet. Nam finibus ipsum sollicitudin, interdum ligula eu, eleifend leo. Fusce id elit sed felis placerat ullamcorper. Aliquam vel nisl nec dolor ultricies dignissim vel sed felis. Fusce posuere quam et eros sollicitudin viverra. Duis ut felis venenatis eros ullamcorper rhoncus. Nulla tristique turpis ut turpis lobortis, ac accumsan turpis tincidunt.
+  ``)
+(do
+  # split text
+  (let [chars-limit 1000
+        splits (split-text long-text-with-newlines chars-limit)]
+    (assert splits)
+
+    (loop [splitted :in splits]
+      (assert (<= (length splitted) chars-limit))))
+
+  (comment --------))
