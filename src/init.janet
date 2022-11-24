@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2022.11.22.
+# last update: 2022.11.24.
 
 (import ./helper :as h)
 
@@ -23,10 +23,12 @@
 (defn delete-webhook
   ``Deletes webhook for polling messages.
 
+  Optional parameter keys are: :drop-pending-updates.
+
   https://core.telegram.org/bots/api#deletewebhook
   ``
-  [bot]
-  (h/request bot "deleteWebhook" {}))
+  [bot &named drop-pending-updates]
+  (h/request bot "deleteWebhook" {"drop_pending_updates" drop-pending-updates}))
 
 (defn get-me
   ``Fetches this bot's info.
