@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2022.11.24.
+# last update: 2023.01.03.
 
 (import ./helper :as h)
 
@@ -197,7 +197,7 @@
 (defn send-photo
   ``Sends a photo.
 
-  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :has-spoiler, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendphoto
   ``
@@ -205,6 +205,7 @@
                             caption
                             parse-mode
                             caption-entities
+                            has-spoiler
                             disable-notification
                             protect-content
                             reply-to-message-id
@@ -216,6 +217,7 @@
                               "caption" caption
                               "parse_mode" parse-mode
                               "caption_entities" caption-entities
+                              "has_spoiler" has-spoiler
                               "disable_notification" disable-notification
                               "protect_content" protect-content
                               "reply_to_message_id" reply-to-message-id
@@ -398,7 +400,7 @@
 (defn send-video
   ``Sends a video.
 
-  Optional parameter keys are: :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :has-spoiler, :supports-streaming, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvideo
   ``
@@ -407,6 +409,7 @@
                             caption
                             parse-mode
                             caption-entities
+                            has-spoiler
                             supports-streaming
                             disable-notification
                             protect-content
@@ -420,6 +423,7 @@
                               "caption" caption
                               "parse_mode" parse-mode
                               "caption_entities" caption-entities
+                              "has_spoiler" has-spoiler
                               "supports_streaming" supports-streaming
                               "disable_notification" disable-notification
                               "protect_content" protect-content
@@ -430,7 +434,7 @@
 (defn send-animation
   ``Sends an animation.
 
-  Optional parameter keys are: :message-thread-id, :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :duration, :width, :height, :thumb, :caption, :parse-mode, :caption-entities, :has-spoiler, :disable-notification, :reply-to-message-id, :allow-sending-without-reply, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendanimation
   ``
@@ -442,6 +446,7 @@
                                 caption
                                 parse-mode
                                 caption-entities
+                                has-spoiler
                                 disable-notification
                                 protect-content
                                 reply-to-message-id
@@ -457,6 +462,7 @@
                                   "caption" caption
                                   "parse_mode" parse-mode
                                   "caption_entities" caption-entities
+                                  "has_spoiler" has-spoiler
                                   "disable_notification" disable-notification
                                   "protect_content" protect-content
                                   "reply_to_message_id" reply-to-message-id
@@ -691,12 +697,15 @@
 (defn send-chat-action
   ``Sends a chat action.
 
+  Optional parameter keys are: :message-thread-id.
+
   `action` can be one of: :typing, :upload_photo, :record_video, :upload_video, :record_voice, :upload_voice, :upload_document, :choose_sticker, :find_location, :record_video_note, or :upload_video_note.
 
   https://core.telegram.org/bots/api#sendchataction
   ``
-  [bot chat-id action]
+  [bot chat-id action &named message-thread-id]
   (h/request bot "sendChatAction" {"chat_id" chat-id
+                                   "message_thread_id" message-thread-id
                                    "action" action}))
 
 (defn send-dice
@@ -1510,9 +1519,12 @@
 (defn edit-forum-topic
   ``Edits name and icon of a topic in a forum supergroup chat.
 
+  Optional parameter keys are: :name, and :icon-custom-emoji-id.
+
   https://core.telegram.org/bots/api#editforumtopic
   ``
-  [bot chat-id message-thread-id name icon-custom-emoji-id]
+  [bot chat-id message-thread-id &named name
+                                        icon-custom-emoji-id]
   (h/request bot "editForumTopic" {"chat_id" chat-id
                                    "message_thread_id" message-thread-id
                                    "name" name
@@ -1553,6 +1565,47 @@
   [bot chat-id message-thread-id]
   (h/request bot "unpinAllForumTopicMessages" {"chat_id" chat-id
                                                "message_thread_id" message-thread-id}))
+
+(defn edit-general-forum-topic
+  ``Edits the name of the 'General' topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#editgeneralforumtopic
+  ``
+  [bot chat-id name]
+  (h/request bot "editGeneralForumTopic" {"chat_id" chat-id
+                                          "name" name}))
+
+(defn close-general-forum-topic
+  ``Closes an open 'General' topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#closegeneralforumtopic
+  ``
+  [bot chat-id]
+  (h/request bot "closeGeneralForumTopic" {"chat_id" chat-id}))
+
+(defn reopen-general-forum-topic
+  ``Reopens a closed 'General' topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#reopengeneralforumtopic
+  ``
+  [bot chat-id]
+  (h/request bot "reopenGeneralForumTopic" {"chat_id" chat-id}))
+
+(defn hide-general-forum-topic
+  ``Hides the 'General' topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#hidegeneralforumtopic
+  ``
+  [bot chat-id]
+  (h/request bot "hideGeneralForumTopic" {"chat_id" chat-id}))
+
+(defn unhide-general-forum-topic
+  ``Unhides the 'General' topic in a forum supergroup chat.
+
+  https://core.telegram.org/bots/api#unhidegeneralforumtopic
+  ``
+  [bot chat-id]
+  (h/request bot "unhideGeneralForumTopic" {"chat_id" chat-id}))
 
 (defn get-forum-topic-icon-stickers
   ``Gets custom emoji stickers.
