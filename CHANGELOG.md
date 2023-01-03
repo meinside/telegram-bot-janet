@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.18] - 2023-01-03
+- Apply API changes(https://core.telegram.org/bots/api-changelog#december-30-2022).
+
 ## [0.0.17] - 2022-11-24
 - Edit `delete-webhook` function.
 
@@ -58,6 +61,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.18]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.17...v0.0.18
 [0.0.17]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.16...v0.0.17
 [0.0.16]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.15...v0.0.16
 [0.0.15]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.14...v0.0.15
