@@ -802,7 +802,7 @@
 (defn restrict-chat-member
   ``Restricts a chat member.
 
-  Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, :can-pin-messages, and :until-date.
+  Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, :can-pin-messages, :use-independent-chat-permissions, and :until-date.
 
   https://core.telegram.org/bots/api#chatpermissions
   https://core.telegram.org/bots/api#restrictchatmember
@@ -815,6 +815,7 @@
                               can-change-info
                               can-invite-users
                               can-pin-messages
+                              use-independent-chat-permissions
                               until-date]
   (h/request bot "restrictChatMember" {"chat_id" chat-id
                                        "user_id" user-id
@@ -826,6 +827,7 @@
                                                       "can_change_info" (or can-change-info false)
                                                       "can_invite_users" (or can-invite-users false)
                                                       "can_pin_messages" (or can-pin-messages false)}
+                                       "use_independent_chat_permissions" use-independent-chat-permissions
                                        "until_date" until-date}))
 
 (defn promote-chat-member
@@ -890,7 +892,7 @@
   (h/request bot "unbanChatSenderChat" {"chat_id" chat-id
                                         "sender_chat_id" sender-chat-id}))
 
-(defn set-chat-permission
+(defn set-chat-permissions
   ``Sets chat permissions.
 
   Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
@@ -904,16 +906,18 @@
                       can-add-web-page-previews
                       can-change-info
                       can-invite-users
-                      can-pin-messages]
-  (h/request bot "setChatPermission" {"chat_id" chat-id
-                                      "permissions" {"can_send_messages" (or can-send-messages false)
-                                                     "can_send_media_messages" (or can-send-media-messages false)
-                                                     "can_send_polls" (or can-send-polls false)
-                                                     "can_send_other_messages" (or can-send-other-messages false)
-                                                     "can_add_web_page_previews" (or can-add-web-page-previews false)
-                                                     "can_change_info" (or can-change-info false)
-                                                     "can_invite_users" (or can-invite-users false)
-                                                     "can_pin_messages" (or can-pin-messages false)}}))
+                      can-pin-messages
+                      use-independent-chat-permissions]
+  (h/request bot "setChatPermissions" {"chat_id" chat-id
+                                       "permissions" {"can_send_messages" (or can-send-messages false)
+                                                      "can_send_media_messages" (or can-send-media-messages false)
+                                                      "can_send_polls" (or can-send-polls false)
+                                                      "can_send_other_messages" (or can-send-other-messages false)
+                                                      "can_add_web_page_previews" (or can-add-web-page-previews false)
+                                                      "can_change_info" (or can-change-info false)
+                                                      "can_invite_users" (or can-invite-users false)
+                                                      "can_pin_messages" (or can-pin-messages false)}
+                                       "use_independent_chat_permissions" use-independent-chat-permissions}))
 
 (defn export-chat-invite-link
   ``Exports a chat invite link.
@@ -1671,7 +1675,7 @@
     :set-chat-administrator-custom-title set-chat-administrator-custom-title
     :ban-chat-sender-chat ban-chat-sender-chat
     :unban-chat-sender-chat unban-chat-sender-chat
-    :set-chat-permission set-chat-permission
+    :set-chat-permissions set-chat-permissions
     :export-chat-invite-link export-chat-invite-link
     :create-chat-invite-link create-chat-invite-link
     :edit-chat-invite-link edit-chat-invite-link

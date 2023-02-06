@@ -1,66 +1,71 @@
 # Changelog
 
+## [0.0.19] - 2023-02-06
+- Applied API changes(https://core.telegram.org/bots/api-changelog#february-3-2023).
+- Fixed typo in `set-chat-permissions` function name.
+
 ## [0.0.18] - 2023-01-03
-- Apply API changes(https://core.telegram.org/bots/api-changelog#december-30-2022).
+- Applied API changes(https://core.telegram.org/bots/api-changelog#december-30-2022).
 
 ## [0.0.17] - 2022-11-24
-- Edit `delete-webhook` function.
+- Edited `delete-webhook` function.
 
 ## [0.0.16] - 2022-11-22
-- Add `split-text` function.
+- Added `split-text` function.
 
 ## [0.0.15] - 2022-11-10
-- Refactor codes.
+- Refactored codes.
 
 ## [0.0.14] - 2022-11-08
-- Change dependencies.
+- Changed dependencies.
 
 ## [0.0.13] - 2022-11-07
-- Apply API changes(https://core.telegram.org/bots/api-changelog#november-5-2022).
+- Applied API changes(https://core.telegram.org/bots/api-changelog#november-5-2022).
 
 ## [0.0.12] - 2022-10-21
-- Fix `get-file` function
-- Fix `request` function to return :error string on error
-- Fix `poll-updates` function to log error messages
+- Fixed `get-file` function
+- Fixed `request` function to return :error string on error
+- Fixed `poll-updates` function to log error messages
 
 ## [0.0.11] - 2022-10-05
-- Fix `get-file` function.
-- Edit test.
+- Fixed `get-file` function.
+- Edited test.
 
 ## [0.0.10] - 2022-09-20
-- Remove unneeded functions and fix codes.
+- Removed unneeded functions and fix codes.
 
 ## [0.0.9] - 2022-09-20
-- Change URLs' format in function comments.
+- Changed URLs' format in function comments.
 
 ## [0.0.8] - 2022-09-17
-- Add prototype for bot.
-- Replace keyed parameters to named parameters.
+- Added prototype for bot.
+- Replaced keyed parameters to named parameters.
 
 ## [0.0.7] - 2022-09-17
-- Replace `os/sleep` with `ev/sleep`.
+- Replaced `os/sleep` with `ev/sleep`.
 
 ## [0.0.6] - 2022-09-16
-- Improve error handling and update README.md
+- Improved error handling and update README.md
 
 ## [0.0.5] - 2022-09-16
-- Fix bugs and add usages to README.md
+- Fixed bugs and add usages to README.md
 
 ## [0.0.4] - 2022-09-16
-- Fix minor bugs.
+- Fixed minor bugs.
 
 ## [0.0.3] - 2022-09-16
-- Fix bugs with polling updates.
+- Fixed bugs with polling updates.
 
 ## [0.0.2] - 2022-09-16
-- Remove aliases of `httprequest` module.
+- Removeed aliases of `httprequest` module.
 
 ## [0.0.1] - 2022-09-16
-- Fix things.
+- Fixed things.
 
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.19]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.18...v0.0.19
 [0.0.18]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.17...v0.0.18
 [0.0.17]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.16...v0.0.17
 [0.0.16]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.15...v0.0.16
