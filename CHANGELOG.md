@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.0.20] - 2023-03-10
+- Applied API changes(https://core.telegram.org/bots/api-changelog#march-9-2023).
+
 ## [0.0.19] - 2023-02-06
 - Applied API changes(https://core.telegram.org/bots/api-changelog#february-3-2023).
 - Fixed typo in `set-chat-permissions` function name.
@@ -65,6 +68,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.20]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.19...v0.0.20
 [0.0.19]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.18...v0.0.19
 [0.0.18]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.17...v0.0.18
 [0.0.17]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.16...v0.0.17
