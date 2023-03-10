@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2022.11.22.
+# last update: 2023.03.10.
 #
 # Test with:
 #
@@ -65,6 +65,18 @@
 
   # get bot commands
   (assert ((:get-my-commands bot) :ok))
+
+  # set bot description
+  (assert ((:set-my-description bot :description "bot for test") :ok))
+
+  # get bot description
+  (assert ((:get-my-description bot) :ok))
+
+  # set bot short description
+  (assert ((:set-my-short-description bot :short-description "test") :ok))
+
+  # get bot short description
+  (assert ((:get-my-short-description bot) :ok))
 
   # send a chat action,
   (assert ((:send-chat-action bot chat-id :typing) :ok))
@@ -199,7 +211,21 @@
 
   # TODO: delete-sticker-from-set
 
-  # TODO: set-sticker-set-thumb
+  # TODO: set-sticker-set-thumbnail
+
+  # TODO: set-custom-emoji-sticker-set-thumbnail
+
+  # TODO: set-custom-emoji-sticker-set-thumbnail
+
+  # TODO: set-sticker-set-title
+
+  # TODO: delete-sticker-set
+
+  # TODO: set-sticker-emoji-list
+
+  # TODO: set-sticker-keywords
+
+  # TODO: set-sticker-mask-position
 
   (comment --------))
 
