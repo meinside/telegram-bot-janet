@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2023.03.10.
+# last update: 2023.04.24.
 
 (import ./helper :as h)
 
@@ -1191,6 +1191,23 @@
   (h/request bot "deleteMyCommands" {"scope" scope
                                      "language_code" language-code}))
 
+(defn set-my-name
+  ``Sets this bot's name.
+
+  https://core.telegram.org/bots/api#setmyname
+  ``
+  [bot name &named language-code]
+  (h/request bot "setMyName" {"name" name
+                              "language_code" language-code}))
+
+(defn get-my-name
+  ``Gets this bot's name.
+
+  https://core.telegram.org/bots/api#getmyname
+  ``
+  [bot &named language-code]
+  (h/request bot "getMyName" {"language_code" language-code}))
+
 (defn set-my-description
   ``Sets this bot's description.
 
@@ -1785,6 +1802,8 @@
     :get-my-commands get-my-commands
     :set-my-commands set-my-commands
     :delete-my-commands delete-my-commands
+    :get-my-name get-my-name
+    :set-my-name set-my-name
     :set-my-description set-my-description
     :get-my-description get-my-description
     :set-my-short-description set-my-short-description
