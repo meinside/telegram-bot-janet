@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2023.03.10.
+# last update: 2023.04.24.
 #
 # Test with:
 #
@@ -65,6 +65,12 @@
 
   # get bot commands
   (assert ((:get-my-commands bot) :ok))
+
+  # set bot name
+  (assert ((:set-my-name bot "telegram test bot") :ok))
+
+  # get bot name
+  (assert ((:get-my-name bot) :ok))
 
   # set bot description
   (assert ((:set-my-description bot :description "bot for test") :ok))
