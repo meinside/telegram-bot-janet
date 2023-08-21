@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2023.04.24.
+# last update: 2023.08.21.
 
 (import ./helper :as h)
 
@@ -1143,6 +1143,14 @@
   [bot chat-id]
   (h/request bot "deleteChatStickerSet" {"chat_id" chat-id}))
 
+(defn get-forum-topic-icon-stickers
+  ``Gets custom emoji stickers.
+
+  https://core.telegram.org/bots/api#getforumtopiciconstickers
+  ``
+  [bot]
+  (h/request bot "getForumTopicIconStickers" {}))
+
 (defn answer-callback-query
   ``Answers a callback query.
 
@@ -1191,6 +1199,14 @@
   (h/request bot "deleteMyCommands" {"scope" scope
                                      "language_code" language-code}))
 
+(defn get-my-name
+  ``Gets this bot's name.
+
+  https://core.telegram.org/bots/api#getmyname
+  ``
+  [bot &named language-code]
+  (h/request bot "getMyName" {"language_code" language-code}))
+
 (defn set-my-name
   ``Sets this bot's name.
 
@@ -1199,14 +1215,6 @@
   [bot name &named language-code]
   (h/request bot "setMyName" {"name" name
                               "language_code" language-code}))
-
-(defn get-my-name
-  ``Gets this bot's name.
-
-  https://core.telegram.org/bots/api#getmyname
-  ``
-  [bot &named language-code]
-  (h/request bot "getMyName" {"language_code" language-code}))
 
 (defn set-my-description
   ``Sets this bot's description.
@@ -1708,13 +1716,13 @@
   [bot chat-id]
   (h/request bot "unhideGeneralForumTopic" {"chat_id" chat-id}))
 
-(defn get-forum-topic-icon-stickers
-  ``Gets custom emoji stickers.
+(defn unpin-all-general-forum-topic-messages
+  ``Clear all pinned messages in a general forum topic.
 
-  https://core.telegram.org/bots/api#getforumtopiciconstickers
+  https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
   ``
-  [bot]
-  (h/request bot "getForumTopicIconStickers" {}))
+  [bot chat-id]
+  (h/request bot "unpinAllGeneralForumTopicMessages" {"chat_id" chat-id}))
 
 
 ########################
@@ -1798,6 +1806,7 @@
     :get-chat-member get-chat-member
     :set-chat-sticker-set set-chat-sticker-set
     :delete-chat-sticker-set delete-chat-sticker-set
+    :get-forum-topic-icon-stickers get-forum-topic-icon-stickers
     :answer-callback-query answer-callback-query
     :get-my-commands get-my-commands
     :set-my-commands set-my-commands
@@ -1833,7 +1842,12 @@
     :reopen-forum-topic reopen-forum-topic
     :delete-forum-topic delete-forum-topic
     :unpin-all-forum-topic-messages unpin-all-forum-topic-messages
-    :get-forum-topic-icon-stickers get-forum-topic-icon-stickers})
+    :edit-general-forum-topic edit-general-forum-topic
+    :close-general-forum-topic close-general-forum-topic
+    :reopen-general-forum-topic reopen-general-forum-topic
+    :hide-general-forum-topic hide-general-forum-topic
+    :unhide-general-forum-topic unhide-general-forum-topic
+    :unpin-all-general-forum-topic-messages unpin-all-general-forum-topic-messages})
 
 # create a new bot with given params
 (defn new-bot
