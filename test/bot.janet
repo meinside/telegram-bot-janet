@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2023.04.24.
+# last update: 2023.08.21.
 #
 # Test with:
 #
@@ -233,6 +233,12 @@
 
   # TODO: set-sticker-mask-position
 
+  # TODO: set-chat-sticker-set
+
+  # TODO: delete-chat-sticker-set
+
+  # TODO: get-forum-topic-icon-stickers
+
   (comment --------))
 
 
@@ -329,10 +335,6 @@
 
   # TODO: get-chat-member
 
-  # TODO: set-chat-sticker-set
-
-  # TODO: delete-chat-sticker-set
-
   # TODO: set-chat-menu-button
 
   # TODO: get-chat-menu-button
@@ -353,7 +355,17 @@
 
   # TODO: unpin-all-forum-topic-messages
 
-  # TODO: get-forum-topic-icon-stickers
+  # TODO: edit-general-form-topic
+
+  # TODO: close-general-forum-topic
+
+  # TODO: reopen-general-forum-topic
+
+  # TODO: hide-general-forum-topic
+
+  # TODO: unhide-general-forum-topic
+
+  # TODO: unpin-all-general-forum-topic-messages
 
   (comment --------))
 
