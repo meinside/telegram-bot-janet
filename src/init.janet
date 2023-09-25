@@ -877,7 +877,7 @@
 (defn promote-chat-member
   ``Promotes a chat member.
 
-  Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, :can-promote-members, and :can-manage-topics.
+  Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-post-stories, :can-edit-stories, :can-delete-stories, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, :can-promote-members, and :can-manage-topics.
 
   https://core.telegram.org/bots/api#promotechatmember
   ``
@@ -887,6 +887,9 @@
                               can-post-messages
                               can-edit-messages
                               can-delete-messages
+                              can-post-stories
+                              can-edit-stories
+                              can-delete-stories
                               can-manage-video-chats
                               can-invite-users
                               can-restrict-members
@@ -901,6 +904,9 @@
                                       "can_post_messages" can-post-messages
                                       "can_edit_messages" can-edit-messages
                                       "can_delete_messages" can-delete-messages
+                                      "can_post_stories" can-post-stories
+                                      "can_edit_stories" can-edit-stories
+                                      "can_delete_stories" can-delete-stories
                                       "can_manage_video_chats" can-manage-video-chats
                                       "can_invite_users" can-invite-users
                                       "can_restrict_members" can-restrict-members
