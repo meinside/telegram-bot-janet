@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2023.08.21.
+# last update: 2023.11.10.
 #
 # Test with:
 #
@@ -311,7 +311,9 @@
 
   # TODO: set-chat-title
 
-  # TODO: set-chat-description
+  # set-chat-description
+  (let [desc (:set-chat-description bot chat-id (string/format "(telegram-bot-janet) chat_id: %s" chat-id))]
+    (assert (desc :ok)))
 
   # TODO: pin-chat-message
 
