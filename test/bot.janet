@@ -67,19 +67,19 @@
   (assert ((:get-my-commands bot) :ok))
 
   # set bot name
-  (assert ((:set-my-name bot "telegram test bot") :ok))
+  (assert ((:set-my-name bot "telegram-bot-janet test bot") :ok))
 
   # get bot name
   (assert ((:get-my-name bot) :ok))
 
   # set bot description
-  (assert ((:set-my-description bot :description "bot for test") :ok))
+  (assert ((:set-my-description bot :description "A bot for testing library: telegram-bot-janet") :ok))
 
   # get bot description
   (assert ((:get-my-description bot) :ok))
 
   # set bot short description
-  (assert ((:set-my-short-description bot :short-description "test") :ok))
+  (assert ((:set-my-short-description bot :short-description "telegram-bot-janet") :ok))
 
   # get bot short description
   (assert ((:get-my-short-description bot) :ok))
@@ -312,7 +312,7 @@
   # TODO: set-chat-title
 
   # set-chat-description
-  (let [desc (:set-chat-description bot chat-id (string/format "(telegram-bot-janet) chat_id: %s" chat-id))]
+  (let [desc (:set-chat-description bot chat-id (string/format "[telegram-bot-janet] chat_id: %s (last update: %d)" chat-id (os/time)))]
     (assert (desc :ok)))
 
   # TODO: pin-chat-message
