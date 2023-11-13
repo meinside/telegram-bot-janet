@@ -67,7 +67,7 @@
   (assert ((:get-my-commands bot) :ok))
 
   # set bot name
-  (assert ((:set-my-name bot "telegram-bot-janet test bot") :ok))
+  (assert ((:set-my-name bot "telegram api test bot") :ok))
 
   # get bot name
   (assert ((:get-my-name bot) :ok))
