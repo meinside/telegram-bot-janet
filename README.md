@@ -50,7 +50,7 @@ In your `project.janet` file, add:
                 (let [chat-id (get-in update [:message :chat :id])
                       text (get-in update [:message :text])
                       original-message-id (get-in update [:message :message-id])
-                      response (:send-message bot chat-id text :reply-to-message-id original-message-id)]
+                      response (:send-message bot chat-id text :reply-parameters {"message_id" original-message-id})]
                   (print (string/format "response of send-message: %m" response))
 
                   (if (= text "/exit")
