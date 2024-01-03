@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2023.11.10.
+# last update: 2024.01.03.
 #
 # Test with:
 #
@@ -102,6 +102,10 @@
     # and forward it
     (assert ((:forward-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok)))
 
+  # TODO: copy-messages
+
+  # TODO: forward-messages
+
   # send a photo,
   (let [photo-file (r/filepath->param filepath-for-test)
         sent-photo (:send-photo bot chat-id photo-file)]
@@ -130,6 +134,8 @@
 
     # delete a message,
     (assert ((:delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
+
+  # TODO: delete-messages
 
   # TODO: send-sticker
 
@@ -168,6 +174,8 @@
   # TODO: edit-message-live-location
 
   # TODO: stop-message-live-location
+
+  # TODO: set-message-reaction
 
   # fetch messages
   (assert ((:get-updates bot) :ok))
@@ -326,6 +334,8 @@
     (assert (chat :ok)))
 
   # TODO: get-user-profile-photos
+
+  # TODO: get-user-chat-boosts
 
   # get-chat-administrators
   (let [admins (:get-chat-administrators bot chat-id)]
