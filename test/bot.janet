@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.01.03.
+# last update: 2024.04.01.
 #
 # Test with:
 #
@@ -66,11 +66,15 @@
   # get bot commands
   (assert ((:get-my-commands bot) :ok))
 
-  # set bot name
-  (assert ((:set-my-name bot "telegram api test bot") :ok))
-
   # get bot name
-  (assert ((:get-my-name bot) :ok))
+  (let [my-name (:get-my-name bot)]
+    (assert (my-name :ok))
+
+    # if bot name can be changed,
+    (if (not= "telegram api test bot" (get-in my-name [:result :name]))
+      # set bot name
+      (assert ((:set-my-name bot "telegram api test bot") :ok))
+      nil))
 
   # set bot description
   (assert ((:set-my-description bot :description "A bot for testing library: telegram-bot-janet") :ok))
@@ -225,6 +229,8 @@
 
   # TODO: delete-sticker-from-set
 
+  # TODO: replace-sticker-in-set
+
   # TODO: set-sticker-set-thumbnail
 
   # TODO: set-custom-emoji-sticker-set-thumbnail
@@ -336,6 +342,8 @@
   # TODO: get-user-profile-photos
 
   # TODO: get-user-chat-boosts
+
+  # TODO: get-business-connection
 
   # get-chat-administrators
   (let [admins (:get-chat-administrators bot chat-id)]
