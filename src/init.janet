@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.04.01.
+# last update: 2024.05.07.
 
 (import ./helper :as h)
 
@@ -731,12 +731,14 @@
 (defn send-poll
   ``Sends a poll.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :question-parse-mode, :question-entities, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpoll
   ``
   [bot chat-id question poll-options &named business-connection-id
                                             message-thread-id
+                                            question-parse-mode
+                                            question-entities
                                             is-anonymous
                                             type
                                             allows-multiple-answers
@@ -756,6 +758,8 @@
                              "message_thread_id" message-thread-id
                              "question" question
                              "options" poll-options
+                             "question_parse_mode" question-parse-mode
+                             "question_entities"  question-entities
                              "is_anonymous" is-anonymous
                              "type" type
                              "allows_multiple_answers" allows-multiple-answers
@@ -1476,13 +1480,14 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
+  Optional parameter keys are: :live-period, :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagelivelocation
   ``
   [bot latitude longitude &named chat-id
                                  message-id
                                  inline-message-id
+                                 live-period
                                  horizontal-accuracy
                                  heading
                                  proximity-alert-radius
@@ -1492,6 +1497,7 @@
                                             "inline_message_id" inline-message-id
                                             "latitude" latitude
                                             "longitude" longitude
+                                            "live_period" live-period
                                             "horizontal_accuracy" horizontal-accuracy
                                             "heading" heading
                                             "proximity_alert_radius" proximity-alert-radius

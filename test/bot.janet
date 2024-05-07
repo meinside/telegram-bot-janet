@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.04.01.
+# last update: 2024.05.07.
 #
 # Test with:
 #
@@ -162,7 +162,7 @@
   (assert ((:send-contact bot chat-id "911" "Nine-One-One") :ok))
 
   # send a poll,
-  (let [sent-poll (:send-poll bot chat-id "The earth is...?" ["flat" "round" "nothing"])]
+  (let [sent-poll (:send-poll bot chat-id "The earth is...?" [{:text "flat"} {:text "round"} {:text "nothing"}])]
     (assert (sent-poll :ok))
 
     # stop a poll,
