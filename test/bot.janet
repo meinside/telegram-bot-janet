@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.05.29.
+# last update: 2024.06.20.
 #
 # Test with:
 #
@@ -280,6 +280,8 @@
   # TODO: answer-shipping-query
 
   # TODO: answer-pre-checkout-query
+
+  # TODO: get-star-transactions
 
   # TODO: refund-star-payment
 
