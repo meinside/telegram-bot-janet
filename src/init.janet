@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.05.29.
+# last update: 2024.06.20.
 
 (import ./helper :as h)
 
@@ -814,12 +814,14 @@
 (defn stop-poll
   ``Stops a poll.
 
-  Optional parameter keys are: :reply-markup.
+  Optional parameter keys are: :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#stoppoll
   ``
-  [bot chat-id message-id &named reply-markup]
-  (h/request bot "stopPoll" {"chat_id" chat-id
+  [bot chat-id message-id &named business-connection-id
+                                 reply-markup]
+  (h/request bot "stopPoll" {"business_connection_id" business-connection-id
+                             "chat_id" chat-id
                              "message_id" message-id
                              "reply_markup" reply-markup}))
 
@@ -1429,11 +1431,12 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :parse-mode, :entities, :link-preview-options, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :parse-mode, :entities, :link-preview-options, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagetext
   ``
-  [bot text &named chat-id
+  [bot text &named business-connection-id
+                   chat-id
                    message-id
                    inline-message-id
                    parse-mode
@@ -1441,6 +1444,7 @@
                    link-preview-options
                    reply-markup]
   (h/request bot "editMessageText" {"text" text
+                                    "business_connection_id" business-connection-id
                                     "chat_id" chat-id
                                     "message_id" message-id
                                     "inline_message_id" inline-message-id
@@ -1455,11 +1459,12 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :parse-mode, :caption-entities, :show-caption-above-media, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :parse-mode, :caption-entities, :show-caption-above-media, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagecaption
   ``
-  [bot caption &named chat-id
+  [bot caption &named business-connection-id
+                      chat-id
                       message-id
                       inline-message-id
                       parse-mode
@@ -1467,6 +1472,7 @@
                       show-caption-above-media
                       reply-markup]
   (h/request bot "editMessageCaption" {"caption" caption
+                                       "business_connection_id" business-connection-id
                                        "chat_id" chat-id
                                        "message_id" message-id
                                        "inline_message_id" inline-message-id
@@ -1481,15 +1487,17 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :reply-markup.
+  Optional parameter keys are: :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagemedia
   ``
-  [bot media &named chat-id
+  [bot media &named business-connection-id
+                    chat-id
                     message-id
                     inline-message-id
                     reply-markup]
   (h/request bot "editMessageMedia" {"media" media
+                                     "business_connection_id" business-connection-id
                                      "chat_id" chat-id
                                      "message_id" message-id
                                      "inline_message_id" inline-message-id
@@ -1501,15 +1509,17 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :reply-markup.
+  Optional parameter keys are: :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagereplymarkup
   ``
-  [bot &named chat-id
+  [bot &named business-connection-id
+              chat-id
               message-id
               inline-message-id
               reply-markup]
-  (h/request bot "editMessageReplyMarkup" {"chat_id" chat-id
+  (h/request bot "editMessageReplyMarkup" {"business_connection_id" business-connection-id
+                                           "chat_id" chat-id
                                            "message_id" message-id
                                            "inline_message_id" inline-message-id
                                            "reply_markup" reply-markup}))
@@ -1520,11 +1530,12 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :live-period, :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :live-period, :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagelivelocation
   ``
-  [bot latitude longitude &named chat-id
+  [bot latitude longitude &named business-connection-id
+                                 chat-id
                                  message-id
                                  inline-message-id
                                  live-period
@@ -1532,7 +1543,8 @@
                                  heading
                                  proximity-alert-radius
                                  reply-markup]
-  (h/request bot "editMessageLiveLocation" {"chat_id" chat-id
+  (h/request bot "editMessageLiveLocation" {"business_connection_id" business-connection-id
+                                            "chat_id" chat-id
                                             "message_id" message-id
                                             "inline_message_id" inline-message-id
                                             "latitude" latitude
@@ -1549,15 +1561,17 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :reply-markup.
+  Optional parameter keys are: :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#stopmessagelivelocation
   ``
-  [bot &named chat-id
+  [bot &named business-connection-id
+              chat-id
               message-id
               inline-message-id
               reply-markup]
-  (h/request bot "stopMessageLiveLocation" {"chat_id" chat-id
+  (h/request bot "stopMessageLiveLocation" {"business_connection_id" business-connection-id
+                                            "chat_id" chat-id
                                             "message_id" message-id
                                             "inline_message_id" inline-message-id
                                             "reply_markup" reply-markup}))
@@ -1682,6 +1696,18 @@
   (h/request bot "answerPreCheckoutQuery" {"pre_checkout_query_id" pre-checkout-query-id
                                            "ok" ok
                                            "error_message" error-message}))
+
+(defn get-star-transactions
+  ``Get star transactions.
+
+  Optional parameter keys are: :offset, and :limit.
+
+  https://core.telegram.org/bots/api#getstartransactions
+  ``
+  [bot &named offset
+              limit]
+  (h/request bot "getStarTransactions" {"offset" offset
+                                        "limit" limit}))
 
 (defn refund-star-payment
   ``Refunds a successful payment in Telegram Stars.
@@ -1990,6 +2016,7 @@
     :send-invoice send-invoice
     :answer-shipping-query answer-shipping-query
     :answer-pre-checkout-query answer-pre-checkout-query
+    :get-star-transactions get-star-transactions
     :refund-star-payment refund-star-payment
     :answer-web-app-query answer-web-app-query
     :send-game send-game
