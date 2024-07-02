@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.06.20.
+# last update: 2024.07.02.
 #
 # Test with:
 #
@@ -150,6 +150,8 @@
   # TODO: send-voice
 
   # TODO: send-video-note
+
+  # TODO: send-paid-media
 
   # TODO: send-media-group
 
