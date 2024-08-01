@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.07.02.
+# last update: 2024.08.01.
 
 (import ./helper :as h)
 
@@ -1206,22 +1206,28 @@
 (defn pin-chat-message
   ``Pins a chat message.
 
-  Optional parameter keys are: :disable-notification.
+  Optional parameter keys are: :business-connection-id, and :disable-notification.
 
   https://core.telegram.org/bots/api#pinchatmessage
   ``
-  [bot chat-id message-id &named disable-notification]
-  (h/request bot "pinChatMessage" {"chat_id" chat-id
+  [bot chat-id message-id &named business-connection-id
+                                 disable-notification]
+  (h/request bot "pinChatMessage" {"business_connection_id" business-connection-id
+                                   "chat_id" chat-id
                                    "message_id" message-id
                                    "disable_notification" disable-notification}))
 
 (defn unpin-chat-message
   ``Unpins a chat message.
 
+  Optional parameter keys are: :business-connection-id, and :message-id.
+
   https://core.telegram.org/bots/api#unpinchatmessage
   ``
-  [bot chat-id &named message-id]
-  (h/request bot "unpinChatMessage" {"chat_id" chat-id
+  [bot chat-id &named business-connection-id
+                      message-id]
+  (h/request bot "unpinChatMessage" {"business_connection_id" business-connection-id
+                                     "chat_id" chat-id
                                      "message_id" message-id}))
 
 (defn unpin-all-chat-messages
