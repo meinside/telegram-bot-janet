@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.07.02.
+# last update: 2024.08.16.
 #
 # Test with:
 #
@@ -318,6 +318,10 @@
   # TODO: create-chat-invite-link
 
   # TODO: edit-chat-invite-link
+
+  # TODO: create-chat-subscription-invite-link
+
+  # TODO: edit-chat-subscription-invite-link
 
   # TODO: revoke-chat-invite-link
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.31 - 2024-08-16
+- Applied API changes(https://core.telegram.org/bots/api-changelog#august-14-2024).
+
 ## [0.0.30] - 2024-08-01
 - Applied API changes(https://core.telegram.org/bots/api-changelog#july-31-2024).
 
@@ -98,6 +101,7 @@
 ## [0.0.0] - 2022-09-15
 - Created this project.
 
+[0.0.31]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.30...v0.0.31
 [0.0.30]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.29...v0.0.30
 [0.0.29]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.28...v0.0.29
 [0.0.28]: https://github.com/meinside/telegram-bot-janet/compare/v0.0.27...v0.0.28

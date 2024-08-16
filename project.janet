@@ -1,7 +1,7 @@
 (declare-project
   :name "telegram-bot-janet"
   :description ```Telegram Bot API Wrapper for Janet Language ```
-  :version "0.0.30"
+  :version "0.0.31"
   :dependencies ["https://github.com/janet-lang/spork.git"
                  "https://github.com/meinside/httprequest-janet"])
 
