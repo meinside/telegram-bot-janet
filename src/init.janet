@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.08.16.
+# last update: 2024.09.09.
 
 (import ./helper :as h)
 
@@ -646,11 +646,12 @@
 (defn send-paid-media
   ``Sends a paid media to channel chats.
 
-  Optional parameter keys are: :business-connection-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :payload, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpaidmedia
   ``
   [bot chat-id star-count media &named business-connection-id
+                                       payload
                                        caption
                                        parse-mode
                                        caption-entities
@@ -663,6 +664,7 @@
                                   "chat_id" chat-id
                                   "star_count" star-count
                                   "media" media
+                                  "payload" payload
                                   "caption" caption
                                   "parse_mode" parse-mode
                                   "caption_entities" caption-entities
