@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.09.09.
+# last update: 2024.11.06.
 
 (import ./helper :as h)
 
@@ -123,7 +123,7 @@
 (defn send-message
   ``Sends a message.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :parse-mode, :entities, :link-preview-options, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :parse-mode, :entities, :link-preview-options, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendmessage
   ``
@@ -134,6 +134,7 @@
                            link-preview-options
                            disable-notification
                            protect-content
+                           allow-paid-broadcast
                            message-effect-id
                            reply-parameters
                            reply-markup]
@@ -146,6 +147,7 @@
                                 "link_preview_options" link-preview-options
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
+                                "allow_paid_broadcast" allow-paid-broadcast
                                 "message_effect_id" message-effect-id
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
@@ -187,7 +189,7 @@
 (defn copy-message
   ``Copies a message.
 
-  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :allow-paid-broadcast, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#copymessage
   ``
@@ -198,6 +200,7 @@
                                               show-caption-above-media
                                               disable-notification
                                               protect-content
+                                              allow-paid-broadcast
                                               reply-parameters
                                               reply-markup]
   (h/request bot "copyMessage" {"chat_id" chat-id
@@ -210,6 +213,7 @@
                                 "show_caption_above_media" show-caption-above-media
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
+                                "allow_paid_broadcast" allow-paid-broadcast
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
 
@@ -235,7 +239,7 @@
 (defn send-photo
   ``Sends a photo.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendphoto
   ``
@@ -248,6 +252,7 @@
                             has-spoiler
                             disable-notification
                             protect-content
+                            allow-paid-broadcast
                             message-effect-id
                             reply-parameters
                             reply-markup]
@@ -262,6 +267,7 @@
                               "has_spoiler" has-spoiler
                               "disable_notification" disable-notification
                               "protect_content" protect-content
+                              "allow_paid_broadcast" allow-paid-broadcast
                               "message_effect_id" message-effect-id
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
@@ -269,7 +275,7 @@
 (defn send-audio
   ``Sends an audio file.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendaudio
   ``
@@ -283,6 +289,7 @@
                             title
                             disable-notification
                             protect-content
+                            allow-paid-broadcast
                             message-effect-id
                             reply-parameters
                             reply-markup]
@@ -298,6 +305,7 @@
                               "title" title
                               "disable_notification" disable-notification
                               "protect_content" protect-content
+                              "allow_paid_broadcast" allow-paid-broadcast
                               "message_effect_id" message-effect-id
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
@@ -305,7 +313,7 @@
 (defn send-document
   ``Sends a document file.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddocument
   ``
@@ -317,6 +325,7 @@
                                disable-content-type-detection
                                disable-notification
                                protect-content
+                               allow-paid-broadcast
                                message-effect-id
                                reply-parameters
                                reply-markup]
@@ -330,6 +339,7 @@
                                  "disable_content_type_detection" disable-content-type-detection
                                  "disable_notification" disable-notification
                                  "protect_content" protect-content
+                                 "allow_paid_broadcast" allow-paid-broadcast
                                  "message_effect_id" message-effect-id
                                  "reply_parameters" reply-parameters
                                  "reply_markup" reply-markup}))
@@ -337,7 +347,7 @@
 (defn send-sticker
   ``Sends a sticker.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendsticker
   ``
@@ -346,6 +356,7 @@
                               emoji
                               disable-notification
                               protect-content
+                              allow-paid-broadcast
                               message-effect-id
                               reply-parameters
                               reply-markup]
@@ -356,6 +367,7 @@
                                 "sticker" sticker
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
+                                "allow_paid_broadcast" allow-paid-broadcast
                                 "message_effect_id" message-effect-id
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
@@ -503,7 +515,7 @@
 (defn send-video
   ``Sends a video.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :supports-streaming, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :supports-streaming, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvideo
   ``
@@ -518,6 +530,7 @@
                             supports-streaming
                             disable-notification
                             protect-content
+                            allow-paid-broadcast
                             message-effect-id
                             reply-parameters
                             reply-markup]
@@ -534,6 +547,7 @@
                               "supports_streaming" supports-streaming
                               "disable_notification" disable-notification
                               "protect_content" protect-content
+                              "allow_paid_broadcast" allow-paid-broadcast
                               "message_effect_id" message-effect-id
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
@@ -541,7 +555,7 @@
 (defn send-animation
   ``Sends an animation.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :width, :height, :thumbnail, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :width, :height, :thumbnail, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendanimation
   ``
@@ -558,6 +572,7 @@
                                 has-spoiler
                                 disable-notification
                                 protect-content
+                                allow-paid-broadcast
                                 message-effect-id
                                 reply-parameters
                                 reply-markup]
@@ -576,6 +591,7 @@
                                   "has_spoiler" has-spoiler
                                   "disable_notification" disable-notification
                                   "protect_content" protect-content
+                                  "allow_paid_broadcast" allow-paid-broadcast
                                   "message_effect_id" message-effect-id
                                   "reply_parameters" reply-parameters
                                   "reply_markup" reply-markup}))
@@ -583,7 +599,7 @@
 (defn send-voice
   ``Sends a voice. (.ogg format only)
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvoice
   ``
@@ -595,6 +611,7 @@
                             duration
                             disable-notification
                             protect-content
+                            allow-paid-broadcast
                             message-effect-id
                             reply-parameters
                             reply-markup]
@@ -608,6 +625,7 @@
                               "duration" duration
                               "disable_notification" disable-notification
                               "protect_content" protect-content
+                              "allow_paid_broadcast" allow-paid-broadcast
                               "message_effect_id" message-effect-id
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
@@ -615,7 +633,7 @@
 (defn send-video-note
   ``Sends a video note.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :length, :thumbnail, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :length, :thumbnail, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
   https://core.telegram.org/bots/api#sendvideonote
@@ -627,6 +645,7 @@
                                  thumbnail
                                  disable-notification
                                  protect-content
+                                 allow-paid-broadcast
                                  message-effect-id
                                  reply-parameters
                                  reply-markup]
@@ -639,6 +658,7 @@
                                   "thumbnail" thumbnail
                                   "disable_notification" disable-notification
                                   "protect_content" protect-content
+                                  "allow_paid_broadcast" allow-paid-broadcast
                                   "message_effect_id" message-effect-id
                                   "reply_parameters" reply-parameters
                                   "reply_markup" reply-markup}))
@@ -646,7 +666,7 @@
 (defn send-paid-media
   ``Sends a paid media to channel chats.
 
-  Optional parameter keys are: :business-connection-id, :payload, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :payload, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :allow-paid-broadcast, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpaidmedia
   ``
@@ -658,6 +678,7 @@
                                        show-caption-above-media
                                        disable-notification
                                        protect-content
+                                       allow-paid-broadcast
                                        reply-parameters
                                        reply-markup]
   (h/request bot "sendPaidMedia" {"business_connection_id" business-connection-id
@@ -671,13 +692,14 @@
                                   "show_caption_above_media" show-caption-above-media
                                   "disable_notification" disable-notification
                                   "protect_content" protect-content
+                                  "allow_paid_broadcast" allow-paid-broadcast
                                   "reply_parameters" reply-parameters
                                   "reply_markup" reply-markup}))
 
 (defn send-media-group
   ``Sends a media group of photos or videos.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :message-effect-id, and :reply-parameters.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, and :reply-parameters.
 
   https://core.telegram.org/bots/api#sendmediagroup
   ``
@@ -685,6 +707,7 @@
                             message-thread-id
                             disable-notification
                             protect-content
+                            allow-paid-broadcast
                             message-effect-id
                             reply-parameters]
   (h/request bot "sendMediaGroup" {"business_connection_id" business-connection-id
@@ -693,13 +716,14 @@
                                    "media" media
                                    "disable_notification" disable-notification
                                    "protect_content" protect-content
+                                   "allow_paid_broadcast" allow-paid-broadcast
                                    "message_effect_id" message-effect-id
                                    "reply_parameters" reply-parameters}))
 
 (defn send-location
   ``Sends a location.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendlocation
   ``
@@ -711,6 +735,7 @@
                                          proximity-alert-radius
                                          disable-notification
                                          protect-content
+                                         allow-paid-broadcast
                                          message-effect-id
                                          reply-parameters
                                          reply-markup]
@@ -725,6 +750,7 @@
                                  "proximity_alert_radius" proximity-alert-radius
                                  "disable_notification" disable-notification
                                  "protect_content" protect-content
+                                 "allow_paid_broadcast" allow-paid-broadcast
                                  "message_effect_id" message-effect-id
                                  "reply_parameters" reply-parameters
                                  "reply_markup" reply-markup}))
@@ -732,7 +758,7 @@
 (defn send-venue
   ``Sends a venue.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvenue
   ``
@@ -744,6 +770,7 @@
                                                        google-place-type
                                                        disable-notification
                                                        protect-content
+                                                       allow-paid-broadcast
                                                        message-effect-id
                                                        reply-parameters
                                                        reply-markup]
@@ -760,6 +787,7 @@
                               "google_place_type" google-place-type
                               "disable_notification" disable-notification
                               "protect_content" protect-content
+                              "allow_paid_broadcast" allow-paid-broadcast
                               "message_effect_id" message-effect-id
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
@@ -767,7 +795,7 @@
 (defn send-contact
   ``Sends a contact.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :last-name, :vcard, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :last-name, :vcard, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendcontact
   ``
@@ -777,6 +805,7 @@
                                               vcard
                                               disable-notification
                                               protect-content
+                                              allow-paid-broadcast
                                               message-effect-id
                                               reply-parameters
                                               reply-markup]
@@ -789,6 +818,7 @@
                                 "vcard" vcard
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
+                                "allow_paid_broadcast" allow-paid-broadcast
                                 "message_effect_id" message-effect-id
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
@@ -796,7 +826,7 @@
 (defn send-poll
   ``Sends a poll.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :question-parse-mode, :question-entities, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :question-parse-mode, :question-entities, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpoll
   ``
@@ -816,6 +846,7 @@
                                             is-closed
                                             disable-notification
                                             protect-content
+                                            allow-paid-broadcast
                                             message-effect-id
                                             reply-parameters
                                             reply-markup]
@@ -838,6 +869,7 @@
                              "is_closed" is-closed
                              "disable_notification" disable-notification
                              "protect_content" protect-content
+                             "allow_paid_broadcast" allow-paid-broadcast
                              "message_effect_id" message-effect-id
                              "reply_parameters" reply-parameters
                              "reply_markup" reply-markup}))
@@ -892,7 +924,7 @@
 
   `emoji` can be one of: 🎲, 🎯, 🏀, ⚽, 🎳, or 🎰. (default: 🎲)
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :emoji, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :emoji, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddice
   ``
@@ -901,6 +933,7 @@
                       emoji
                       disable-notification
                       protect-content
+                      allow-paid-broadcast
                       message-effect-id
                       reply-parameters
                       reply-markup]
@@ -910,6 +943,7 @@
                              "emoji" emoji
                              "disable_notification" disable-notification
                              "protect_content" protect-content
+                             "allow_paid_broadcast" allow-paid-broadcast
                              "message_effect_id" message-effect-id
                              "reply_parameters" reply-parameters
                              "reply_markup" reply-markup}))
@@ -1675,7 +1709,7 @@
 (defn send-invoice
   ``Sends an invoice.
 
-  Optional parameter keys are: :message-thread-id, :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :message-thread-id, :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendinvoice
   ``
@@ -1697,6 +1731,7 @@
                                                                                is-flexible
                                                                                disable-notification
                                                                                protect-content
+                                                                               allow-paid-broadcast
                                                                                message-effect-id
                                                                                reply-parameters
                                                                                reply-markup]
@@ -1725,6 +1760,7 @@
                                 "is_flexible" is-flexible
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
+                                "allow_paid_broadcast" allow-paid-broadcast
                                 "message_effect_id" message-effect-id
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
@@ -1788,7 +1824,7 @@
 (defn send-game
   ``Sends a game.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendgame
   ``
@@ -1796,6 +1832,7 @@
                                       message-thread-id
                                       disable-notification
                                       protect-content
+                                      allow-paid-broadcast
                                       message-effect-id
                                       reply-parameters
                                       reply-markup]
@@ -1805,6 +1842,7 @@
                              "game_short_name" game-short-name
                              "disable_notification" disable-notification
                              "protect_content" protect-content
+                             "allow_paid_broadcast" allow-paid-broadcast
                              "message_effect_id" message-effect-id
                              "reply_parameters" reply-parameters
                              "reply_markup" reply-markup}))
