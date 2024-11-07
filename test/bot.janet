@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.08.16.
+# last update: 2024.11.07.
 #
 # Test with:
 #
@@ -55,56 +55,71 @@
 (print "Testing sending and fetching messages")
 (do
   # delete webhook,
-  (assert ((:delete-webhook bot) :ok))
+  (assert
+    ((:delete-webhook bot) :ok))
 
   # delete bot commands
-  (assert ((:delete-my-commands bot) :ok))
+  (assert
+    ((:delete-my-commands bot) :ok))
 
   # set bot commands
-  (assert ((:set-my-commands bot [{:command "/help" :description "show help messages"}]) :ok))
+  (assert
+    ((:set-my-commands bot [{:command "/help" :description "show help messages"}]) :ok))
 
   # get bot commands
-  (assert ((:get-my-commands bot) :ok))
+  (assert
+    ((:get-my-commands bot) :ok))
 
   # get bot name
   (let [my-name (:get-my-name bot)]
-    (assert (my-name :ok))
+    (assert
+      (my-name :ok))
 
     # if bot name can be changed,
     (if (not= "telegram api test bot" (get-in my-name [:result :name]))
       # set bot name
-      (assert ((:set-my-name bot "telegram api test bot") :ok))
+      (assert
+        ((:set-my-name bot "telegram api test bot") :ok))
       nil))
 
   # set bot description
-  (assert ((:set-my-description bot :description "A bot for testing library: telegram-bot-janet") :ok))
+  (assert
+    ((:set-my-description bot :description "A bot for testing library: telegram-bot-janet") :ok))
 
   # get bot description
-  (assert ((:get-my-description bot) :ok))
+  (assert
+    ((:get-my-description bot) :ok))
 
   # set bot short description
-  (assert ((:set-my-short-description bot :short-description "telegram-bot-janet") :ok))
+  (assert
+    ((:set-my-short-description bot :short-description "telegram-bot-janet") :ok))
 
   # get bot short description
-  (assert ((:get-my-short-description bot) :ok))
+  (assert
+    ((:get-my-short-description bot) :ok))
 
   # send a chat action,
-  (assert ((:send-chat-action bot chat-id :typing) :ok))
+  (assert
+    ((:send-chat-action bot chat-id :typing) :ok))
 
   # send a text message,
   (let [sent-message (:send-message bot chat-id "test message")]
-    (assert (sent-message :ok))
+    (assert
+      (sent-message :ok))
 
     # edit the message's text,
-    (assert ((:edit-message-text bot "edited message"
-                                 :chat-id chat-id
-                                 :message-id (get-in sent-message [:result :message-id])) :ok))
+    (assert 
+      ((:edit-message-text bot "edited message"
+                           :chat-id chat-id
+                           :message-id (get-in sent-message [:result :message-id])) :ok))
 
     # copy it,
-    (assert ((:copy-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok))
+    (assert
+      ((:copy-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok))
 
     # and forward it
-    (assert ((:forward-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok)))
+    (assert
+      ((:forward-message bot chat-id chat-id (get-in sent-message [:result :message-id])) :ok)))
 
   # TODO: copy-messages
 
@@ -113,31 +128,37 @@
   # send a photo,
   (let [photo-file (r/filepath->param filepath-for-test)
         sent-photo (:send-photo bot chat-id photo-file)]
-    (assert (sent-photo :ok))
+    (assert
+      (sent-photo :ok))
 
     # edit the photo's caption
-    (assert ((:edit-message-caption bot "caption"
-                                    :chat-id chat-id
-                                    :message-id (get-in sent-photo [:result :message-id])) :ok)))
+    (assert 
+      ((:edit-message-caption bot "caption"
+                              :chat-id chat-id
+                              :message-id (get-in sent-photo [:result :message-id])) :ok)))
 
   # TODO: send-audio
 
   # send a document,
   (let [document-file (r/filepath->param filepath-for-test)
         sent-document (:send-document bot chat-id document-file)]
-    (assert (sent-document :ok))
+    (assert
+      (sent-document :ok))
 
     # get-file
     (let [file-id (get-in sent-document [:result :document :file-id])
           file (:get-file bot file-id)
           file-url (get-in file [:result :file-url])]
       (do
-        (assert (file :ok))
+        (assert
+          (file :ok))
 
-        (assert (string/has-prefix? "https://" file-url))))
+        (assert
+          (string/has-prefix? "https://" file-url))))
 
     # delete a message,
-    (assert ((:delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
+    (assert
+      ((:delete-message bot chat-id (get-in sent-document [:result :message-id])) :ok)))
 
   # TODO: delete-messages
 
@@ -156,22 +177,27 @@
   # TODO: send-media-group
 
   # send a location,
-  (assert ((:send-location bot chat-id 37.5665 126.9780) :ok))
+  (assert
+    ((:send-location bot chat-id 37.5665 126.9780) :ok))
 
   # TODO: send-venue
 
   # send a contact,
-  (assert ((:send-contact bot chat-id "911" "Nine-One-One") :ok))
+  (assert
+    ((:send-contact bot chat-id "911" "Nine-One-One") :ok))
 
   # send a poll,
   (let [sent-poll (:send-poll bot chat-id "The earth is...?" [{:text "flat"} {:text "round"} {:text "nothing"}])]
-    (assert (sent-poll :ok))
+    (assert
+      (sent-poll :ok))
 
     # stop a poll,
-    (assert (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok)))
+    (assert
+      (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok)))
 
   # send a dice,
-  (assert ((:send-dice bot chat-id) :ok))
+  (assert
+    ((:send-dice bot chat-id) :ok))
 
   # TODO: edit-message-media
 
@@ -184,7 +210,8 @@
   # TODO: set-message-reaction
 
   # fetch messages
-  (assert ((:get-updates bot) :ok))
+  (assert
+    ((:get-updates bot) :ok))
 
   (comment --------))
 
@@ -209,7 +236,8 @@
   (os/sleep 5)
 
   # then stop polling
-  (assert (:stop-polling-updates bot ch))
+  (assert
+    (:stop-polling-updates bot ch))
 
   (comment --------))
 
@@ -337,7 +365,8 @@
 
   # set-chat-description
   (let [desc (:set-chat-description bot chat-id (string/format "[telegram-bot-janet] chat_id: %s (last update: %d)" chat-id (os/time)))]
-    (assert (desc :ok)))
+    (assert
+      (desc :ok)))
 
   # TODO: pin-chat-message
 
@@ -347,7 +376,8 @@
 
   # get-chat
   (let [chat (:get-chat bot chat-id)]
-    (assert (chat :ok)))
+    (assert
+      (chat :ok)))
 
   # TODO: get-user-profile-photos
 
@@ -452,6 +482,7 @@
     (assert splits)
 
     (loop [splitted :in splits]
-      (assert (<= (length splitted) chars-limit))))
+      (assert
+        (<= (length splitted) chars-limit))))
 
   (comment --------))

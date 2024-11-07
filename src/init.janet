@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.11.06.
+# last update: 2024.11.07.
 
 (import ./helper :as h)
 
@@ -23,7 +23,8 @@
 (defn delete-webhook
   ``Deletes webhook for polling messages.
 
-  Optional parameter keys are: :drop-pending-updates.
+  Optional parameter keys are:
+    :drop-pending-updates.
 
   https://core.telegram.org/bots/api#deletewebhook
   ``
@@ -41,7 +42,8 @@
 (defn get-updates
   ``Fetches updates for this bot.
 
-  Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates.
+  Optional parameter keys are:
+    :offset, :limit, :timeout, and :allowed-updates.
 
   https://core.telegram.org/bots/api#getupdates
   ``
@@ -61,7 +63,8 @@
 
   Call `stop-polling-updates` when done.
 
-  Optional parameter keys are: :offset, :limit, :timeout, and :allowed-updates.
+  Optional parameter keys are:
+    :offset, :limit, :timeout, and :allowed-updates.
   ``
   [bot interval-seconds &named offset
                                limit
@@ -123,7 +126,10 @@
 (defn send-message
   ``Sends a message.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :parse-mode, :entities, :link-preview-options, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :parse-mode, :entities,
+    :link-preview-options, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendmessage
   ``
@@ -155,7 +161,8 @@
 (defn forward-message
   ``Forwards a message.
 
-  Optional parameter keys are: :message-thread-id, :disable-notification, and :protect-content.
+  Optional parameter keys are:
+    :message-thread-id, :disable-notification, and :protect-content.
 
   https://core.telegram.org/bots/api#forwardmessage
   ``
@@ -172,7 +179,8 @@
 (defn forward-messages
   ``Forwards messages.
 
-  Optional parameter keys are: :message-thread-id, :disable-notification, and :protect-content.
+  Optional parameter keys are:
+    :message-thread-id, :disable-notification, and :protect-content.
 
   https://core.telegram.org/bots/api#forwardmessages
   ``
@@ -189,7 +197,10 @@
 (defn copy-message
   ``Copies a message.
 
-  Optional parameter keys are: :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :allow-paid-broadcast, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :message-thread-id, :caption, :parse-mode, :caption-entities,
+    :show-caption-above-media, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#copymessage
   ``
@@ -220,7 +231,8 @@
 (defn copy-messages
   ``Copies messages.
 
-  Optional parameter keys are: :message-thread-id, :disable-notification, :protect-content, and :remove-caption.
+  Optional parameter keys are:
+    :message-thread-id, :disable-notification, :protect-content, and :remove-caption.
 
   https://core.telegram.org/bots/api#copymessages
   ``
@@ -239,7 +251,11 @@
 (defn send-photo
   ``Sends a photo.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :caption, :parse-mode,
+    :caption-entities, :show-caption-above-media, :has-spoiler,
+    :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendphoto
   ``
@@ -275,7 +291,10 @@
 (defn send-audio
   ``Sends an audio file.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :caption, :parse-mode,
+    :caption-entities, :duration, :performer, :title, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendaudio
   ``
@@ -313,7 +332,10 @@
 (defn send-document
   ``Sends a document file.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :caption, :parse-mode,
+    :caption-entities, :disable-content-type-detection, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddocument
   ``
@@ -347,7 +369,9 @@
 (defn send-sticker
   ``Sends a sticker.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendsticker
   ``
@@ -393,7 +417,8 @@
 (defn create-new-sticker-set
   ``Creates a new sticker set.
 
-  Optional parameter keys are: :sticker-type, and :needs-repainting
+  Optional parameter keys are:
+    :sticker-type, and :needs-repainting.
 
   https://core.telegram.org/bots/api#createnewstickerset
   ``
@@ -447,7 +472,8 @@
 (defn set-sticker-set-thumbnail
   ``Sets thumbnail of a sticker set.
 
-  Optional parameter keys are: thumbnail.
+  Optional parameter keys are:
+    :thumbnail.
 
   https://core.telegram.org/bots/api#setstickersetthumbnail
   ``
@@ -460,7 +486,8 @@
 (defn set-custom-emoji-sticker-set-thumbnail
   ``Sets thumbnail of a custom emoji sticker.
 
-  Optional parameter keys are: custom-emoji-id.
+  Optional parameter keys are:
+    :custom-emoji-id.
 
   https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail
   ``
@@ -515,7 +542,11 @@
 (defn send-video
   ``Sends a video.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :supports-streaming, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :duration, :caption,
+    :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler,
+    :supports-streaming, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvideo
   ``
@@ -555,7 +586,11 @@
 (defn send-animation
   ``Sends an animation.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :width, :height, :thumbnail, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :duration, :width, :height,
+    :thumbnail, :caption, :parse-mode, :caption-entities,
+    :show-caption-above-media, :has-spoiler, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendanimation
   ``
@@ -599,7 +634,10 @@
 (defn send-voice
   ``Sends a voice. (.ogg format only)
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :caption, :parse-mode, :caption-entities, :duration, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :caption, :parse-mode,
+    :caption-entities, :duration, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvoice
   ``
@@ -633,7 +671,11 @@
 (defn send-video-note
   ``Sends a video note.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :duration, :length, :thumbnail, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :duration, :length,
+    :thumbnail, :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :reply-parameters, and :reply-markup.
+
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
   https://core.telegram.org/bots/api#sendvideonote
@@ -666,7 +708,10 @@
 (defn send-paid-media
   ``Sends a paid media to channel chats.
 
-  Optional parameter keys are: :business-connection-id, :payload, :caption, :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification, :protect-content, :allow-paid-broadcast, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :payload, :caption, :parse-mode,
+    :caption-entities, :show-caption-above-media, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpaidmedia
   ``
@@ -699,7 +744,9 @@
 (defn send-media-group
   ``Sends a media group of photos or videos.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, and :reply-parameters.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, and :reply-parameters.
 
   https://core.telegram.org/bots/api#sendmediagroup
   ``
@@ -723,7 +770,10 @@
 (defn send-location
   ``Sends a location.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :horizontal-accuracy,
+    :live-period, :heading, :proximity-alert-radius, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendlocation
   ``
@@ -758,7 +808,10 @@
 (defn send-venue
   ``Sends a venue.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :foursquare-id, :foursquare-type, :google-place-id, :google-place-type, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :foursquare-id,
+    :foursquare-type, :google-place-id, :google-place-type,
+    :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvenue
   ``
@@ -795,7 +848,10 @@
 (defn send-contact
   ``Sends a contact.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :last-name, :vcard, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :last-name, :vcard,
+    :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendcontact
   ``
@@ -826,7 +882,12 @@
 (defn send-poll
   ``Sends a poll.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :question-parse-mode, :question-entities, :is-anonymous, :type, :allows-multiple-answers, :correct-option-id, :explanation, :explanation-parse-mode, :explanation-entities, :open-period, :close-date, :is-closed, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :question-parse-mode,
+    :question-entities, :is-anonymous, :type, :allows-multiple-answers,
+    :correct-option-id, :explanation, :explanation-parse-mode,
+    :explanation-entities, :open-period, :close-date, :is-closed,
+    :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpoll
   ``
@@ -877,7 +938,8 @@
 (defn stop-poll
   ``Stops a poll.
 
-  Optional parameter keys are: :business-connection-id, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#stoppoll
   ``
@@ -891,7 +953,8 @@
 (defn send-chat-action
   ``Sends a chat action.
 
-  Optional parameter keys are: :business-connection-id, and :message-thread-id.
+  Optional parameter keys are:
+    :business-connection-id, and :message-thread-id.
 
   `action` can be one of: :typing, :upload_photo, :record_video, :upload_video, :record_voice, :upload_voice, :upload_document, :choose_sticker, :find_location, :record_video_note, or :upload_video_note.
 
@@ -907,7 +970,8 @@
 (defn set-message-reaction
   ``Sets reactions on a message.
 
-  Optional parameter keys are: :reaction, and :is-big.
+  Optional parameter keys are:
+    :reaction, and :is-big.
 
   `reaction` is an array of reaction types(https://core.telegram.org/bots/api)#reactiontype).
 
@@ -924,7 +988,9 @@
 
   `emoji` can be one of: 🎲, 🎯, 🏀, ⚽, 🎳, or 🎰. (default: 🎲)
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :emoji, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :emoji, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddice
   ``
@@ -951,7 +1017,8 @@
 (defn get-user-profile-photos
   ``Fetches user profile photos.
 
-  Optional parameter keys are: :offset and :limit.
+  Optional parameter keys are:
+    :offset, and :limit.
 
   https://core.telegram.org/bots/api#getuserprofilephotos
   ``
@@ -983,7 +1050,8 @@
 (defn ban-chat-member
   ``Bans a chat member.
 
-  Optional parameter keys are: :until-date and :revoke-messages
+  Optional parameter keys are:
+    :until-date, and :revoke-messages.
 
   https://core.telegram.org/bots/api#banchatmember
   ``
@@ -1005,7 +1073,8 @@
 (defn unban-chat-member
   ``Unbans a chat member.
 
-  Optional parameter keys are: :only-if-banned
+  Optional parameter keys are:
+    :only-if-banned.
 
   https://core.telegram.org/bots/api#unbanchatmember
   ``
@@ -1017,7 +1086,10 @@
 (defn restrict-chat-member
   ``Restricts a chat member.
 
-  Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, :can-pin-messages, :use-independent-chat-permissions, and :until-date.
+  Optional parameter keys are:
+    :can-send-messages, :can-send-media-messages, :can-send-polls,
+    :can-send-other-messages, :can-add-web-page-previews, :can-change-info,
+    :can-invite-users, :can-pin-messages, :use-independent-chat-permissions, and :until-date.
 
   https://core.telegram.org/bots/api#chatpermissions
   https://core.telegram.org/bots/api#restrictchatmember
@@ -1048,7 +1120,11 @@
 (defn promote-chat-member
   ``Promotes a chat member.
 
-  Optional parameter keys are: :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages, :can-edit-messages, :can-delete-messages, :can-post-stories, :can-edit-stories, :can-delete-stories, :can-manage-video-chats, :can-invite-users, :can-restrict-members, :can-pin-messages, :can-promote-members, and :can-manage-topics.
+  Optional parameter keys are:
+    :is-anonymous, :can-manage-chat, :can-change-info, :can-post-messages,
+    :can-edit-messages, :can-delete-messages, :can-post-stories,
+    :can-edit-stories, :can-delete-stories, :can-manage-video-chats,
+    :can-invite-users, :can-restrict-members, :can-pin-messages, :can-promote-members, and :can-manage-topics.
 
   https://core.telegram.org/bots/api#promotechatmember
   ``
@@ -1116,7 +1192,9 @@
 (defn set-chat-permissions
   ``Sets chat permissions.
 
-  Optional parameter keys are: :can-send-messages, :can-send-media-messages, :can-send-polls, :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
+  Optional parameter keys are:
+    :can-send-messages, :can-send-media-messages, :can-send-polls,
+    :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
 
   https://core.telegram.org/bots/api#setchatpermissions
   ``
@@ -1265,7 +1343,8 @@
 (defn pin-chat-message
   ``Pins a chat message.
 
-  Optional parameter keys are: :business-connection-id, and :disable-notification.
+  Optional parameter keys are:
+    :business-connection-id, and :disable-notification.
 
   https://core.telegram.org/bots/api#pinchatmessage
   ``
@@ -1279,7 +1358,8 @@
 (defn unpin-chat-message
   ``Unpins a chat message.
 
-  Optional parameter keys are: :business-connection-id, and :message-id.
+  Optional parameter keys are:
+    :business-connection-id, and :message-id.
 
   https://core.telegram.org/bots/api#unpinchatmessage
   ``
@@ -1358,7 +1438,8 @@
 (defn answer-callback-query
   ``Answers a callback query.
 
-  Optional parameter keys are: :text, :show-alert, :url, and :cache-time.
+  Optional parameter keys are:
+    :text, :show-alert, :url, and :cache-time.
 
   https://core.telegram.org/bots/api#answercallbackquery
   ``
@@ -1476,7 +1557,8 @@
 (defn set-chat-menu-button
   ``Sets the bot's menu button.
 
-  Optional parameter keys are: :chat-id, and :menu-button.
+  Optional parameter keys are:
+    :chat-id, and :menu-button.
 
   https://core.telegram.org/bots/api#setchatmenubutton
   ``
@@ -1488,7 +1570,8 @@
 (defn get-chat-menu-button
   ``Gets the bot's menu button.
 
-  Optional parameter keys are: :chat-id.
+  Optional parameter keys are:
+    :chat-id.
 
   https://core.telegram.org/bots/api#getchatmenubutton
   ``
@@ -1498,7 +1581,8 @@
 (defn set-my-default-administrator-rights
   ``Sets my default administrator rights.
 
-  Optional parameter keys are: :rights, and :for-channels.
+  Optional parameter keys are:
+    :rights, and :for-channels.
 
   https://core.telegram.org/bots/api#setmydefaultadministratorrights
   ``
@@ -1510,7 +1594,8 @@
 (defn get-my-default-administrator-rights
   ``Gets my default administrator rights.
 
-  Optional parameter keys are: :for-channels.
+  Optional parameter keys are:
+    :for-channels.
 
   https://core.telegram.org/bots/api#getmydefaultadministratorrights
   ``
@@ -1523,7 +1608,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, :parse-mode, :entities, :link-preview-options, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :parse-mode, :entities, :link-preview-options, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagetext
   ``
@@ -1551,7 +1637,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, :parse-mode, :caption-entities, :show-caption-above-media, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :parse-mode, :caption-entities, :show-caption-above-media, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagecaption
   ``
@@ -1579,7 +1666,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagemedia
   ``
@@ -1601,7 +1689,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagereplymarkup
   ``
@@ -1622,7 +1711,9 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, :live-period, :horizontal-accuracy, :heading, :proximity-alert-radius, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :live-period, :horizontal-accuracy, :heading,
+    :proximity-alert-radius, and :reply-markup.
 
   https://core.telegram.org/bots/api#editmessagelivelocation
   ``
@@ -1653,7 +1744,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :business-connection-id, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, and :reply-markup.
 
   https://core.telegram.org/bots/api#stopmessagelivelocation
   ``
@@ -1689,7 +1781,8 @@
 (defn answer-inline-query
   ``Answers an inline query.
 
-  Optional parameter keys are: :cache-time, :is-personal, :next-offset, :switch-pm-text, and :switch-pm-parameter.
+  Optional parameter keys are:
+    :cache-time, :is-personal, :next-offset, :switch-pm-text, and :switch-pm-parameter.
 
   https://core.telegram.org/bots/api#answerinlinequery
   ``
@@ -1709,7 +1802,13 @@
 (defn send-invoice
   ``Sends an invoice.
 
-  Optional parameter keys are: :message-thread-id, :max-tip-amount, :suggested-tip-amounts, :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width, :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address, :send-phone-number-to-provider, :send-email-to-provider, :is-flexible, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :message-thread-id, :max-tip-amount, :suggested-tip-amounts,
+    :start-parameter, :provider-data, :photo-url, :photo-size, :photo-width,
+    :photo-height, :need-name, :need-phone-number, :need-email,
+    :need-shipping-address, :send-phone-number-to-provider,
+    :send-email-to-provider, :is-flexible, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendinvoice
   ``
@@ -1794,7 +1893,8 @@
 (defn get-star-transactions
   ``Get star transactions.
 
-  Optional parameter keys are: :offset, and :limit.
+  Optional parameter keys are:
+    :offset, and :limit.
 
   https://core.telegram.org/bots/api#getstartransactions
   ``
@@ -1824,7 +1924,9 @@
 (defn send-game
   ``Sends a game.
 
-  Optional parameter keys are: :business-connection-id, :message-thread-id, :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendgame
   ``
@@ -1853,7 +1955,8 @@
   Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
   or :inline-message-id (when :chat-id & :message-id are not given)
 
-  Optional parameter keys are: :force, and :disable-edit-message.
+  Optional parameter keys are:
+    :force, and :disable-edit-message.
 
   https://core.telegram.org/bots/api#setgamescore
   ``
@@ -1901,7 +2004,8 @@
 (defn edit-forum-topic
   ``Edits name and icon of a topic in a forum supergroup chat.
 
-  Optional parameter keys are: :name, and :icon-custom-emoji-id.
+  Optional parameter keys are:
+    :name, and :icon-custom-emoji-id.
 
   https://core.telegram.org/bots/api#editforumtopic
   ``
