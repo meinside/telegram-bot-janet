@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.11.07.
+# last update: 2024.11.18.
 
 (import ./helper :as h)
 
@@ -1028,6 +1028,20 @@
                                          "offset" offset
                                          "limit" limit}))
 
+(defn set-user-emoji-status
+  ``Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App.
+
+  Optional parameter keys are:
+    :emoji-status-custom-emoji-id, and :emoji-status-expiration-date.
+
+  https://core.telegram.org/bots/api#setuseremojistatus
+  ``
+  [bot user-id &named emoji-status-custom-emoji-id
+                      emoji-status-expiration-date]
+  (h/request bot "setUserEmojiStatus" {"user_id" user-id
+                                       "emoji_status_custom_emoji_id" emoji-status-custom-emoji-id
+                                       "emoji_status_expiration_date" emoji-status-expiration-date}))
+
 (defn- get-file-url
   ``Generates a file's url from given :file-path.
   ``
@@ -1434,6 +1448,31 @@
   ``
   [bot]
   (h/request bot "getForumTopicIconStickers" {}))
+
+(defn get-available-gifts
+  ``Returns the list of gifts that can be sent by the bot to users.
+
+  https://core.telegram.org/bots/api#getavailablegifts
+  ``
+  [bot]
+  (h/request bot "getAvailableGifts" {}))
+
+(defn send-gift
+  ``Sends a gift to the given user.
+
+  Optional parameter keys are:
+    :text, :text-parse-mode, and :text-entities.
+
+  https://core.telegram.org/bots/api#sendgift
+  ``
+  [bot user-id gift-id &named text
+                              text-parse-mode
+                              text-entities]
+  (h/request bot "sendGift" {"user_id" user-id
+                             "gift_id" gift-id
+                             "text" text
+                             "text_parse_mode" text-parse-mode
+                             "text_entities" text-entities}))
 
 (defn answer-callback-query
   ``Answers a callback query.
@@ -1912,6 +1951,16 @@
   (h/request bot "refundStarPayment" {"user_id" user-id
                                       "telegram_payment_charge_id" telegram-payment-charge-id}))
 
+(defn edit-user-star-subscription
+  ``Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars.
+
+  https://core.telegram.org/bots/api#edituserstarsubscription
+  ``
+  [bot user-id telegram-payment-charge-id is-canceled]
+  (h/request bot "editUserStarSubscription" {"user_id" user-id
+                                             "telegram_payment_charge_id" telegram-payment-charge-id
+                                             "is_canceled" is-canceled}))
+
 (defn answer-web-app-query
   ``Answers a web app query.
 
@@ -1920,6 +1969,25 @@
   [bot web-app-query-id result]
   (h/request bot "answerWebAppQuery" {"web_app_query_id" web-app-query-id
                                       "result" result}))
+
+(defn save-prepared-inline-message
+  ``Stores a message that can be sent by a user of a Mini App.
+
+  Optional parameter keys are:
+    :allow-user-chats, :allow-bot-chats, :allow-group-chats, and :allow-channel-chats.
+
+  https://core.telegram.org/bots/api#savepreparedinlinemessage
+  ``
+  [bot user-id result &named allow-user-chats
+                             allow-bot-chats
+                             allow-group-chats
+                             allow-channel-chats]
+  (h/request bot "savePreparedInlineMessage" {"user_id" user-id
+                                              "result" result
+                                              "allow_user_chats" allow-user-chats
+                                              "allow_bot_chats" allow-bot-chats
+                                              "allow_group_chats" allow-group-chats
+                                              "allow_channel_chats" allow-channel-chats}))
 
 (defn send-game
   ``Sends a game.
@@ -2159,6 +2227,7 @@
     :set-message-reaction set-message-reaction
     :send-dice send-dice
     :get-user-profile-photos get-user-profile-photos
+    :set-user-emoji-status set-user-emoji-status
     :get-file get-file
     :ban-chat-member ban-chat-member
     :leave-chat leave-chat
@@ -2191,6 +2260,8 @@
     :set-chat-sticker-set set-chat-sticker-set
     :delete-chat-sticker-set delete-chat-sticker-set
     :get-forum-topic-icon-stickers get-forum-topic-icon-stickers
+    :get-available-gifts get-available-gifts
+    :send-gift send-gift
     :answer-callback-query answer-callback-query
     :get-user-chat-boosts get-user-chat-boosts
     :get-business-connection get-business-connection
@@ -2221,7 +2292,9 @@
     :answer-pre-checkout-query answer-pre-checkout-query
     :get-star-transactions get-star-transactions
     :refund-star-payment refund-star-payment
+    :edit-user-star-subscription edit-user-star-subscription
     :answer-web-app-query answer-web-app-query
+    :save-prepared-inline-message save-prepared-inline-message
     :send-game send-game
     :set-game-score set-game-score
     :get-game-highscores get-game-highscores
