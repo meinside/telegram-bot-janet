@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.11.07.
+# last update: 2024.11.18.
 #
 # Test with:
 #
@@ -315,6 +315,12 @@
 
   # TODO: refund-star-payment
 
+  # TODO: edit-user-star-subscription
+
+  # TODO: get-available-gifts
+
+  # TODO: send-gift
+
   (comment --------))
 
 
@@ -456,6 +462,10 @@
 (print "Testing web app query")
 (do
   # TODO: answer-web-app-query
+
+  # TODO: set-user-emoji-status
+
+  # TODO: save-prepared-inline-message
 
   (comment --------))
 
