@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2024.11.18.
+# last update: 2025.01.02.
 
 (import ./helper :as h)
 
@@ -1461,18 +1461,60 @@
   ``Sends a gift to the given user.
 
   Optional parameter keys are:
-    :text, :text-parse-mode, and :text-entities.
+    :pay-for-upgrade, :text, :text-parse-mode, and :text-entities.
 
   https://core.telegram.org/bots/api#sendgift
   ``
-  [bot user-id gift-id &named text
+  [bot user-id gift-id &named pay-for-upgrade
+                              text
                               text-parse-mode
                               text-entities]
   (h/request bot "sendGift" {"user_id" user-id
                              "gift_id" gift-id
+                             "pay_for_upgrade" pay-for-upgrade
                              "text" text
                              "text_parse_mode" text-parse-mode
                              "text_entities" text-entities}))
+
+(defn verify-user
+  ``Verifies a user.
+
+  Optional parameter keys are:
+    :custom-description.
+
+  https://core.telegram.org/bots/api#verifyuser
+  ``
+  [bot user-id &named custom-description]
+  (h/request bot "verifyUser" {"user_id" user-id
+                               "custom_description" custom-description}))
+
+(defn verify-chat
+  ``Verifies a chat.
+
+  Optional parameter keys are:
+    :custom-description.
+
+  https://core.telegram.org/bots/api#verifychat
+  ``
+  [bot chat-id &named custom-description]
+  (h/request bot "verifyChat" {"chat_id" chat-id
+                               "custom_description" custom-description}))
+
+(defn remove-user-verification
+  ``Removes a user verification.
+
+  https://core.telegram.org/bots/api#removeuserverification
+  ``
+  [bot user-id]
+  (h/request bot "removeUserVerification" {"user_id" user-id}))
+
+(defn remove-chat-verification
+  ``Removes a chat verification.
+
+  https://core.telegram.org/bots/api#removechatverification
+  ``
+  [bot chat-id]
+  (h/request bot "removeChatVerification" {"chat_id" chat-id}))
 
 (defn answer-callback-query
   ``Answers a callback query.
@@ -2262,6 +2304,10 @@
     :get-forum-topic-icon-stickers get-forum-topic-icon-stickers
     :get-available-gifts get-available-gifts
     :send-gift send-gift
+    :verify-user verify-user
+    :verify-chat verify-chat
+    :remove-user-verification remove-user-verification
+    :remove-chat-verification remove-chat-verification
     :answer-callback-query answer-callback-query
     :get-user-chat-boosts get-user-chat-boosts
     :get-business-connection get-business-connection

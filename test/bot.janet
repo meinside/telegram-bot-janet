@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2024.11.18.
+# last update: 2025.01.02.
 #
 # Test with:
 #
@@ -466,6 +466,22 @@
   # TODO: set-user-emoji-status
 
   # TODO: save-prepared-inline-message
+
+  (comment --------))
+
+
+########################
+# test verifications
+#
+(print "Testing verifications")
+(do
+  # TODO: verify-user
+
+  # TODO: verify-chat
+
+  # TODO: remove-user-verification
+
+  # TODO: remove-chat-verification
 
   (comment --------))
 
