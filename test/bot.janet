@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2025.01.02.
+# last update: 2025.04.14.
 #
 # Test with:
 #
@@ -321,6 +321,8 @@
 
   # TODO: send-gift
 
+  # TODO: gift-premium-subscription
+
   (comment --------))
 
 
@@ -389,8 +391,6 @@
 
   # TODO: get-user-chat-boosts
 
-  # TODO: get-business-connection
-
   # get-chat-administrators
   (let [admins (:get-chat-administrators bot chat-id)]
     (assert (admins :ok)))
@@ -432,6 +432,50 @@
   # TODO: unhide-general-forum-topic
 
   # TODO: unpin-all-general-forum-topic-messages
+
+  (comment --------))
+
+
+########################
+# test business connection
+#
+(print "Testing business connection")
+(do
+  # TODO: get-business-connection
+
+  # TODO: read-business-message
+
+  # TODO: delete-business-message
+
+  # TODO: set-business-account-name
+
+  # TODO: set-business-account-username
+
+  # TODO: set-business-account-bio
+
+  # TODO: set-business-account-profile-photo
+
+  # TODO: remove-business-account-profile-photo
+
+  # TODO: set-business-account-gift-settings
+
+  # TODO: get-business-account-star-balance
+
+  # TODO: transfer-business-account-stars
+
+  # TODO: get-business-account-gifts
+
+  # TODO: convert-gift-to-stars
+
+  # TODO: upgrade-gift
+
+  # TODO: transfer-gift
+
+  # TODO: post-story
+
+  # TODO: edit-story
+
+  # TODO: delete-story
 
   (comment --------))
 
