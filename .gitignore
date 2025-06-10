@@ -1,1 +1,8 @@
+# .gitignore
+
+# dotenv file for testing
+.env
+
+# compiled files
 bin/*
+
