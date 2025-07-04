@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2025.04.14.
+# last update: 2025.07.04.
 #
 # Test with:
 #
@@ -195,6 +195,10 @@
     (assert
       (:stop-poll bot chat-id (get-in sent-poll [:result :message-id]) :ok)))
 
+  # TODO: send-checklist
+
+  # TODO: edit-message-checklist
+
   # send a dice,
   (assert
     ((:send-dice bot chat-id) :ok))
@@ -310,6 +314,10 @@
   # TODO: answer-shipping-query
 
   # TODO: answer-pre-checkout-query
+
+  # get-my-star-balance
+  (let [balance (:get-my-star-balance bot)]
+    (assert (balance :ok)))
 
   # TODO: get-star-transactions
 
