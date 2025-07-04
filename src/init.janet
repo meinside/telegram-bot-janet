@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2025.02.13.
+# last update: 2025.07.04.
 
 (import ./helper :as h)
 
@@ -992,11 +992,34 @@
 
   https://core.telegram.org/bots/api#setmessagereaction
   ``
-  [bot chat-id message-id &named reaction is-big]
+  [bot chat-id message-id &named reaction
+                                 is-big]
   (h/request bot "setMessageReaction" {"chat_id" chat-id
                                        "message_id" message-id
                                        "reaction" reaction
                                        "is_big" is-big}))
+
+(defn send-checklist
+  ``Sends a checklist.
+
+  Optional parameter keys are:
+    :disable-notification, :protect-content, :message-effect-id, :reply-parameters, and :reply-markup.
+
+  https://core.telegram.org/bots/api#sendchecklist
+  ``
+  [bot business-connection-id chat-id checklist &named disable-notification
+                                                       protect-content
+                                                       message-effect-id
+                                                       reply-parameters
+                                                       reply-markup]
+  (h/request bot "sendChecklist" {"business_connection_id" business-connection-id
+                                  "chat_id" chat-id
+                                  "checklist" checklist
+                                  "disable_notification" disable-notification
+                                  "protect_content" protect-content
+                                  "message_effect_id" message-effect-id
+                                  "reply_parameters" reply-parameters
+                                  "reply_markup" reply-markup}))
 
 (defn send-dice
   ``Sends a dice.
@@ -2026,6 +2049,18 @@
                                      "inline_message_id" inline-message-id
                                      "reply_markup" reply-markup}))
 
+(defn edit-message-checklist
+  ``Edits a message's checklist.
+
+  https://core.telegram.org/bots/api#editmessagechecklist
+  ``
+  [bot business-connection-id chat-id message-id checklist &named reply-markup]
+  (h/request bot "editMessageChecklist" {"business_connection_id" business-connection-id
+                                         "chat_id" chat-id
+                                         "message_id" message-id
+                                         "checklist" checklist
+                                         "reply_markup" reply-markup}))
+
 (defn edit-message-reply-markup
   ``Edits a message's reply markup.
 
@@ -2232,6 +2267,14 @@
   (h/request bot "answerPreCheckoutQuery" {"pre_checkout_query_id" pre-checkout-query-id
                                            "ok" ok
                                            "error_message" error-message}))
+
+(defn get-my-star-balance
+  ``Returns the current balance of Telegram Stars.
+
+  https://core.telegram.org/bots/api#getmystarbalance
+  ``
+  [bot]
+  (h/request bot "getMyStarBalance" {}))
 
 (defn get-star-transactions
   ``Get star transactions.
@@ -2527,9 +2570,10 @@
     :send-contact send-contact
     :send-poll send-poll
     :stop-poll stop-poll
+    :send-checklist send-checklist
+    :send-dice send-dice
     :send-chat-action send-chat-action
     :set-message-reaction set-message-reaction
-    :send-dice send-dice
     :get-user-profile-photos get-user-profile-photos
     :set-user-emoji-status set-user-emoji-status
     :get-file get-file
@@ -2607,15 +2651,17 @@
     :edit-message-text edit-message-text
     :edit-message-caption edit-message-caption
     :edit-message-media edit-message-media
-    :edit-message-reply-markup edit-message-reply-markup
     :edit-message-live-location edit-message-live-location
     :stop-message-live-location stop-message-live-location
+    :edit-message-checklist edit-message-checklist
+    :edit-message-reply-markup edit-message-reply-markup
     :delete-message delete-message
     :delete-messages delete-messages
     :answer-inline-query answer-inline-query
     :send-invoice send-invoice
     :answer-shipping-query answer-shipping-query
     :answer-pre-checkout-query answer-pre-checkout-query
+    :get-my-star-balance get-my-star-balance
     :get-star-transactions get-star-transactions
     :refund-star-payment refund-star-payment
     :edit-user-star-subscription edit-user-star-subscription
