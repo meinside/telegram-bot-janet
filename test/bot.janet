@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2025.07.04.
+# last update: 2025.08.17.
 #
 # Test with:
 #
@@ -198,6 +198,10 @@
   # TODO: send-checklist
 
   # TODO: edit-message-checklist
+
+  # TODO: approve-suggested-post
+
+  # TODO: decline-suggested-post
 
   # send a dice,
   (assert
