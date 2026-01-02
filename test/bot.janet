@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2025.08.17.
+# last update: 2026.01.02.
 #
 # Test with:
 #
@@ -101,6 +101,8 @@
   # send a chat action,
   (assert
     ((:send-chat-action bot chat-id :typing) :ok))
+
+  # TODO: send-message-draft
 
   # send a text message,
   (let [sent-message (:send-message bot chat-id "test message")]
@@ -477,6 +479,10 @@
 
   # TODO: get-business-account-gifts
 
+  # TODO: get-user-gifts
+
+  # TODO: get-chat-gifts
+
   # TODO: convert-gift-to-stars
 
   # TODO: upgrade-gift
@@ -484,6 +490,8 @@
   # TODO: transfer-gift
 
   # TODO: post-story
+
+  # TODO: repost-story
 
   # TODO: edit-story
 

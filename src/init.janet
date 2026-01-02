@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2025.08.17.
+# last update: 2026.01.02.
 
 (import ./helper :as h)
 
@@ -168,7 +168,8 @@
 
   Optional parameter keys are:
     :message-thread-id, :direct-messages-topic-id, :video-start-timestamp,
-    :disable-notification, :protect-content, and :suggested-post-parameters.
+    :disable-notification, :protect-content, :message-effect-id, and
+    :suggested-post-parameters.
 
   https://core.telegram.org/bots/api#forwardmessage
   ``
@@ -177,6 +178,7 @@
                                               video-start-timestamp
                                               disable-notification
                                               protect-content
+                                              message-effect-id
                                               suggested-post-parameters]
   (h/request bot "forwardMessage" {"chat_id" chat-id
                                    "message_thread_id" message-thread-id
@@ -186,6 +188,7 @@
                                    "message_id" message-id
                                    "disable_notification" disable-notification
                                    "protect_content" protect-content
+                                   "message_effect_id" message-effect-id
                                    "suggested_post_parameters" suggested-post-parameters}))
 
 (defn forward-messages
@@ -214,7 +217,7 @@
   Optional parameter keys are:
     :message-thread-id, :direct-messages-topic-id, :video-start-timestamp, :caption,
     :parse-mode, :caption-entities, :show-caption-above-media, :disable-notification,
-    :protect-content, :allow-paid-broadcast, :suggested-post-parameters,
+    :protect-content, :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#copymessage
@@ -229,6 +232,7 @@
                                               disable-notification
                                               protect-content
                                               allow-paid-broadcast
+                                              message-effect-id
                                               suggested-post-parameters
                                               reply-parameters
                                               reply-markup]
@@ -245,6 +249,7 @@
                                 "disable_notification" disable-notification
                                 "protect_content" protect-content
                                 "allow_paid_broadcast" allow-paid-broadcast
+                                "message_effect_id" message-effect-id
                                 "suggested_post_parameters" suggested-post-parameters
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
@@ -1168,6 +1173,21 @@
                              "reply_parameters" reply-parameters
                              "reply_markup" reply-markup}))
 
+(defn send-message-draft
+  ``Sends a message draft.
+
+  https://core.telegram.org/bots/api#sendmessagedraft
+  ``
+  [bot chat-id draft-id text &named message-thread-id
+                                    parse-mode
+                                    entities]
+  (h/request bot "sendMessageDraft" {"chat_id" chat-id
+                                     "message_thread_id" message-thread-id
+                                     "draft_id" draft-id
+                                     "text" text
+                                     "parse_mode" parse-mode
+                                     "entities" entities}))
+
 (defn get-user-profile-photos
   ``Fetches user profile photos.
 
@@ -1806,16 +1826,19 @@
   ``Returns the gifts received and owned by a managed business account.
 
   Optional parameter keys are:
-    :exclude-unsaved, :exclude-saved, :exclude-unlimited, :exclude-limited,
-    :exclude-unique, :sort-by-price, :offset, and :limit.
+    :exclude-unsaved, :exclude-saved, :exclude-unlimited, :exclude-limited-upgradable,
+    :exclude-limited-non-upgradable, :exclude-unique, :exclude-from-blockchain,
+    :sort-by-price, :offset, and :limit.
 
   https://core.telegram.org/bots/api#getbusinessaccountgifts
   ``
   [bot business-connection-id &named exclude-unsaved
                                      exclude-saved
                                      exclude-unlimited
-                                     exclude-limited
+                                     exclude-limited-upgradable
+                                     exclude-limited-non-upgradable
                                      exclude-unique
+                                     exclude-from-blockchain
                                      sort-by-price
                                      offset
                                      limit]
@@ -1823,11 +1846,63 @@
                                             "exclude_unsaved" exclude-unsaved
                                             "exclude_saved" exclude-saved
                                             "exclude_unlimited" exclude-unlimited
-                                            "exclude_limited" exclude-limited
+                                            "exclude_limited_upgradable" exclude-limited-upgradable
+                                            "exclude_limited_non_upgradable" exclude-limited-non-upgradable
                                             "exclude_unique" exclude-unique
+                                            "exclude_from_blockchain" exclude-from-blockchain
                                             "sort_by_price" sort-by-price
                                             "offset" offset
                                             "limit" limit}))
+
+(defn get-user-gifts
+  ``Returns the gifts owned and hosted by a user.
+
+  https://core.telegram.org/bots/api#getusergifts
+  ``
+  [bot user-id &named execlude-unlimited
+                      exclude-limited-upgradable
+                      exclude-limited-non-upgradable
+                      exclude-from-blockchain
+                      exclude-unique
+                      sort-by-price
+                      offset
+                      limit]
+  (h/request bot "getUserGifts" {"user_id" user-id
+                                 "exclude_unlimited" execlude-unlimited
+                                 "exclude_limited_upgradable" exclude-limited-upgradable
+                                 "exclude_limited_non_upgradable" exclude-limited-non-upgradable
+                                 "exclude_from_blockchain" exclude-from-blockchain
+                                 "exclude_unique" exclude-unique
+                                 "sort_by_price" sort-by-price
+                                 "offset" offset
+                                 "limit" limit}))
+
+(defn get-chat-gifts
+  ``Returns the gifts owned by a chat.
+
+  https://core.telegram.org/bots/api#getchatgifts
+  ``
+  [bot chat-id &named exclude-unsaved
+                      exclude-saved
+                      exclude-unlimited
+                      exclude-limited-upgradable
+                      exclude-limited-non-upgradable
+                      exclude-from-blockchain
+                      exclude-unique
+                      sort-by-price
+                      offset
+                      limit]
+  (h/request bot "getChatGifts" {"chat_id" chat-id
+                                 "exclude_unsaved" exclude-unsaved
+                                 "exclude_saved" exclude-saved
+                                 "exclude_unlimited" exclude-unlimited
+                                 "exclude_limited_upgradable" exclude-limited-upgradable
+                                 "exclude_limited_non_upgradable" exclude-limited-non-upgradable
+                                 "exclude_from_blockchain" exclude-from-blockchain
+                                 "exclude_unique" exclude-unique
+                                 "sort_by_price" sort-by-price
+                                 "offset" offset
+                                 "limit" limit}))
 
 (defn convert-gift-to-stars
   ``Converts a given regular gift to Telegram Stars.
@@ -1890,6 +1965,20 @@
                               "areas" areas
                               "post_to_chat_page" post-to-chat-page
                               "protect_content" protect-content}))
+
+(defn repost-story
+  ``Reposts a story on behalf of a business account from another business account.
+
+  https://core.telegram.org/bots/api#repoststory
+  ``
+  [bot business-connection-id from-chat-id from-story-id active-period &named post-to-chat-page
+                                                                              protect-content]
+  (h/request bot "repostStory" {"business_connection_id" business-connection-id
+                                "from_chat_id" from-chat-id
+                                "from_story_id" from-story-id
+                                "active_period" active-period
+                                "post_to_chat_page" post-to-chat-page
+                                "protect_content" protect-content}))
 
 (defn edit-story
   ``Edits a story previously posted by the bot on behalf of a managed business account.
@@ -2698,6 +2787,7 @@
     :decline-suggested-post decline-suggested-post
     :send-checklist send-checklist
     :send-dice send-dice
+    :send-message-draft send-message-draft
     :send-chat-action send-chat-action
     :set-message-reaction set-message-reaction
     :get-user-profile-photos get-user-profile-photos
@@ -2752,10 +2842,13 @@
     :get-business-account-star-balance get-business-account-star-balance
     :transfer-business-account-stars transfer-business-account-stars
     :get-business-account-gifts get-business-account-gifts
+    :get-user-gifts get-user-gifts
+    :get-chat-gifts get-chat-gifts
     :convert-gift-to-stars convert-gift-to-stars
     :upgrade-gift upgrade-gift
     :transfer-gift transfer-gift
     :post-story post-story
+    :repost-story repost-story
     :edit-story edit-story
     :delete-story delete-story
     :answer-callback-query answer-callback-query
