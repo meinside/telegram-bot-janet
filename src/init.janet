@@ -1176,6 +1176,9 @@
 (defn send-message-draft
   ``Sends a message draft.
 
+  Optional parameter keys are:
+    :message-thread-id, :parse-mode, and :entities.
+
   https://core.telegram.org/bots/api#sendmessagedraft
   ``
   [bot chat-id draft-id text &named message-thread-id
@@ -1857,6 +1860,10 @@
 (defn get-user-gifts
   ``Returns the gifts owned and hosted by a user.
 
+  Optional parameter keys are:
+    :exclude-unlimited, :exclude-limited-upgradable, :exclude-limited-non-upgradable,
+    :exclude-from-blockchain, :exclude-unique, :sort-by-price, :offset, and :limit.
+
   https://core.telegram.org/bots/api#getusergifts
   ``
   [bot user-id &named execlude-unlimited
@@ -1879,6 +1886,11 @@
 
 (defn get-chat-gifts
   ``Returns the gifts owned by a chat.
+
+  Optional parameter keys are:
+    :exclude-unsaved, :exclude-saved, :exclude-unlimited, :exclude-limited-upgradable,
+    :exclude-limited-non-upgradable, :exclude-from-blockchain, :exclude-unique,
+    :sort-by-price, :offset, and :limit.
 
   https://core.telegram.org/bots/api#getchatgifts
   ``
@@ -1968,6 +1980,9 @@
 
 (defn repost-story
   ``Reposts a story on behalf of a business account from another business account.
+
+  Optional parameter keys are:
+    :post-to-chat-page and :protect-content.
 
   https://core.telegram.org/bots/api#repoststory
   ``
