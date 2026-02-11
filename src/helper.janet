@@ -3,7 +3,7 @@
 # Helper Functions
 #
 # created on : 2022.09.07.
-# last update: 2022.11.10.
+# last update: 2026.02.11.
 
 (import spork/json)
 (import httprequest)
@@ -97,9 +97,7 @@
                 (let [token (b :token)
                       url (string api-baseurl token "/" m)
                       headers {:user-agent "telegram-bot-janet"}
-                      result (if (httprequest/has-file? ps)
-                               (httprequest/post url headers ps)
-                               (httprequest/post<-json url headers ps))]
+                      result (httprequest/post<-json url headers ps :verbose? (bot :verbose?))]
                   (cond
                     (= (result :status) 200) (sanitize-keys (json/decode (result :body)))
                     (do

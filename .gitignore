@@ -1,4 +1,5 @@
 # .gitignore
+jpm_tree/
 
 # dotenv file for testing
 .env

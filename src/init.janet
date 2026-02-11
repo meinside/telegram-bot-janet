@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2026.01.02.
+# last update: 2026.02.11.
 
 (import ./helper :as h)
 
@@ -1192,7 +1192,7 @@
                                      "entities" entities}))
 
 (defn get-user-profile-photos
-  ``Fetches user profile photos.
+  ``Fetches a list of profile pictures for a user.
 
   Optional parameter keys are:
     :offset, and :limit.
@@ -1202,6 +1202,20 @@
   [bot user-id &named offset
                       limit]
   (h/request bot "getUserProfilePhotos" {"user_id" user-id
+                                         "offset" offset
+                                         "limit" limit}))
+
+(defn get-user-profile-audios
+  ``Fetches a list of profile audios for a user.
+
+  Optional parameter keys are:
+    :offset, and :limit.
+
+  https://core.telegram.org/bots/api#getuserprofileaudios
+  ``
+  [bot user-id &named offset
+                      limit]
+  (h/request bot "getUserProfileAudios" {"user_id" user-id
                                          "offset" offset
                                          "limit" limit}))
 
@@ -2143,6 +2157,27 @@
   [bot &named language-code]
   (h/request bot "getMyShortDescription" {"language_code" language-code}))
 
+(defn set-my-profile-photo
+  ``Sets the bot's profile photo.
+
+  (Currently, only static images (.jpeg) are supported.)
+
+  https://core.telegram.org/bots/api#setmyprofilephoto
+  ``
+  [bot photo]
+  (let [filename (string/format "uploaded-%d" (os/time))]
+    (h/request bot "setMyProfilePhoto" {:photo {:type "static"
+                                                :photo (string/format "attach://%s" filename)}
+                                        filename photo})))
+
+(defn remove-my-profile-photo
+  ``Removes the profile photo of the bot.
+
+  https://core.telegram.org/bots/api#removemyprofilephoto
+  ``
+  [bot]
+  (h/request bot "removeMyProfilePhoto" {}))
+
 (defn set-chat-menu-button
   ``Sets the bot's menu button.
 
@@ -2633,7 +2668,7 @@
                                       "inline_message_id" inline-message-id}))
 
 (defn create-forum-topic
-  ``Creates a topic in a forum supergroup chat.
+  ``Creates a topic in a forum supergroup chat or a private chat with a user.
 
   https://core.telegram.org/bots/api#createforumtopic
   ``
@@ -2645,7 +2680,7 @@
                                      "icon_custom_emoji_id" icon-custom-emoji-id}))
 
 (defn edit-forum-topic
-  ``Edits name and icon of a topic in a forum supergroup chat.
+  ``Edits name and icon of a topic in a forum supergroup chat or a private chat with a user.
 
   Optional parameter keys are:
     :name, and :icon-custom-emoji-id.
@@ -2678,7 +2713,7 @@
                                      "message_thread_id" message-thread-id}))
 
 (defn delete-forum-topic
-  ``Deletes a forum topic along with all its messages in a forum supergroup chat.
+  ``Deletes a forum topic along with all its messages in a forum supergroup chat or a private chat with a user.
 
   https://core.telegram.org/bots/api#deleteforumtopic
   ``
@@ -2687,7 +2722,7 @@
                                      "message_thread_id" message-thread-id}))
 
 (defn unpin-all-forum-topic-messages
-  ``Clears the list of pinned messages in a forum topic.
+  ``Clears the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user.
 
   https://core.telegram.org/bots/api#unpinallforumtopicmessages
   ``
@@ -2806,6 +2841,7 @@
     :send-chat-action send-chat-action
     :set-message-reaction set-message-reaction
     :get-user-profile-photos get-user-profile-photos
+    :get-user-profile-audios get-user-profile-audios
     :set-user-emoji-status set-user-emoji-status
     :get-file get-file
     :ban-chat-member ban-chat-member
@@ -2878,6 +2914,8 @@
     :get-my-description get-my-description
     :set-my-short-description set-my-short-description
     :get-my-short-description get-my-short-description
+    :set-my-profile-photo set-my-profile-photo
+    :remove-my-profile-photo remove-my-profile-photo
     :set-chat-menu-button set-chat-menu-button
     :get-chat-menu-button get-chat-menu-button
     :set-my-default-administrator-rights set-my-default-administrator-rights
