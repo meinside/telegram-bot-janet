@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.01.02.
+# last update: 2026.02.11.
 #
 # Test with:
 #
@@ -30,11 +30,12 @@
 (var bot (new-bot (or (read-env-var "TOKEN")
                       test-bot-token)
                   :verbose? verbose?))
-(def chat-id (or (read-env-var "CHAT_ID")
-                 test-chat-id))
+(def chat-id (int/to-number (int/s64 (or (read-env-var "CHAT_ID")
+                                         test-chat-id))))
 
 # constants
-(def- filepath-for-test (string (os/cwd) "/resources/test/image.png"))
+(def- png-filepath-for-test (string (os/cwd) "/resources/test/image.png"))
+(def- jpg-filepath-for-test (string (os/cwd) "/resources/test/image.jpg"))
 
 
 ########################
@@ -98,6 +99,15 @@
   (assert
     ((:get-my-short-description bot) :ok))
 
+  # TODO: remove-my-profile-photo
+  #(assert
+  #  ((remove-my-profile-photo bot) :ok)) # FIXME: Bad Request: BOT_FALLBACK_UNSUPPORTED
+
+  # set-my-profile-photo
+  (let [jpg-file (r/filepath->param jpg-filepath-for-test)]
+    (assert
+      ((:set-my-profile-photo bot jpg-file) :ok)))
+
   # send a chat action,
   (assert
     ((:send-chat-action bot chat-id :typing) :ok))
@@ -128,7 +138,7 @@
   # TODO: forward-messages
 
   # send a photo,
-  (let [photo-file (r/filepath->param filepath-for-test)
+  (let [photo-file (r/filepath->param png-filepath-for-test)
         sent-photo (:send-photo bot chat-id photo-file)]
     (assert
       (sent-photo :ok))
@@ -142,7 +152,7 @@
   # TODO: send-audio
 
   # send a document,
-  (let [document-file (r/filepath->param filepath-for-test)
+  (let [document-file (r/filepath->param png-filepath-for-test)
         sent-document (:send-document bot chat-id document-file)]
     (assert
       (sent-document :ok))
@@ -386,7 +396,7 @@
   # TODO: set-chat-title
 
   # set-chat-description
-  (let [desc (:set-chat-description bot chat-id (string/format "[telegram-bot-janet] chat_id: %s (last update: %d)" chat-id (os/time)))]
+  (let [desc (:set-chat-description bot chat-id (string/format "[telegram-bot-janet] chat_id: %d (last update: %d)" chat-id (os/time)))]
     (assert
       (desc :ok)))
 
@@ -402,6 +412,8 @@
       (chat :ok)))
 
   # TODO: get-user-profile-photos
+
+  # TODO: get-user-profile-audios
 
   # TODO: get-user-chat-boosts
 
@@ -423,17 +435,25 @@
 
   # TODO: get-my-default-administrator-rights
 
-  # TODO: create-forum-topic
+  # create-forum-topic
+  (let [created (:create-forum-topic bot chat-id (string/format "forum topic with chat_id: %d" chat-id))]
+    (assert (created :ok))
 
-  # TODO: edit-forum-topic
+    # edit-forum-topic
+    (let [edited (:edit-forum-topic bot chat-id (get-in created [:result :message-thread-id]) (string/format "edited forum topic with chat_id: %d" chat-id))]
+      (assert (edited :ok)))
+
+    # unpin-all-forum-topic-messages
+    (let [unpinned (:unpin-all-forum-topic-messages bot chat-id (get-in created [:result :message-thread-id]))]
+      (assert (unpinned :ok)))
+
+    # delete-forum-topic
+    (let [deleted (:delete-forum-topic bot chat-id (get-in created [:result :message-thread-id]))]
+      (assert (deleted :ok))))
 
   # TODO: close-forum-topic
 
   # TODO: reopen-forum-topic
-
-  # TODO: delete-forum-topic
-
-  # TODO: unpin-all-forum-topic-messages
 
   # TODO: edit-general-form-topic
 
