@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.02.11.
+# last update: 2026.03.01.
 #
 # Test with:
 #
@@ -366,6 +366,8 @@
   # TODO: promote-chat-member
 
   # TODO: set-chat-administrator-custom-title
+
+  # TODO: set-chat-member-tag
 
   # TODO: ban-chat-sender-chat
 
