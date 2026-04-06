@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.03.01.
+# last update: 2026.04.06.
 #
 # Test with:
 #
@@ -553,6 +553,8 @@
 
   # TODO: save-prepared-inline-message
 
+  # TODO: save-prepared-keyboard-button
+
   (comment --------))
 
 
@@ -568,6 +570,18 @@
   # TODO: remove-user-verification
 
   # TODO: remove-chat-verification
+
+  (comment --------))
+
+
+########################
+# test managed bots
+#
+(print "Testing managed bots")
+(do
+  # TODO: get-managed-bot-token
+
+  # TODO: replace-managed-bot-token
 
   (comment --------))
 
