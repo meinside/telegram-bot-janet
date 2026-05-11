@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.04.06.
+# last update: 2026.05.11.
 #
 # Test with:
 #
@@ -149,6 +149,8 @@
                               :chat-id chat-id
                               :message-id (get-in sent-photo [:result :message-id])) :ok)))
 
+  # TODO: send-live-photo
+
   # TODO: send-audio
 
   # send a document,
@@ -229,9 +231,15 @@
 
   # TODO: set-message-reaction
 
+  # TODO: delete-message-reaction
+
+  # TODO: delete-all-message-reactions
+
   # fetch messages
   (assert
     ((:get-updates bot) :ok))
+
+  # TODO: get-user-personal-chat-messages
 
   (comment --------))
 
@@ -533,6 +541,16 @@
 
 
 ########################
+# test guest query
+#
+(print "Testing guest query")
+(do
+  # TODO: answer-guest-query
+
+  (comment --------))
+
+
+########################
 # test inline query
 #
 (print "Testing inline query")
@@ -582,6 +600,10 @@
   # TODO: get-managed-bot-token
 
   # TODO: replace-managed-bot-token
+
+  # TODO: get-managed-bot-access-settings
+
+  # TODO: set-managed-bot-access-settings
 
   (comment --------))
 

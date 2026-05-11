@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2026.04.06.
+# last update: 2026.05.11.
 
 (import ./helper :as h)
 
@@ -320,6 +320,48 @@
                               "suggested_post_parameters" suggested-post-parameters
                               "reply_parameters" reply-parameters
                               "reply_markup" reply-markup}))
+
+(defn send-live-photo
+  ``Sends live photos.
+
+  Optional parameter keys are:
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :caption,
+    :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler,
+    :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
+
+  https://core.telegram.org/bots/api#sendlivephoto
+  ``
+  [bot chat-id live-photo photo &named business-connection-id
+                                       message-thread-id
+                                       direct-messages-topic-id
+                                       caption
+                                       parse-mode
+                                       caption-entities
+                                       show-caption-above-media
+                                       has-spoiler
+                                       disable-notification
+                                       protect-content
+                                       allow-paid-broadcast
+                                       message-effect-id
+                                       suggested-post-parameters
+                                       reply-parameters
+                                       reply-markup]
+  (h/request bot "sendLivePhoto" {"business_connection_id" business-connection-id
+                                  "message_thread_id" message-thread-id
+                                  "direct_messages_topic_id" direct-messages-topic-id
+                                  "caption" caption
+                                  "parse_mode" parse-mode
+                                  "caption_entities" caption-entities
+                                  "show_caption_above_media" show-caption-above-media
+                                  "has_spoiler" has-spoiler
+                                  "disable_notification" disable-notification
+                                  "protect_content" protect-content
+                                  "allow_paid_broadcast" allow-paid-broadcast
+                                  "message_effect_id" message-effect-id
+                                  "suggested_post_parameters" suggested-post-parameters
+                                  "reply_parameters" reply-parameters
+                                  "reply_markup" reply-markup}))
 
 (defn send-audio
   ``Sends an audio file.
@@ -987,11 +1029,11 @@
     :business-connection-id, :message-thread-id, :question-parse-mode,
     :question-entities, :is-anonymous, :type, :allows-multiple-answers,
     :allows-revoting, :shuffle-options, :allow-adding-options, :hide-results-until-closes,
-    :correct-option-ids, :explanation, :explanation-parse-mode,
-    :explanation-entities, :open-period, :close-date, :is-closed,
+    :members-only, :country-codes, :correct-option-ids, :explanation, :explanation-parse-mode,
+    :explanation-entities, :explanation-media, :open-period, :close-date, :is-closed,
     :description, :description-parse-mode, :description-entities,
-    :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id,
-    :reply-parameters, and :reply-markup.
+    :media, :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendpoll
   ``
@@ -1006,16 +1048,20 @@
                                             shuffle-options
                                             allow-adding-options
                                             hide-results-until-closes
+                                            members-only
+                                            country-codes
                                             correct-option-ids
                                             explanation
                                             explanation-parse-mode
                                             explanation-entities
+                                            explanation-media
                                             open-period
                                             close-date
                                             is-closed
                                             description
                                             description-parse-mode
                                             description-entities
+                                            media
                                             disable-notification
                                             protect-content
                                             allow-paid-broadcast
@@ -1036,16 +1082,20 @@
                              "shuffle_options" shuffle-options
                              "allow_adding_options" allow-adding-options
                              "hide_results_until_closes" hide-results-until-closes
+                             "members_only" members-only
+                             "country_codes" country-codes
                              "correct_option_ids" correct-option-ids
                              "explanation" explanation
                              "explanation_parse_mode" explanation-parse-mode
                              "explanation_entities" explanation-entities
+                             "explanation_media" explanation-media
                              "open_period" open-period
                              "close_date" close-date
                              "is_closed" is-closed
                              "description" description
                              "description_parse_mode" description-parse-mode
                              "description_entities" description-entities
+                             "media" media
                              "disable_notification" disable-notification
                              "protect_content" protect-content
                              "allow_paid_broadcast" allow-paid-broadcast
@@ -1130,6 +1180,35 @@
                                        "message_id" message-id
                                        "reaction" reaction
                                        "is_big" is-big}))
+
+(defn delete-message-reaction
+  ``Deletes a reaction from a message in a group or a supergroup chat.
+
+  Optional parameter keys are:
+    :user-id, and :actor-chat-id.
+
+  https://core.telegram.org/bots/api#deletemessagereaction
+  ``
+  [bot chat-id message-id &named user-id
+                                 actor-chat-id]
+  (h/request bot "deleteMessageReaction" {"chat_id" chat-id
+                                          "message_id" message-id
+                                          "user_id" user-id
+                                          "actor_chat_id" actor-chat-id}))
+
+(defn delete-all-message-reactions
+  ``Deletes up to 10,000 recent reactions in a group or a supergroup chat added by a given user or chat.
+
+  Optional parameter keys are:
+    :user-id, and :actor-chat-id.
+
+  https://core.telegram.org/bots/api#deleteallmessagereactions
+  ``
+  [bot chat-id &named user-id
+                      actor-chat-id]
+  (h/request bot "deleteAllMessageReactions" {"chat_id" chat-id
+                                              "user_id" user-id
+                                              "actor_chat_id" actor-chat-id}))
 
 (defn send-checklist
   ``Sends a checklist.
@@ -1646,6 +1725,15 @@
   (h/request bot "getChatMember" {"chat_id" chat-id
                                   "user_id" user-id}))
 
+(defn get-user-personal-chat-messages
+  ``Fetches the last messages from the personal chat of a given user.
+
+  https://core.telegram.org/bots/api#getuserpersonalchatmessages
+  ``
+  [bot user-id limit]
+  (h/request bot "getUserPersonalChatMessages" {"user_id" user-id
+                                                "limit" limit}))
+
 (defn set-chat-sticker-set
   ``Sets a chat sticker set.
 
@@ -2084,6 +2172,15 @@
                                         "url" url
                                         "cache_time" cache-time}))
 
+(defn answer-guest-query
+  ``Answers a guest query.
+
+  https://core.telegram.org/bots/api#answerguestquery
+  ``
+  [bot guest-query-id result]
+  (h/request bot "answerGuestQuery" {"guest_query_id" guest-query-id
+                                     "result" result}))
+
 (defn get-user-chat-boosts
   ``Gets chat boosts of a user.
 
@@ -2116,6 +2213,24 @@
   ``
   [bot user-id]
   (h/request bot "replaceManagedBotToken" {"user_id" user-id}))
+
+(defn get-managed-bot-access-settings
+  ``Gets the access settings of a managed bot.
+
+  https://core.telegram.org/bots/api#getmanagedbotaccesssettings
+  ``
+  [bot user-id]
+  (h/request bot "getManagedBotAccessSettings" {"user_id" user-id}))
+
+(defn set-managed-bot-access-settings
+  ``Changes the access settings of a managed bot.
+
+  https://core.telegram.org/bots/api#setmanagedbotaccesssettings
+  ``
+  [bot user-id is-access-restricted &named added-user-ids]
+  (h/request bot "setManagedBotAccessSettings" {"user_id" user-id
+                                                "is_access_restricted" is-access-restricted
+                                                "added_user_ids" added-user-ids}))
 
 (defn get-my-commands
   ``Gets this bot's commands.
@@ -2858,6 +2973,7 @@
     :copy-message copy-message
     :copy-messages copy-messages
     :send-photo send-photo
+    :send-live-photo send-live-photo
     :send-audio send-audio
     :send-document send-document
     :send-sticker send-sticker
@@ -2893,6 +3009,8 @@
     :send-message-draft send-message-draft
     :send-chat-action send-chat-action
     :set-message-reaction set-message-reaction
+    :delete-message-reaction delete-message-reaction
+    :delete-all-message-reactions delete-all-message-reactions
     :get-user-profile-photos get-user-profile-photos
     :get-user-profile-audios get-user-profile-audios
     :set-user-emoji-status set-user-emoji-status
@@ -2926,6 +3044,7 @@
     :get-chat-administrators get-chat-administrators
     :get-chat-member-count get-chat-member-count
     :get-chat-member get-chat-member
+    :get-user-personal-chat-messages get-user-personal-chat-messages
     :set-chat-sticker-set set-chat-sticker-set
     :delete-chat-sticker-set delete-chat-sticker-set
     :get-forum-topic-icon-stickers get-forum-topic-icon-stickers
@@ -2957,10 +3076,13 @@
     :edit-story edit-story
     :delete-story delete-story
     :answer-callback-query answer-callback-query
+    :answer-guest-query answer-guest-query
     :get-user-chat-boosts get-user-chat-boosts
     :get-business-connection get-business-connection
     :get-managed-bot-token get-managed-bot-token
     :replace-managed-bot-token replace-managed-bot-token
+    :get-managed-bot-access-settings get-managed-bot-access-settings
+    :set-managed-bot-access-settings set-managed-bot-access-settings
     :get-my-commands get-my-commands
     :set-my-commands set-my-commands
     :delete-my-commands delete-my-commands
