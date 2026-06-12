@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.05.11.
+# last update: 2026.06.12.
 #
 # Test with:
 #
@@ -235,6 +235,12 @@
 
   # TODO: delete-all-message-reactions
 
+  # send a rich message,
+  (assert
+    ((:send-rich-message bot chat-id {:markdown "# rich text\n## test\n- is it working?\n- is it ok?\n"}) :ok))
+
+  # TODO: send-rich-message-draft
+
   # fetch messages
   (assert
     ((:get-updates bot) :ok))
@@ -398,6 +404,10 @@
   # TODO: approve-chat-join-request
 
   # TODO: decline-chat-join-request
+
+  # TODO: answer-chat-join-request-query
+
+  # TODO: send-chat-join-request-web-app
 
   # TODO: set-chat-photo
 
