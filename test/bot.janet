@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.06.12.
+# last update: 2026.07.15.
 #
 # Test with:
 #
@@ -120,7 +120,7 @@
       (sent-message :ok))
 
     # edit the message's text,
-    (assert 
+    (assert
       ((:edit-message-text bot "edited message"
                            :chat-id chat-id
                            :message-id (get-in sent-message [:result :message-id])) :ok))
@@ -144,7 +144,7 @@
       (sent-photo :ok))
 
     # edit the photo's caption
-    (assert 
+    (assert
       ((:edit-message-caption bot "caption"
                               :chat-id chat-id
                               :message-id (get-in sent-photo [:result :message-id])) :ok)))
@@ -240,6 +240,16 @@
     ((:send-rich-message bot chat-id {:markdown "# rich text\n## test\n- is it working?\n- is it ok?\n"}) :ok))
 
   # TODO: send-rich-message-draft
+
+  # TODO: edit-ephemeral-message-text
+
+  # TODO: edit-ephemeral-message-media
+
+  # TODO: edit-ephemeral-message-caption
+
+  # TODO: edit-ephemeral-message-reply-markup
+
+  # TODO: delete-ephemeral-message
 
   # fetch messages
   (assert

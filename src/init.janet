@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2026.06.12.
+# last update: 2026.07.15.
 
 (import ./helper :as h)
 
@@ -127,8 +127,9 @@
   ``Sends a message.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :parse-mode,
-    :entities, :link-preview-options, :disable-notification, :protect-content,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :parse-mode, :entities,
+    :link-preview-options, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
 
@@ -137,6 +138,8 @@
   [bot chat-id text &named business-connection-id
                            message-thread-id
                            direct-messages-topic-id
+                           receiver-user-id
+                           callback-query-id
                            parse-mode
                            entities
                            link-preview-options
@@ -151,6 +154,8 @@
                                 "chat_id" chat-id
                                 "message_thread_id" message-thread-id
                                 "direct_messages_topic_id" direct-messages-topic-id
+                                "receiver_user_id" receiver-user-id
+                                "callback_query_id" callback-query-id
                                 "text" text
                                 "parse_mode" parse-mode
                                 "entities" entities
@@ -281,8 +286,9 @@
   ``Sends a photo.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :caption,
-    :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :caption, :parse-mode,
+    :caption-entities, :show-caption-above-media, :has-spoiler,
     :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
@@ -291,6 +297,8 @@
   [bot chat-id photo &named business-connection-id
                             message-thread-id
                             direct-messages-topic-id
+                            receiver-user-id
+                            callback-query-id
                             caption
                             parse-mode
                             caption-entities
@@ -307,6 +315,8 @@
                               "chat_id" chat-id
                               "message_thread_id" message-thread-id
                               "direct_messages_topic_id" direct-messages-topic-id
+                              "receiver_user_id" receiver-user-id
+                              "callback_query_id" callback-query-id
                               "photo" photo
                               "caption" caption
                               "parse_mode" parse-mode
@@ -367,16 +377,19 @@
   ``Sends an audio file.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :caption,
-    :parse-mode, :caption-entities, :duration, :performer, :title, :disable-notification,
-    :protect-content, :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
-    :reply-parameters, and :reply-markup.
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :caption, :parse-mode,
+    :caption-entities, :duration, :performer, :title, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id,
+    :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendaudio
   ``
   [bot chat-id audio &named business-connection-id
                             message-thread-id
                             direct-messages-topic-id
+                            receiver-user-id
+                            callback-query-id
                             caption
                             parse-mode
                             caption-entities
@@ -394,6 +407,8 @@
                               "chat_id" chat-id
                               "message_thread_id" message-thread-id
                               "direct_messages_topic_id" direct-messages-topic-id
+                              "receiver_user_id" receiver-user-id
+                              "callback_query_id" callback-query-id
                               "audio" audio
                               "caption" caption
                               "parse_mode" parse-mode
@@ -413,16 +428,19 @@
   ``Sends a document file.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :caption,
-    :parse-mode, :caption-entities, :disable-content-type-detection, :disable-notification,
-    :protect-content, :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
-    :reply-parameters, and :reply-markup.
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :caption, :parse-mode,
+    :caption-entities, :disable-content-type-detection, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id,
+    :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#senddocument
   ``
   [bot chat-id document &named business-connection-id
                                message-thread-id
                                direct-messages-topic-id
+                               receiver-user-id
+                               callback-query-id
                                caption
                                parse-mode
                                caption-entities
@@ -438,6 +456,8 @@
                                  "chat_id" chat-id
                                  "message_thread_id" message-thread-id
                                  "direct_messages_topic_id" direct-messages-topic-id
+                                 "receiver_user_id" receiver-user-id
+                                 "callback_query_id" callback-query-id
                                  "document" document
                                  "caption" caption
                                  "parse_mode" parse-mode
@@ -455,15 +475,18 @@
   ``Sends a sticker.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :disable-notification,
-    :protect-content, :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
-    :reply-parameters, and :reply-markup.
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :emoji, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id,
+    :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendsticker
   ``
   [bot chat-id sticker &named business-connection-id
                               message-thread-id
                               direct-messages-topic-id
+                              receiver-user-id
+                              callback-query-id
                               emoji
                               disable-notification
                               protect-content
@@ -476,6 +499,8 @@
                                 "chat_id" chat-id
                                 "message_thread_id" message-thread-id
                                 "direct_messages_topic_id" direct-messages-topic-id
+                                "receiver_user_id" receiver-user-id
+                                "callback_query_id" callback-query-id
                                 "emoji" emoji
                                 "sticker" sticker
                                 "disable_notification" disable-notification
@@ -633,9 +658,10 @@
   ``Sends a video.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :duration,
-    :width, :height, :thumbnail, :cover, :start-timestamp, :caption,
-    :parse-mode, :caption-entities, :show-caption-above-media, :has-spoiler,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id. :duration, :width, :height,
+    :thumbnail, :cover, :start-timestamp, :caption, :parse-mode,
+    :caption-entities, :show-caption-above-media, :has-spoiler,
     :supports-streaming, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
@@ -645,6 +671,8 @@
   [bot chat-id video &named business-connection-id
                             message-thread-id
                             direct-messages-topic-id
+                            receiver-user-id
+                            callback-query-id
                             duration
                             width
                             height
@@ -668,6 +696,8 @@
                               "chat_id" chat-id
                               "message_thread_id" message-thread-id
                               "direct_messages_topic_id" direct-messages-topic-id
+                              "receiver_user_id" receiver-user-id
+                              "callback_query_id" callback-query-id
                               "video" video
                               "duration" duration
                               "width" width
@@ -693,17 +723,19 @@
   ``Sends an animation.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :duration,
-    :width, :height, :thumbnail, :caption, :parse-mode, :caption-entities,
-    :show-caption-above-media, :has-spoiler, :disable-notification,
-    :protect-content, :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
-    :reply-parameters, and :reply-markup.
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :duration, :width, :height,
+    :thumbnail, :caption, :parse-mode, :caption-entities, :show-caption-above-media,
+    :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendanimation
   ``
   [bot chat-id animation &named business-connection-id
                                 message-thread-id
                                 direct-messages-topic-id
+                                receiver-user-id
+                                callback-query-id
                                 duration
                                 width
                                 height
@@ -724,6 +756,8 @@
                                   "chat_id" chat-id
                                   "message_thread_id" message-thread-id
                                   "direct_messages_topic_id" direct-messages-topic-id
+                                  "receiver_user_id" receiver-user-id
+                                  "callback_query_id" callback-query-id
                                   "animation" animation
                                   "duration" duration
                                   "width" width
@@ -746,8 +780,9 @@
   ``Sends a voice. (.ogg format only)
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :caption,
-    :parse-mode, :caption-entities, :duration, :disable-notification, :protect-content,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :caption, :parse-mode,
+    :caption-entities, :duration, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
 
@@ -756,6 +791,8 @@
   [bot chat-id voice &named business-connection-id
                             message-thread-id
                             direct-messages-topic-id
+                            receiver-user-id
+                            callback-query-id
                             caption
                             parse-mode
                             caption-entities
@@ -771,6 +808,8 @@
                               "chat_id" chat-id
                               "message_thread_id" message-thread-id
                               "direct_messages_topic_id" direct-messages-topic-id
+                              "receiver_user_id" receiver-user-id
+                              "callback_query_id" callback-query-id
                               "voice" voice
                               "caption" caption
                               "parse_mode" parse-mode
@@ -788,8 +827,9 @@
   ``Sends a video note.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :duration,
-    :length, :thumbnail, :disable-notification, :protect-content, :allow-paid-broadcast,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :duration, :length,
+    :thumbnail, :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
@@ -799,6 +839,8 @@
   [bot chat-id video-note &named business-connection-id
                                  message-thread-id
                                  direct-messages-topic-id
+                                 receiver-user-id
+                                 callback-query-id
                                  duration
                                  length
                                  thumbnail
@@ -813,6 +855,8 @@
                                   "chat_id" chat-id
                                   "message_thread_id" message-thread-id
                                   "direct_messages_topic_id" direct-messages-topic-id
+                                  "receiver_user_id" receiver-user-id
+                                  "callback_query_id" callback-query-id
                                   "video_note" video-note
                                   "duration" duration
                                   "length" length
@@ -901,15 +945,18 @@
 
   Optional parameter keys are:
     :business-connection-id, :message-thread-id, :direct-messages-topic-id,
-    :horizontal-accuracy, :live-period, :heading, :proximity-alert-radius,
-    :disable-notification, :protect-content, :allow-paid-broadcast,
-    :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
+    :receiver-user-id, :callback-query-id, :horizontal-accuracy,
+    :live-period, :heading, :proximity-alert-radius, :disable-notification,
+    :protect-content, :allow-paid-broadcast, :message-effect-id,
+    :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendlocation
   ``
   [bot chat-id latitude longitude &named business-connection-id
                                          message-thread-id
                                          direct-messages-topic-id
+                                         receiver-user-id
+                                         callback-query-id
                                          horizontal-accuracy
                                          live-period
                                          heading
@@ -925,6 +972,8 @@
                                  "chat_id" chat-id
                                  "message_thread_id" message-thread-id
                                  "direct_messages_topic_id" direct-messages-topic-id
+                                 "receiver_user_id" receiver-user-id
+                                 "callback_query_id" callback-query-id
                                  "latitude" latitude
                                  "longitude" longitude
                                  "horizontal_accuracy" horizontal-accuracy
@@ -944,15 +993,18 @@
 
   Optional parameter keys are:
     :business-connection-id, :message-thread-id, :direct-messages-topic-id,
-    :foursquare-id, :foursquare-type, :google-place-id, :google-place-type,
-    :disable-notification, :protect-content, :allow-paid-broadcast, :message-effect-id,
-    :suggested-post-parameters, :reply-parameters, and :reply-markup.
+    :receiver-user-id, :callback-query-id, :foursquare-id, :foursquare-type,
+    :google-place-id, :google-place-type, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
+    :reply-parameters, and :reply-markup.
 
   https://core.telegram.org/bots/api#sendvenue
   ``
   [bot chat-id latitude longitude title address &named business-connection-id
                                                        message-thread-id
                                                        direct-messages-topic-id
+                                                       receiver-user-id
+                                                       callback-query-id
                                                        foursquare-id
                                                        foursquare-type
                                                        google-place-id
@@ -968,6 +1020,8 @@
                               "chat_id" chat-id
                               "message_thread_id" message-thread-id
                               "direct_messages_topic_id" direct-messages-topic-id
+                              "receiver_user_id" receiver-user-id
+                              "callback_query_id" callback-query-id
                               "latitude" latitude
                               "longitude" longitude
                               "title" title
@@ -988,7 +1042,8 @@
   ``Sends a contact.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, :direct-messages-topic-id, :last-name, :vcard,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
+    :receiver-user-id, :callback-query-id, :last-name, :vcard,
     :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
@@ -997,6 +1052,8 @@
   [bot chat-id phone-number first-name &named business-connection-id
                                               message-thread-id
                                               direct-messages-topic-id
+                                              receiver-user-id
+                                              callback-query-id
                                               last-name
                                               vcard
                                               disable-notification
@@ -1010,6 +1067,8 @@
                                 "chat_id" chat-id
                                 "message_thread_id" message-thread-id
                                 "direct_messages_topic_id" direct-messages-topic-id
+                                "receiver_user_id" receiver-user-id
+                                "callback_query_id" callback-query-id
                                 "phone_number" phone-number
                                 "first_name" first-name
                                 "last_name" last-name
@@ -1117,6 +1176,86 @@
                              "chat_id" chat-id
                              "message_id" message-id
                              "reply_markup" reply-markup}))
+
+(defn edit-ephemeral-message-text
+  ``Edits an ephemeral text message.
+
+  Optional parameter keys are:
+    :parse-mode, :entities, :link-preview-options, and :reply-markup.
+
+  https://core.telegram.org/bots/api#editephemeralmessagetext
+  ``
+  [bot chat-id receiver-user-id ephemeral-message-id text &named parse-mode
+                                                                 entities
+                                                                 link-preview-options
+                                                                 reply-markup]
+  (h/request bot "editEphemeralMessageText" {"chat_id" chat-id
+                                             "receiver_user_id" receiver-user-id
+                                             "ephemeral_message_id" ephemeral-message-id
+                                             "text" text
+                                             "parse_mode" parse-mode
+                                             "entities" entities
+                                             "link_preview_options" link-preview-options
+                                             "reply_markup" reply-markup}))
+
+(defn edit-ephemeral-message-media
+  ``Edits the media of an ephemeral message.
+
+  Optional parameter keys are:
+    :reply-markup.
+
+  https://core.telegram.org/bots/api#editephemeralmessagemedia
+  ``
+  [bot chat-id receiver-user-id ephemeral-message-id media &named reply-markup]
+  (h/request bot "editEphemeralMessageMedia" {"chat_id" chat-id
+                                              "receiver_user_id" receiver-user-id
+                                              "ephemeral_message_id" ephemeral-message-id
+                                              "media" media
+                                              "reply_markup" reply-markup}))
+
+(defn edit-ephemeral-message-caption
+  ``Edits the caption of an ephemeral message.
+
+  Optional parameter keys are:
+    :caption, :parse-mode, :caption-entities, and :reply-markup.
+
+  https://core.telegram.org/bots/api#editephemeralmessagecaption
+  ``
+  [bot chat-id receiver-user-id ephemeral-message-id &named caption
+                                                            parse-mode
+                                                            caption-entities
+                                                            reply-markup]
+  (h/request bot "editEphemeralMessageCaption" {"chat_id" chat-id
+                                                "receiver_user_id" receiver-user-id
+                                                "ephemeral_message_id" ephemeral-message-id
+                                                "caption" caption
+                                                "parse_mode" parse-mode
+                                                "caption_entities" caption-entities
+                                                "reply_markup" reply-markup}))
+
+(defn edit-ephemeral-message-reply-markup
+  ``Edits the reply markup of an ephemeral message.
+
+  Optional parameter keys are:
+    :reply-markup.
+
+  https://core.telegram.org/bots/api#editephemeralmessagereplymarkup
+  ``
+  [bot chat-id receiver-user-id ephemeral-message-id &named reply-markup]
+  (h/request bot "editEphemeralMessageReplyMarkup" {"chat_id" chat-id
+                                                    "receiver_user_id" receiver-user-id
+                                                    "ephemeral_message_id" ephemeral-message-id
+                                                    "reply_markup" reply-markup}))
+
+(defn delete-ephemeral-message
+  ``Deletes an ephemeral message.
+
+  https://core.telegram.org/bots/api#deleteephemeralmessage
+  ``
+  [bot chat-id receiver-user-id ephemeral-message-id]
+  (h/request bot "deleteEphemeralMessage" {"chat_id" chat-id
+                                           "receiver_user_id" receiver-user-id
+                                           "ephemeral_message_id" ephemeral-message-id}))
 
 (defn approve-suggested-post
   ``Approves a suggested post.
@@ -3177,8 +3316,13 @@
     :stop-message-live-location stop-message-live-location
     :edit-message-checklist edit-message-checklist
     :edit-message-reply-markup edit-message-reply-markup
+    :edit-ephemeral-message-text edit-ephemeral-message-text
+    :edit-ephemeral-message-media edit-ephemeral-message-media
+    :edit-ephemeral-message-caption edit-ephemeral-message-caption
+    :edit-ephemeral-message-reply-markup edit-ephemeral-message-reply-markup
     :delete-message delete-message
     :delete-messages delete-messages
+    :delete-ephemeral-message delete-ephemeral-message
     :answer-inline-query answer-inline-query
     :send-invoice send-invoice
     :answer-shipping-query answer-shipping-query
