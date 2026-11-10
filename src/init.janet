@@ -5,7 +5,7 @@
 # (https://core.telegram.org/bots/api)
 #
 # created on : 2022.09.15.
-# last update: 2026.08.25.
+# last update: 2026.11.10.
 
 (import ./helper :as h)
 
@@ -39,11 +39,29 @@
   [bot]
   (h/request bot "getMe" {}))
 
+(defn log-out
+  ``Logs out from the cloud Bot API server.
+
+  https://core.telegram.org/bots/api#logout
+  ``
+  [bot]
+  (h/request bot "logOut" {}))
+
+(defn close-bot
+  ``Closes the bot instance.
+
+  https://core.telegram.org/bots/api#close
+  ``
+  [bot]
+  (h/request bot "close" {}))
+
 (defn get-updates
   ``Fetches updates for this bot.
 
   Optional parameter keys are:
     :offset, :limit, :timeout, and :allowed-updates.
+
+  :limit and :timeout default to the bot's :limit-count and :timeout-seconds.
 
   https://core.telegram.org/bots/api#getupdates
   ``
@@ -52,7 +70,7 @@
               timeout
               allowed-updates]
   (h/request bot "getUpdates" {"offset" offset
-                               "limit" (or limit 100)
+                               "limit" (or limit (bot :limit-count))
                                "timeout" (or timeout (bot :timeout-seconds))
                                "allowed_updates" allowed-updates}))
 
@@ -65,15 +83,19 @@
 
   Optional parameter keys are:
     :offset, :limit, :timeout, and :allowed-updates.
+
+  `interval-seconds` defaults to the bot's :interval-seconds when nil,
+  and :limit and :timeout default to the bot's :limit-count and :timeout-seconds.
   ``
   [bot interval-seconds &named offset
                                limit
                                timeout
                                allowed-updates]
   (let [ch (ev/thread-chan channel-buffer-size)
-        limit (or limit 100)
+        limit (or limit (bot :limit-count))
         timeout (or timeout (bot :timeout-seconds))
-        interval-seconds (max default-interval-seconds interval-seconds)]
+        interval-seconds (max default-interval-seconds
+                              (or interval-seconds (bot :interval-seconds)))]
 
     (h/log "starting polling with interval:" interval-seconds "second(s)")
 
@@ -132,6 +154,9 @@
     :link-preview-options, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendmessage
   ``
@@ -290,6 +315,9 @@
     :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendphoto
   ``
   [bot chat-id photo &named business-connection-id
@@ -334,8 +362,11 @@
     :business-connection-id, :message-thread-id, :direct-messages-topic-id,
     :ephemeral-message-parameters, :caption, :parse-mode, :caption-entities,
     :show-caption-above-media, :has-spoiler, :disable-notification,
-    :suggested-post-parameters, :reply-parameters, and :reply-markup.
     :protect-content, :allow-paid-broadcast, :message-effect-id,
+    :suggested-post-parameters, :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendlivephoto
   ``
@@ -356,6 +387,7 @@
                                        reply-parameters
                                        reply-markup]
   (h/request bot "sendLivePhoto" {"business_connection_id" business-connection-id
+                                  "chat_id" chat-id
                                   "message_thread_id" message-thread-id
                                   "direct_messages_topic_id" direct-messages-topic-id
                                   "ephemeral_message_parameters" ephemeral-message-parameters
@@ -380,9 +412,12 @@
   Optional parameter keys are:
     :business-connection-id, :message-thread-id, :direct-messages-topic-id,
     :ephemeral-message-parameters, :caption, :parse-mode,
-    :caption-entities, :duration, :performer, :title, :disable-notification,
+    :caption-entities, :duration, :performer, :title, :thumbnail, :disable-notification,
     :protect-content, :allow-paid-broadcast, :message-effect-id,
     :suggested-post-parameters, :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendaudio
   ``
@@ -396,6 +431,7 @@
                             duration
                             performer
                             title
+                            thumbnail
                             disable-notification
                             protect-content
                             allow-paid-broadcast
@@ -415,6 +451,7 @@
                               "duration" duration
                               "performer" performer
                               "title" title
+                              "thumbnail" thumbnail
                               "disable_notification" disable-notification
                               "protect_content" protect-content
                               "allow_paid_broadcast" allow-paid-broadcast
@@ -432,6 +469,9 @@
     :caption-entities, :disable-content-type-detection, :disable-notification,
     :protect-content, :allow-paid-broadcast, :message-effect-id,
     :suggested-post-parameters, :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#senddocument
   ``
@@ -479,6 +519,9 @@
     :protect-content, :allow-paid-broadcast, :message-effect-id,
     :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendsticker
   ``
   [bot chat-id sticker &named business-connection-id
@@ -515,6 +558,14 @@
   ``
   [bot name]
   (h/request bot "getStickerSet" {"name" name}))
+
+(defn get-custom-emoji-stickers
+  ``Fetches custom emoji stickers.
+
+  https://core.telegram.org/bots/api#getcustomemojistickers
+  ``
+  [bot custom-emoji-ids]
+  (h/request bot "getCustomEmojiStickers" {"custom_emoji_ids" custom-emoji-ids}))
 
 (defn upload-sticker-file
   ``Uploads a sticker file.
@@ -636,6 +687,9 @@
 (defn set-sticker-keywords
   ``Sets keywords of sticker.
 
+  Optional parameter keys are:
+    :keywords.
+
   https://core.telegram.org/bots/api#setstickerkeywords
   ``
   [bot sticker &named keywords]
@@ -644,6 +698,9 @@
 
 (defn set-sticker-mask-position
   ``Sets mask position of sticker.
+
+  Optional parameter keys are:
+    :mask-position.
 
   https://core.telegram.org/bots/api#setstickermaskposition
   ``
@@ -662,6 +719,9 @@
     :supports-streaming, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendvideo
   ``
@@ -724,6 +784,9 @@
     :has-spoiler, :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendanimation
   ``
   [bot chat-id animation &named business-connection-id
@@ -779,6 +842,9 @@
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendvoice
   ``
   [bot chat-id voice &named business-connection-id
@@ -825,6 +891,9 @@
 
   (XXX: API returns 'Bad Request: wrong video note length' when length is not given / 2017.05.19.)
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendvideonote
   ``
   [bot chat-id video-note &named business-connection-id
@@ -857,6 +926,91 @@
                                   "suggested_post_parameters" suggested-post-parameters
                                   "reply_parameters" reply-parameters
                                   "reply_markup" reply-markup}))
+
+(defn send-widget
+  ``Sends a message with an HTML widget.
+
+  Optional parameter keys are:
+    :message-thread-id, :width, :height, :public-data, :chat-data, :caption,
+    :parse-mode, :caption-entities, :show-caption-above-media, :allow-queries,
+    :is-shared, :disable-notification, :protect-content, :allow-paid-broadcast,
+    :message-effect-id, :reply-parameters, and :reply-markup.
+
+  https://core.telegram.org/bots/api#sendwidget
+  ``
+  [bot chat-id html &named message-thread-id
+                           width
+                           height
+                           public-data
+                           chat-data
+                           caption
+                           parse-mode
+                           caption-entities
+                           show-caption-above-media
+                           allow-queries
+                           is-shared
+                           disable-notification
+                           protect-content
+                           allow-paid-broadcast
+                           message-effect-id
+                           reply-parameters
+                           reply-markup]
+  (h/request bot "sendWidget" {"chat_id" chat-id
+                               "message_thread_id" message-thread-id
+                               "html" html
+                               "width" width
+                               "height" height
+                               "public_data" public-data
+                               "chat_data" chat-data
+                               "caption" caption
+                               "parse_mode" parse-mode
+                               "caption_entities" caption-entities
+                               "show_caption_above_media" show-caption-above-media
+                               "allow_queries" allow-queries
+                               "is_shared" is-shared
+                               "disable_notification" disable-notification
+                               "protect_content" protect-content
+                               "allow_paid_broadcast" allow-paid-broadcast
+                               "message_effect_id" message-effect-id
+                               "reply_parameters" reply-parameters
+                               "reply_markup" reply-markup}))
+
+(defn send-shared-widget
+  ``Sends again a shared widget created by the bot.
+
+  Optional parameter keys are:
+    :message-thread-id, :chat-data, :caption, :parse-mode, :caption-entities,
+    :show-caption-above-media, :disable-notification, :protect-content,
+    :allow-paid-broadcast, :message-effect-id, :reply-parameters, and :reply-markup.
+
+  https://core.telegram.org/bots/api#sendsharedwidget
+  ``
+  [bot chat-id widget-id &named message-thread-id
+                                chat-data
+                                caption
+                                parse-mode
+                                caption-entities
+                                show-caption-above-media
+                                disable-notification
+                                protect-content
+                                allow-paid-broadcast
+                                message-effect-id
+                                reply-parameters
+                                reply-markup]
+  (h/request bot "sendSharedWidget" {"chat_id" chat-id
+                                     "message_thread_id" message-thread-id
+                                     "widget_id" widget-id
+                                     "chat_data" chat-data
+                                     "caption" caption
+                                     "parse_mode" parse-mode
+                                     "caption_entities" caption-entities
+                                     "show_caption_above_media" show-caption-above-media
+                                     "disable_notification" disable-notification
+                                     "protect_content" protect-content
+                                     "allow_paid_broadcast" allow-paid-broadcast
+                                     "message_effect_id" message-effect-id
+                                     "reply_parameters" reply-parameters
+                                     "reply_markup" reply-markup}))
 
 (defn send-paid-media
   ``Sends a paid media to channel chats.
@@ -939,6 +1093,9 @@
     :protect-content, :allow-paid-broadcast, :message-effect-id,
     :suggested-post-parameters, :reply-parameters, and :reply-markup.
 
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
+
   https://core.telegram.org/bots/api#sendlocation
   ``
   [bot chat-id latitude longitude &named business-connection-id
@@ -984,6 +1141,9 @@
     :google-place-id, :google-place-type, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendvenue
   ``
@@ -1031,6 +1191,9 @@
     :ephemeral-message-parameters, :last-name, :vcard,
     :disable-notification, :protect-content, :allow-paid-broadcast,
     :message-effect-id, :suggested-post-parameters, :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendcontact
   ``
@@ -1116,7 +1279,7 @@
                              "question" question
                              "options" poll-options
                              "question_parse_mode" question-parse-mode
-                             "question_entities"  question-entities
+                             "question_entities" question-entities
                              "is_anonymous" is-anonymous
                              "type" type
                              "allows_multiple_answers" allows-multiple-answers
@@ -1266,10 +1429,11 @@
 
   https://core.telegram.org/bots/api#declinesuggestedpost
   ``
-  [bot chat-id message-id &named comment]
+  # NOTE: `&keys` instead of `&named`, as a binding named `comment` would shadow the `comment` macro
+  [bot chat-id message-id &keys {:comment decline-comment}]
   (h/request bot "declineSuggestedPost" {"chat_id" chat-id
                                          "message_id" message-id
-                                         "comment" comment}))
+                                         "comment" decline-comment}))
 
 (defn send-chat-action
   ``Sends a chat action.
@@ -1422,10 +1586,13 @@
   ``Sends a rich message.
 
   Optional parameter keys are:
-    :business-connection-id, :message-thread-id, direct-messages-topic-id,
+    :business-connection-id, :message-thread-id, :direct-messages-topic-id,
     :ephemeral-message-parameters, :disable-notification, :protect-content,
     :allow-paid-broadcast, :message-effect-id, :suggested-post-parameters,
     :reply-parameters, and :reply-markup.
+
+  `chat-id` can be nil only for an ephemeral reply to a callback query
+  (see :ephemeral-message-parameters).
 
   https://core.telegram.org/bots/api#sendrichmessage
   ``
@@ -1572,34 +1739,20 @@
 (defn restrict-chat-member
   ``Restricts a chat member.
 
+  `permissions` is a struct/table of ChatPermissions,
+  eg. {"can_send_messages" true "can_send_photos" false}.
+
   Optional parameter keys are:
-    :can-send-messages, :can-send-media-messages, :can-send-polls,
-    :can-send-other-messages, :can-add-web-page-previews, :can-change-info,
-    :can-invite-users, :can-pin-messages, :use-independent-chat-permissions, and :until-date.
+    :use-independent-chat-permissions, and :until-date.
 
   https://core.telegram.org/bots/api#chatpermissions
   https://core.telegram.org/bots/api#restrictchatmember
   ``
-  [bot chat-id user-id &named can-send-messages
-                              can-send-media-messages
-                              can-send-polls
-                              can-send-other-messages
-                              can-add-web-page-previews
-                              can-change-info
-                              can-invite-users
-                              can-pin-messages
-                              use-independent-chat-permissions
-                              until-date]
+  [bot chat-id user-id permissions &named use-independent-chat-permissions
+                                          until-date]
   (h/request bot "restrictChatMember" {"chat_id" chat-id
                                        "user_id" user-id
-                                       "permissions" {"can_send_messages" (or can-send-messages false)
-                                                      "can_send_media_messages" (or can-send-media-messages false)
-                                                      "can_send_polls" (or can-send-polls false)
-                                                      "can_send_other_messages" (or can-send-other-messages false)
-                                                      "can_add_web_page_previews" (or can-add-web-page-previews false)
-                                                      "can_change_info" (or can-change-info false)
-                                                      "can_invite_users" (or can-invite-users false)
-                                                      "can_pin_messages" (or can-pin-messages false)}
+                                       "permissions" permissions
                                        "use_independent_chat_permissions" use-independent-chat-permissions
                                        "until_date" until-date}))
 
@@ -1668,6 +1821,9 @@
 (defn set-chat-member-tag
   ``Sets a tag for a regular member in a group or a supergroup.
 
+  Optional parameter keys are:
+    :tag.
+
   https://core.telegram.org/bots/api#setchatmembertag
   ``
   [bot chat-id user-id &named tag]
@@ -1694,32 +1850,20 @@
                                         "sender_chat_id" sender-chat-id}))
 
 (defn set-chat-permissions
-  ``Sets chat permissions.
+  ``Sets default chat permissions for all members.
+
+  `permissions` is a struct/table of ChatPermissions,
+  eg. {"can_send_messages" true "can_send_photos" false}.
 
   Optional parameter keys are:
-    :can-send-messages, :can-send-media-messages, :can-send-polls,
-    :can-send-other-messages, :can-add-web-page-previews, :can-change-info, :can-invite-users, and :can-pin-messages.
+    :use-independent-chat-permissions.
 
+  https://core.telegram.org/bots/api#chatpermissions
   https://core.telegram.org/bots/api#setchatpermissions
   ``
-  [bot chat-id &named can-send-messages
-                      can-send-media-messages
-                      can-send-polls
-                      can-send-other-messages
-                      can-add-web-page-previews
-                      can-change-info
-                      can-invite-users
-                      can-pin-messages
-                      use-independent-chat-permissions]
+  [bot chat-id permissions &named use-independent-chat-permissions]
   (h/request bot "setChatPermissions" {"chat_id" chat-id
-                                       "permissions" {"can_send_messages" (or can-send-messages false)
-                                                      "can_send_media_messages" (or can-send-media-messages false)
-                                                      "can_send_polls" (or can-send-polls false)
-                                                      "can_send_other_messages" (or can-send-other-messages false)
-                                                      "can_add_web_page_previews" (or can-add-web-page-previews false)
-                                                      "can_change_info" (or can-change-info false)
-                                                      "can_invite_users" (or can-invite-users false)
-                                                      "can_pin_messages" (or can-pin-messages false)}
+                                       "permissions" permissions
                                        "use_independent_chat_permissions" use-independent-chat-permissions}))
 
 (defn export-chat-invite-link
@@ -1732,6 +1876,9 @@
 
 (defn create-chat-invite-link
   ``Creates a chat invite link.
+
+  Optional parameter keys are:
+    :name, :expire-date, :member-limit, and :creates-join-request.
 
   https://core.telegram.org/bots/api#createchatinvitelink
   ``
@@ -1747,6 +1894,9 @@
 
 (defn edit-chat-invite-link
   ``Edits a chat invite link.
+
+  Optional parameter keys are:
+    :name, :expire-date, :member-limit, and :creates-join-request.
 
   https://core.telegram.org/bots/api#editchatinvitelink
   ``
@@ -1764,6 +1914,9 @@
 (defn create-chat-subscription-invite-link
   ``Create a subscription invite link for a channel chat.
 
+  Optional parameter keys are:
+    :name.
+
   https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
   ``
   [bot chat-id subscription-period subscription-price &named name]
@@ -1774,6 +1927,9 @@
 
 (defn edit-chat-subscription-invite-link
   ``Edit a subscription invite link created by the bot.
+
+  Optional parameter keys are:
+    :name.
 
   https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
   ``
@@ -1910,10 +2066,14 @@
 (defn get-chat-administrators
   ``Fetches chat administrators.
 
+  Optional parameter keys are:
+    :return-bots.
+
   https://core.telegram.org/bots/api#getchatadministrators
   ``
-  [bot chat-id]
-  (h/request bot "getChatAdministrators" {"chat_id" chat-id}))
+  [bot chat-id &named return-bots]
+  (h/request bot "getChatAdministrators" {"chat_id" chat-id
+                                          "return_bots" return-bots}))
 
 (defn get-chat-member-count
   ``Fetches the count of chat members.
@@ -1931,6 +2091,14 @@
   [bot chat-id user-id]
   (h/request bot "getChatMember" {"chat_id" chat-id
                                   "user_id" user-id}))
+
+(defn get-chat-share-theme-backdrops
+  ``Fetches the list of backdrops for themes of the screen for sharing a link to a user or a chat.
+
+  https://core.telegram.org/bots/api#getchatsharethemebackdrops
+  ``
+  [bot]
+  (h/request bot "getChatShareThemeBackdrops" {}))
 
 (defn get-user-personal-chat-messages
   ``Fetches the last messages from the personal chat of a given user.
@@ -2018,25 +2186,33 @@
   ``Verifies a user.
 
   Optional parameter keys are:
-    :custom-description.
+    :custom-description, :custom-description-parse-mode, and :custom-description-entities.
 
   https://core.telegram.org/bots/api#verifyuser
   ``
-  [bot user-id &named custom-description]
+  [bot user-id &named custom-description
+                      custom-description-parse-mode
+                      custom-description-entities]
   (h/request bot "verifyUser" {"user_id" user-id
-                               "custom_description" custom-description}))
+                               "custom_description" custom-description
+                               "custom_description_parse_mode" custom-description-parse-mode
+                               "custom_description_entities" custom-description-entities}))
 
 (defn verify-chat
   ``Verifies a chat.
 
   Optional parameter keys are:
-    :custom-description.
+    :custom-description, :custom-description-parse-mode, and :custom-description-entities.
 
   https://core.telegram.org/bots/api#verifychat
   ``
-  [bot chat-id &named custom-description]
+  [bot chat-id &named custom-description
+                      custom-description-parse-mode
+                      custom-description-entities]
   (h/request bot "verifyChat" {"chat_id" chat-id
-                               "custom_description" custom-description}))
+                               "custom_description" custom-description
+                               "custom_description_parse_mode" custom-description-parse-mode
+                               "custom_description_entities" custom-description-entities}))
 
 (defn remove-user-verification
   ``Removes a user verification.
@@ -2203,7 +2379,7 @@
 
   https://core.telegram.org/bots/api#getusergifts
   ``
-  [bot user-id &named execlude-unlimited
+  [bot user-id &named exclude-unlimited
                       exclude-limited-upgradable
                       exclude-limited-non-upgradable
                       exclude-from-blockchain
@@ -2212,7 +2388,7 @@
                       offset
                       limit]
   (h/request bot "getUserGifts" {"user_id" user-id
-                                 "exclude_unlimited" execlude-unlimited
+                                 "exclude_unlimited" exclude-unlimited
                                  "exclude_limited_upgradable" exclude-limited-upgradable
                                  "exclude_limited_non_upgradable" exclude-limited-non-upgradable
                                  "exclude_from_blockchain" exclude-from-blockchain
@@ -2253,6 +2429,14 @@
                                  "offset" offset
                                  "limit" limit}))
 
+(defn get-unique-gift
+  ``Fetches information about a unique gift by its name.
+
+  https://core.telegram.org/bots/api#getuniquegift
+  ``
+  [bot name]
+  (h/request bot "getUniqueGift" {"name" name}))
+
 (defn convert-gift-to-stars
   ``Converts a given regular gift to Telegram Stars.
 
@@ -2290,6 +2474,15 @@
                                  "owned_gift_id" owned-gift-id
                                  "new_owner_chat_id" new-owner-chat-id
                                  "star_count" star-count}))
+
+(defn delete-business-account-gift
+  ``Deletes a regular gift owned by a managed business account without receiving Telegram Stars for it.
+
+  https://core.telegram.org/bots/api#deletebusinessaccountgift
+  ``
+  [bot business-connection-id owned-gift-id]
+  (h/request bot "deleteBusinessAccountGift" {"business_connection_id" business-connection-id
+                                              "owned_gift_id" owned-gift-id}))
 
 (defn post-story
   ``Posts a story on behalf of a managed business account.
@@ -2379,6 +2572,18 @@
                                         "url" url
                                         "cache_time" cache-time}))
 
+(defn answer-widget-query
+  ``Answers a query from a widget.
+
+  Optional parameter keys are:
+    :data.
+
+  https://core.telegram.org/bots/api#answerwidgetquery
+  ``
+  [bot widget-query-id &named data]
+  (h/request bot "answerWidgetQuery" {"widget_query_id" widget-query-id
+                                      "data" data}))
+
 (defn answer-guest-query
   ``Answers a guest query.
 
@@ -2432,6 +2637,9 @@
 (defn set-managed-bot-access-settings
   ``Changes the access settings of a managed bot.
 
+  Optional parameter keys are:
+    :added-user-ids.
+
   https://core.telegram.org/bots/api#setmanagedbotaccesssettings
   ``
   [bot user-id is-access-restricted &named added-user-ids]
@@ -2442,6 +2650,9 @@
 (defn get-my-commands
   ``Gets this bot's commands.
 
+  Optional parameter keys are:
+    :scope, and :language-code.
+
   https://core.telegram.org/bots/api#getmycommands
   ``
   [bot &named scope
@@ -2451,6 +2662,9 @@
 
 (defn set-my-commands
   ``Sets this bot's commands.
+
+  Optional parameter keys are:
+    :scope, and :language-code.
 
   https://core.telegram.org/bots/api#setmycommands
   ``
@@ -2463,6 +2677,9 @@
 (defn delete-my-commands
   ``Deletes this bot's commands.
 
+  Optional parameter keys are:
+    :scope, and :language-code.
+
   https://core.telegram.org/bots/api#deletemycommands
   ``
   [bot &named scope
@@ -2473,6 +2690,9 @@
 (defn get-my-name
   ``Gets this bot's name.
 
+  Optional parameter keys are:
+    :language-code.
+
   https://core.telegram.org/bots/api#getmyname
   ``
   [bot &named language-code]
@@ -2480,6 +2700,9 @@
 
 (defn set-my-name
   ``Sets this bot's name.
+
+  Optional parameter keys are:
+    :language-code.
 
   https://core.telegram.org/bots/api#setmyname
   ``
@@ -2489,6 +2712,9 @@
 
 (defn set-my-description
   ``Sets this bot's description.
+
+  Optional parameter keys are:
+    :description, and :language-code.
 
   https://core.telegram.org/bots/api#setmydescription
   ``
@@ -2500,6 +2726,9 @@
 (defn get-my-description
   ``Gets this bot's description.
 
+  Optional parameter keys are:
+    :language-code.
+
   https://core.telegram.org/bots/api#getmydescription
   ``
   [bot &named language-code]
@@ -2507,6 +2736,9 @@
 
 (defn set-my-short-description
   ``Sets this bot's short description.
+
+  Optional parameter keys are:
+    :short-description, and :language-code.
 
   https://core.telegram.org/bots/api#setmyshortdescription
   ``
@@ -2517,6 +2749,9 @@
 
 (defn get-my-short-description
   ``Gets this bot's short description.
+
+  Optional parameter keys are:
+    :language-code.
 
   https://core.telegram.org/bots/api#getmyshortdescription
   ``
@@ -2679,6 +2914,9 @@
 (defn edit-message-checklist
   ``Edits a message's checklist.
 
+  Optional parameter keys are:
+    :reply-markup.
+
   https://core.telegram.org/bots/api#editmessagechecklist
   ``
   [bot business-connection-id chat-id message-id checklist &named reply-markup]
@@ -2687,6 +2925,41 @@
                                          "message_id" message-id
                                          "checklist" checklist
                                          "reply_markup" reply-markup}))
+
+(defn edit-message-widget-data
+  ``Edits data of a widget in a message.
+
+  Required parameter keys are: :chat-id + :message-id (when :inline-message-id is not given)
+  or :inline-message-id (when :chat-id & :message-id are not given)
+
+  Optional parameter keys are:
+    :public-data, and :chat-data.
+
+  https://core.telegram.org/bots/api#editmessagewidgetdata
+  ``
+  [bot &named chat-id
+              message-id
+              inline-message-id
+              public-data
+              chat-data]
+  (h/request bot "editMessageWidgetData" {"chat_id" chat-id
+                                          "message_id" message-id
+                                          "inline_message_id" inline-message-id
+                                          "public_data" public-data
+                                          "chat_data" chat-data}))
+
+(defn edit-shared-widget-data
+  ``Edits public data of a shared widget.
+
+  Optional parameter keys are:
+    :cache-time.
+
+  https://core.telegram.org/bots/api#editsharedwidgetdata
+  ``
+  [bot widget-id public-data &named cache-time]
+  (h/request bot "editSharedWidgetData" {"widget_id" widget-id
+                                         "public_data" public-data
+                                         "cache_time" cache-time}))
 
 (defn edit-message-reply-markup
   ``Edits a message's reply markup.
@@ -2787,22 +3060,20 @@
   ``Answers an inline query.
 
   Optional parameter keys are:
-    :cache-time, :is-personal, :next-offset, :switch-pm-text, and :switch-pm-parameter.
+    :cache-time, :is-personal, :next-offset, and :button.
 
   https://core.telegram.org/bots/api#answerinlinequery
   ``
   [bot inline-query-id results &named cache-time
                                       is-personal
                                       next-offset
-                                      switch-pm-text
-                                      switch-pm-parameter]
+                                      button]
   (h/request bot "answerInlineQuery" {"inline_query_id" inline-query-id
                                       "results" results
                                       "cache_time" cache-time
                                       "is_personal" is-personal
                                       "next_offset" next-offset
-                                      "switch_pm_text" switch-pm-text
-                                      "switch_pm_parameter" switch-pm-parameter}))
+                                      "button" button}))
 
 (defn send-invoice
   ``Sends an invoice.
@@ -2874,10 +3145,64 @@
                                 "reply_parameters" reply-parameters
                                 "reply_markup" reply-markup}))
 
+(defn create-invoice-link
+  ``Creates a link for an invoice.
+
+  Optional parameter keys are:
+    :business-connection-id, :provider-token, :subscription-period, :max-tip-amount,
+    :suggested-tip-amounts, :provider-data, :photo-url, :photo-size, :photo-width,
+    :photo-height, :need-name, :need-phone-number, :need-email, :need-shipping-address,
+    :send-phone-number-to-provider, :send-email-to-provider, and :is-flexible.
+
+  https://core.telegram.org/bots/api#createinvoicelink
+  ``
+  [bot title description payload currency prices &named business-connection-id
+                                                         provider-token
+                                                         subscription-period
+                                                         max-tip-amount
+                                                         suggested-tip-amounts
+                                                         provider-data
+                                                         photo-url
+                                                         photo-size
+                                                         photo-width
+                                                         photo-height
+                                                         need-name
+                                                         need-phone-number
+                                                         need-email
+                                                         need-shipping-address
+                                                         send-phone-number-to-provider
+                                                         send-email-to-provider
+                                                         is-flexible]
+  (h/request bot "createInvoiceLink" {"business_connection_id" business-connection-id
+                                      "title" title
+                                      "description" description
+                                      "payload" payload
+                                      "provider_token" provider-token
+                                      "currency" currency
+                                      "prices" prices
+                                      "subscription_period" subscription-period
+                                      "max_tip_amount" max-tip-amount
+                                      "suggested_tip_amounts" suggested-tip-amounts
+                                      "provider_data" provider-data
+                                      "photo_url" photo-url
+                                      "photo_size" photo-size
+                                      "photo_width" photo-width
+                                      "photo_height" photo-height
+                                      "need_name" need-name
+                                      "need_phone_number" need-phone-number
+                                      "need_email" need-email
+                                      "need_shipping_address" need-shipping-address
+                                      "send_phone_number_to_provider" send-phone-number-to-provider
+                                      "send_email_to_provider" send-email-to-provider
+                                      "is_flexible" is-flexible}))
+
 (defn answer-shipping-query
   ``Answers a shipping query.
 
   If `ok` is true, :shipping-options should be included in `options`. Otherwise, :error-message should be included.
+
+  Optional parameter keys are:
+    :shipping-options, and :error-message.
 
   https://core.telegram.org/bots/api#answershippingquery
   ``
@@ -2892,6 +3217,9 @@
   ``Answers a pre-checkout query.
 
   If `ok` is false, :error-message should be included in `options`.
+
+  Optional parameter keys are:
+    :error-message.
 
   https://core.telegram.org/bots/api#answerprecheckoutquery
   ``
@@ -3048,6 +3376,9 @@
 (defn create-forum-topic
   ``Creates a topic in a forum supergroup chat or a private chat with a user.
 
+  Optional parameter keys are:
+    :icon-color, and :icon-custom-emoji-id.
+
   https://core.telegram.org/bots/api#createforumtopic
   ``
   [bot chat-id name &named icon-color
@@ -3174,6 +3505,8 @@
     # functions (NOTE: append more here when they are added)
     :delete-webhook delete-webhook
     :get-me get-me
+    :log-out log-out
+    :close-bot close-bot
     :get-updates get-updates
     :poll-updates poll-updates
     :stop-polling-updates stop-polling-updates
@@ -3188,6 +3521,7 @@
     :send-document send-document
     :send-sticker send-sticker
     :get-sticker-set get-sticker-set
+    :get-custom-emoji-stickers get-custom-emoji-stickers
     :upload-sticker-file upload-sticker-file
     :create-new-sticker-set create-new-sticker-set
     :add-sticker-to-set add-sticker-to-set
@@ -3205,6 +3539,8 @@
     :send-animation send-animation
     :send-voice send-voice
     :send-video-note send-video-note
+    :send-widget send-widget
+    :send-shared-widget send-shared-widget
     :send-paid-media send-paid-media
     :send-media-group send-media-group
     :send-location send-location
@@ -3258,6 +3594,7 @@
     :get-chat-administrators get-chat-administrators
     :get-chat-member-count get-chat-member-count
     :get-chat-member get-chat-member
+    :get-chat-share-theme-backdrops get-chat-share-theme-backdrops
     :get-user-personal-chat-messages get-user-personal-chat-messages
     :set-chat-sticker-set set-chat-sticker-set
     :delete-chat-sticker-set delete-chat-sticker-set
@@ -3282,14 +3619,17 @@
     :get-business-account-gifts get-business-account-gifts
     :get-user-gifts get-user-gifts
     :get-chat-gifts get-chat-gifts
+    :get-unique-gift get-unique-gift
     :convert-gift-to-stars convert-gift-to-stars
     :upgrade-gift upgrade-gift
     :transfer-gift transfer-gift
+    :delete-business-account-gift delete-business-account-gift
     :post-story post-story
     :repost-story repost-story
     :edit-story edit-story
     :delete-story delete-story
     :answer-callback-query answer-callback-query
+    :answer-widget-query answer-widget-query
     :answer-guest-query answer-guest-query
     :get-user-chat-boosts get-user-chat-boosts
     :get-business-connection get-business-connection
@@ -3318,6 +3658,8 @@
     :edit-message-live-location edit-message-live-location
     :stop-message-live-location stop-message-live-location
     :edit-message-checklist edit-message-checklist
+    :edit-message-widget-data edit-message-widget-data
+    :edit-shared-widget-data edit-shared-widget-data
     :edit-message-reply-markup edit-message-reply-markup
     :edit-ephemeral-message-text edit-ephemeral-message-text
     :edit-ephemeral-message-media edit-ephemeral-message-media
@@ -3328,6 +3670,7 @@
     :delete-ephemeral-message delete-ephemeral-message
     :answer-inline-query answer-inline-query
     :send-invoice send-invoice
+    :create-invoice-link create-invoice-link
     :answer-shipping-query answer-shipping-query
     :answer-pre-checkout-query answer-pre-checkout-query
     :get-my-star-balance get-my-star-balance
@@ -3369,10 +3712,31 @@
       :verbose? (or verbose? false)}
     Bot))
 
+(defn- split-line
+  ``Splits given `line` into strings of which lengths do not exceed `chars-limit`,
+  without breaking multi-byte UTF-8 characters.
+  ``
+  [line chars-limit]
+  (def splits @[])
+  (var start 0)
+  (while (> (- (length line) start) chars-limit)
+    (var end (+ start chars-limit))
+    # move back to the first byte of a UTF-8 character
+    (while (and (> end start)
+                (= 0x80 (band (in line end) 0xc0)))
+      (-- end))
+    # (when `chars-limit` is shorter than a character)
+    (when (= end start)
+      (set end (+ start chars-limit)))
+    (array/push splits (string/slice line start end))
+    (set start end))
+  (array/push splits (string/slice line start)))
+
 (defn split-text
   ``Splits given `text` with new lines, into an array of strings.
 
-  Each string's length does not exceed `chars-limit`.
+  Each string's length (in bytes) does not exceed `chars-limit`.
+  Lines longer than `chars-limit` are split further, without breaking multi-byte UTF-8 characters.
 
   This function can be used to split long messages before sending.
   ``
@@ -3382,13 +3746,14 @@
 
   (let [lines (string/split "\n" text)]
     (reduce (fn [acc line]
-              (if-let [lst (last acc)
-                       candidate (string/join [lst line] "\n")]
-                (if (<= (length candidate) chars-limit)
-                  (do
-                    (array/pop acc)
-                    (array/concat acc candidate))
-                  (array/concat acc line))
-                (array/concat acc line))
-              acc)
+              (if (> (length line) chars-limit)
+                (array/concat acc (split-line line chars-limit))
+                (if-let [lst (last acc)
+                         candidate (string/join [lst line] "\n")]
+                  (if (<= (length candidate) chars-limit)
+                    (do
+                      (array/pop acc)
+                      (array/concat acc candidate))
+                    (array/concat acc line))
+                  (array/concat acc line))))
             @[] lines)))

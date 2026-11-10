@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.0.48 - 2026-11-10
+- Applied API changes(https://core.telegram.org/bots/api-changelog#november-9-2026).
+- (breaking) `restrict-chat-member` and `set-chat-permissions` now take a `permissions` struct/table (ChatPermissions) instead of `:can-xxx` keys.
+- (breaking) `answer-inline-query`: replaced removed `:switch-pm-text` and `:switch-pm-parameter` with `:button`.
+- (breaking) `get-user-gifts`: renamed misspelled `:execlude-unlimited` to `:exclude-unlimited`.
+- Added missing functions: `log-out`, `close-bot`, `get-custom-emoji-stickers`, and `create-invoice-link`.
+- Added missing `:thumbnail` to `send-audio`, and `:return-bots` to `get-chat-administrators`.
+- Fixed `send-live-photo` not sending `chat_id`.
+- `get-updates` and `poll-updates` now use the bot's `:limit-count` and `:interval-seconds`.
+- `split-text` now splits lines longer than `chars-limit`.
+- Fixed a compile warning from `decline-suggested-post` (binding `comment` was shadowing a macro).
+- Fixed docs.
+
 ## 0.0.47 - 2026-08-25
 - Applied API changes(https://core.telegram.org/bots/api-changelog#august-24-2026).
 
