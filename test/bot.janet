@@ -1,7 +1,7 @@
 # test/bot.janet
 #
 # created on : 2022.09.16.
-# last update: 2026.07.15.
+# last update: 2026.11.10.
 #
 # Test with:
 #
@@ -46,6 +46,10 @@
   # get my info
   (let [bot-info (:get-me bot)]
     (assert (bot-info :ok)))
+
+  # TODO: log-out
+
+  # TODO: close-bot
 
   (comment --------))
 
@@ -251,6 +255,14 @@
 
   # TODO: delete-ephemeral-message
 
+  # TODO: send-widget
+
+  # TODO: send-shared-widget
+
+  # TODO: edit-message-widget-data
+
+  # TODO: edit-shared-widget-data
+
   # fetch messages
   (assert
     ((:get-updates bot) :ok))
@@ -292,6 +304,8 @@
 (print "Testing stickers")
 (do
   # TODO: get-sticker-set
+
+  # TODO: get-custom-emoji-stickers
 
   # TODO: upload-sticker-file
 
@@ -350,6 +364,8 @@
 (print "Testing shopping")
 (do
   # TODO: send-invoice
+
+  # TODO: create-invoice-link
 
   # TODO: answer-shipping-query
 
@@ -457,6 +473,8 @@
 
   # TODO: get-chat-member
 
+  # TODO: get-chat-share-theme-backdrops
+
   # TODO: set-chat-menu-button
 
   # TODO: get-chat-menu-button
@@ -533,11 +551,15 @@
 
   # TODO: get-chat-gifts
 
+  # TODO: get-unique-gift
+
   # TODO: convert-gift-to-stars
 
   # TODO: upgrade-gift
 
   # TODO: transfer-gift
+
+  # TODO: delete-business-account-gift
 
   # TODO: post-story
 
@@ -566,6 +588,16 @@
 (print "Testing guest query")
 (do
   # TODO: answer-guest-query
+
+  (comment --------))
+
+
+########################
+# test widget query
+#
+(print "Testing widget query")
+(do
+  # TODO: answer-widget-query
 
   (comment --------))
 
